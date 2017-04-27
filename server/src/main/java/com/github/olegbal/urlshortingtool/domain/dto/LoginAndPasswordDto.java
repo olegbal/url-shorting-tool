@@ -1,11 +1,11 @@
 package com.github.olegbal.urlshortingtool.domain.dto;
 
-public class LoginDto {
+public class LoginAndPasswordDto {
     private String login;
 
     private String password;
 
-    public LoginDto() {
+    public LoginAndPasswordDto() {
     }
 
     public String getLogin() {
