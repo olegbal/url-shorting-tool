@@ -23,7 +23,10 @@ public class Link {
     private int clicksCount;
 
     @Column(name = "tags")
-    private Set<String> tags;
+    private String tags;
+
+    @Column(name = "summary")
+    private String summary;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH})
     @JoinColumn(name = "user_id")
@@ -32,11 +35,19 @@ public class Link {
     public Link() {
     }
 
-    public Set<String> getTags() {
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public String getTags() {
         return tags;
     }
 
-    public void setTags(Set<String> tags) {
+    public void setTags(String tags) {
         this.tags = tags;
     }
 

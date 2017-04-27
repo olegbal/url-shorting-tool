@@ -12,16 +12,26 @@ public class LinkDto {
 
     private int clicksCount;
 
-    private Set<String> tags;
+    private String tags;
+
+    private String summary;
 
     public LinkDto() {
     }
 
-    public Set<String> getTags() {
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public String getTags() {
         return tags;
     }
 
-    public void setTags(Set<String> tags) {
+    public void setTags(String tags) {
         this.tags = tags;
     }
 
