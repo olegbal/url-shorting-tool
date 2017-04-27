@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -17,10 +18,10 @@ public class UserController {
     @Autowired
     private UserServiceImpl userService;
 
-//    @RequestMapping(path = "user", method = RequestMethod.POST)
-//    private ResponseEntity addNewUser() {
-//
-//        return new ResponseEntity(HttpStatus.OK);
-//    }
+    @RequestMapping(path = "account", params = "userName", method = RequestMethod.GET)
+    private ResponseEntity getUserDetails(@RequestParam("userName") String userName) {
+
+        return new ResponseEntity(userService.getUserByLogin(userName), HttpStatus.OK);
+    }
 
 }

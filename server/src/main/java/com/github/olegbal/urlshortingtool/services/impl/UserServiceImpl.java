@@ -13,8 +13,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
 
@@ -23,7 +21,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public User loadUserByUsername(String s) throws UsernameNotFoundException {
-        return userRepository.findByLogin(s);
+
+        User user = userRepository.findByLogin(s);
+
+        if (user != null) {
+            return user;
+        }
+        return null;
     }
 
     @Override
@@ -32,7 +36,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         User user;
         user = userRepository.findByLogin(login);
 
-        return new UserEntityToDtoConverter().convert(user);
+        if (user != null)
+            return new UserEntityToDtoConverter().convert(user);
+
+        return null;
     }
 
     @Override
@@ -41,16 +48,19 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         User user = new User();
         user.setLogin(loginAndPasswordDto.getLogin());
         user.setPassword(loginAndPasswordDto.getPassword());
-        Role role=new Role();
+        Role role = new Role();
         role.setRoleName("ROLE_USER");
         role.setRoleId(1);
         user.getRoles().add(role);
 
+
         try {
             userRepository.save(user);
+            return true;
         } catch (TransactionException ex) {
             return false;
         }
-        return true;
     }
+
+
 }
