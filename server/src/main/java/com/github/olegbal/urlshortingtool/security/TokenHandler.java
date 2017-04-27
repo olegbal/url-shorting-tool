@@ -2,6 +2,7 @@ package com.github.olegbal.urlshortingtool.security;
 
 import com.github.olegbal.urlshortingtool.domain.entity.User;
 import com.github.olegbal.urlshortingtool.services.impl.UserServiceImpl;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -21,12 +22,18 @@ public final class TokenHandler {
     }
 
     public User parseUserFromToken(String token) {
-        String username = Jwts.parser()
-                .setSigningKey(secret)
-                .parseClaimsJws(token)
-                .getBody()
-                .getSubject();
-        return userService.loadUserByUsername(username);
+
+        try {
+            String username = Jwts.parser()
+                    .setSigningKey(secret)
+                    .parseClaimsJws(token)
+                    .getBody()
+                    .getSubject();
+            return userService.loadUserByUsername(username);
+        } catch (ExpiredJwtException ex) {
+            return null;
+        }
+
     }
 
     public String createTokenForUser(User user) {

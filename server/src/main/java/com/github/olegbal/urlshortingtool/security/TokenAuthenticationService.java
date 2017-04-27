@@ -1,15 +1,21 @@
 package com.github.olegbal.urlshortingtool.security;
 
+import com.github.olegbal.urlshortingtool.domain.dto.LoginAndPasswordDto;
 import com.github.olegbal.urlshortingtool.domain.entity.User;
-import com.github.olegbal.urlshortingtool.security.TokenHandler;
-import com.github.olegbal.urlshortingtool.security.UserAuthentication;
 import com.github.olegbal.urlshortingtool.services.impl.UserServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class TokenAuthenticationService {
+
+
+    @Qualifier("userDetailsService")
+    @Autowired
+    private UserServiceImpl userService;
 
     private static final String AUTH_HEADER_NAME = "Auth";
 
@@ -19,9 +25,16 @@ public class TokenAuthenticationService {
         tokenHandler = new TokenHandler(secret, userService);
     }
 
-    public void addAuthentication(HttpServletResponse response, UserAuthentication authentication) {
-        final User user = authentication.getDetails();
-        response.addHeader(AUTH_HEADER_NAME, tokenHandler.createTokenForUser(user));
+    public boolean checkLogin(HttpServletResponse response, LoginAndPasswordDto authCheckDto) {
+
+        User user = userService.loadUserByUsername(authCheckDto.getLogin());
+        if (user != null) {
+            if (user.getPassword().equals(authCheckDto.getPassword())) {
+                response.addHeader(AUTH_HEADER_NAME, tokenHandler.createTokenForUser(user));
+                return true;
+            }
+        }
+        return false;
     }
 
     public Authentication getAuthentication(HttpServletRequest request) {
