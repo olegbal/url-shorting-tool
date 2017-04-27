@@ -1,5 +1,7 @@
 package com.github.olegbal.urlshortingtool.domain.dto;
 
+import java.util.Set;
+
 public class LinkDto {
 
     private long linkId;
@@ -10,7 +12,17 @@ public class LinkDto {
 
     private int clicksCount;
 
+    private Set<String> tags;
+
     public LinkDto() {
+    }
+
+    public Set<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<String> tags) {
+        this.tags = tags;
     }
 
     public long getLinkId() {

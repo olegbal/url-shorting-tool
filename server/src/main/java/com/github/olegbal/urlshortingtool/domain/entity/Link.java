@@ -2,6 +2,7 @@ package com.github.olegbal.urlshortingtool.domain.entity;
 
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "user_links")
@@ -21,11 +22,30 @@ public class Link {
     @Column(name = "clicks_count")
     private int clicksCount;
 
-    @ManyToOne
+    @Column(name = "tags")
+    private Set<String> tags;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH})
     @JoinColumn(name = "user_id")
     private User user;
 
     public Link() {
+    }
+
+    public Set<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<String> tags) {
+        this.tags = tags;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public long getLinkId() {
