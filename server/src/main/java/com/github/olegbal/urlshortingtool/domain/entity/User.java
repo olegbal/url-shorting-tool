@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -26,11 +27,15 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user")
     private Set<Link> linkSet;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH})
     @JoinTable(name = "user_roles", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private Set<Role> roles;
 
     public User() {
+
+        linkSet = new HashSet<Link>();
+
+        roles = new HashSet<Role>();
     }
 
     public Set<Role> getRoles() {
