@@ -24,7 +24,7 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = {CascadeType.DETACH,CascadeType.MERGE})
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Link> linkSet;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH})

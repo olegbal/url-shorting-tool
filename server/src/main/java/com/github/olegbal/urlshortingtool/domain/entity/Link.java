@@ -28,7 +28,7 @@ public class Link {
     @Column(name = "summary")
     private String summary;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH})
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
 
