@@ -24,8 +24,14 @@ export class LinkInfoComponent implements OnInit {
 
   ngOnInit() {
     this.linkService.getLinkInfo(this.linkId).subscribe((res) => {
-      this.currentLink = res.json();
-    })
+        this.currentLink = res.json();
+      },
+      (err) => {
+        if (err.status < 200 || err.status > 299) {
+          console.log("Unable to get link info", err)
+          this.router.navigate(['/'])
+        }
+      })
   }
 
   redirectToUrl(shortLink: string) {

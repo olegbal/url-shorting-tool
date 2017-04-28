@@ -27,8 +27,14 @@ export class SameTagLinksComponent implements OnInit {
     this.activatedRoute.params.subscribe((res) => {
       let param = res['tagName'];
       this.linkService.getLinkByTag(param).subscribe((res) => {
-        this.links = res.json();
-      });
+          this.links = res.json();
+        },
+        (err) => {
+          if (err.status < 200 || err.status > 299) {
+            console.log("Cannot get Link by tag " + param, err)
+            this.router.navigate(['/']);
+          }
+        });
     })
   }
 

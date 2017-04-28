@@ -23,14 +23,20 @@ export class LinkListComponent implements OnInit {
 
   ngOnInit() {
     this.linkService.getAllLinks().subscribe((res) => {
-      this.links = res.json();
-    });
+        this.links = res.json();
+      },
+      (err) => {
+        if (err.status < 200 || err.status > 299) {
+          console.log("Cannot get links", err)
+        }
+      });
   }
 
   showDetails(id: string) {
     localStorage.setItem("LinkId", id.toString());
     this.router.navigate(['/links/' + id])
   }
+
   showLinksWithSameTag(tag: string) {
     this.router.navigate(['/links/tag/' + tag]);
   }

@@ -24,7 +24,6 @@ export class LoginComponent {
     this.loginService.logIn(this.loginAndPassword).subscribe(
       (res) => {
         if (res.status === 202) {
-          this.loginAndPassword = res.json();
 
           localStorage.setItem("Auth", res.headers.get("Auth"));
           localStorage.setItem("Login", this.loginAndPassword.login);

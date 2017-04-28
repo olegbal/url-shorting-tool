@@ -29,7 +29,7 @@ export class RegistrationComponent {
         }
       },
       ((err) => {
-        if (err.status < 200 && err.status > 299) {
+        if (err.status < 200 || err.status > 299) {
 
           console.log("Registration failed")
         }
