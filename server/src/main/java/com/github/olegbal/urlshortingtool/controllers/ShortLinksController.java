@@ -23,13 +23,7 @@ public class ShortLinksController {
         if (originalLink != null) {
             return new RedirectView(originalLink, false);
         }
-        return new RedirectView("/api/v1/");
-    }
-
-    @RequestMapping("/api/v1/shortlinks/{linkValue}/info")
-    public ResponseEntity showLinkInfo(@PathVariable String linkValue) {
-
-        return new ResponseEntity(linkService.getLinkInfoByShortLink(linkValue), HttpStatus.OK);
+        return new RedirectView("/");
     }
 
 }

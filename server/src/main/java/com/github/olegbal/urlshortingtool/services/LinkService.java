@@ -11,7 +11,7 @@ public interface LinkService {
 
     Set<LinkDto> findAllLinks();
 
-    boolean updateLink(long userId, LinkDto linkDto);
+    long createLink(long userId, LinkDto linkDto);
 
     Set<LinkDto> findAllUsersLinks(long userId);
 
@@ -22,5 +22,9 @@ public interface LinkService {
     LinkDto getLinkInfoByShortLink(String shortLink);
 
     Set<LinkDto> getLinksByTag(String tag);
+
+    LinkDto getLinkById(long id);
+
+    boolean updateLink(long userId, LinkDto linkDto);
 
 }

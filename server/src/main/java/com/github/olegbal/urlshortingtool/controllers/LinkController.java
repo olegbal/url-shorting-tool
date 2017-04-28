@@ -8,42 +8,44 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "/api/v1/")
+@RequestMapping(path = "/api/v1/links")
 public class LinkController {
 
     @Autowired
     private LinkServiceImpl linkService;
 
-    @RequestMapping(path = "links", method = RequestMethod.GET)
+    @RequestMapping(path = "", method = RequestMethod.GET)
     public ResponseEntity getAllLinks() {
         return new ResponseEntity(linkService.findAllLinks(), HttpStatus.OK);
     }
 
 
-    @RequestMapping(path = "links", params = "userId", method = RequestMethod.GET)
+    @RequestMapping(path = "", params = "userId", method = RequestMethod.GET)
     public ResponseEntity getUsersLinks(@RequestParam("userId") long id) {
 
         return new ResponseEntity(linkService.findAllUsersLinks(id), HttpStatus.OK);
     }
 
-    @RequestMapping(path = "links", params = "tag", method = RequestMethod.GET)
+    @RequestMapping(path = "", params = "tag", method = RequestMethod.GET)
     public ResponseEntity getLinksByTag(@RequestParam("tag") String tag) {
 
         return new ResponseEntity(linkService.getLinksByTag(tag), HttpStatus.OK);
     }
 
 
-    @RequestMapping(path = "links", params = "userId", method = RequestMethod.POST)
+    @RequestMapping(path = "", params = "userId", method = RequestMethod.POST)
     public ResponseEntity createUserLink(@RequestBody LinkDto linkDto, @RequestParam("userId") long id) {
 
-        if (linkService.updateLink(id, linkDto)) {
-            return new ResponseEntity(HttpStatus.OK);
+        long resultId = 0;
+        resultId = linkService.createLink(id, linkDto);
+        if (resultId != 0) {
+            return new ResponseEntity(resultId, HttpStatus.OK);
         }
         return new ResponseEntity(HttpStatus.NOT_MODIFIED);
 
     }
 
-    @RequestMapping(path = "links", params = "userId", method = RequestMethod.PUT)
+    @RequestMapping(path = "", params = "userId", method = RequestMethod.PUT)
     public ResponseEntity updateUserLink(@RequestBody LinkDto linkDto, @RequestParam("userId") long id) {
 
         if (linkService.updateLink(id, linkDto)) {
@@ -52,7 +54,7 @@ public class LinkController {
         return new ResponseEntity(HttpStatus.NOT_MODIFIED);
     }
 
-    @RequestMapping(path = "links/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity deleteLinks(@PathVariable long id) {
 
         if (linkService.removeLink(id)) {
@@ -60,6 +62,11 @@ public class LinkController {
         }
 
         return new ResponseEntity(HttpStatus.NOT_MODIFIED);
+    }
+
+    @RequestMapping(path = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity getLinkById(@PathVariable long id) {
+        return new ResponseEntity(linkService.getLinkById(id), HttpStatus.OK);
     }
 
 }
