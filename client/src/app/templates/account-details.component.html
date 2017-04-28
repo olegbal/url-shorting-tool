@@ -1,0 +1,63 @@
+<div>
+  <h1>{{user.login}}</h1>
+
+  <table border="1">
+    <tr>
+      <th>
+        Shorted url
+      </th>
+      <th>
+        Original url
+      </th>
+      <th>
+        Clicks count
+      </th>
+      <th>
+        Summary
+      </th>
+      <th>
+        Tags
+      </th>
+    </tr>
+    <tr *ngFor="let link of user.links">
+      <td>
+        <a (click)="redirectToUrl(link.shortLink)">{{link.shortLink}}</a>
+      </td>
+      <td>
+        <a href={{link.originalLink}}>{{link.originalLink}}</a>
+      </td>
+      <td>
+        {{link.clicksCount}}
+      </td>
+      <td>
+        <label *ngIf="!isEditing">{{link.summary}}</label>
+        <input *ngIf="isEditing" [(ngModel)]="link.summary">
+      </td>
+      <td>
+        <div *ngIf="!isEditing">
+          <div *ngFor="let tag of link.tags.split(' ')">
+            <a (click)="showLinksWithSameTag(tag)">{{tag}}</a>
+          </div>
+        </div>
+        <input *ngIf="isEditing" [(ngModel)]="link.tags">
+      </td>
+      <td>
+        <button *ngIf="!isEditing" (click)="isEditing=true">Edit</button>
+        <button *ngIf="isEditing" (click)="editLink(user.userId,link)">Submit</button>
+      </td>
+      <td>
+        <button (click)="removeLink(link.linkId)">Delete</button>
+      </td>
+    </tr>
+    <div *ngIf="isAdding">
+      <label>Link</label>
+      <input [(ngModel)]="addingLink.originalLink">
+      <label>Tags(user space as delimeter)</label>
+      <input [(ngModel)]="addingLink.tags">
+      <label>Summary</label>
+      <input [(ngModel)]="addingLink.summary">
+    </div>
+    <button *ngIf="!isAdding" (click)="isAdding=true">AddNew</button>
+    <button *ngIf="isAdding" (click)="addLink(user.userId,addingLink)">Submit</button>
+  </table>
+</div>

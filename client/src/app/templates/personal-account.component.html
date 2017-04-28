@@ -1,0 +1,23 @@
+<a routerLink="/" routerLinkActive="active">Main page</a>
+<div class="beforeLogin">
+  <a *ngIf="token.length==0"
+     routerLink="/login"
+     routerLinkActive="active">
+    Sign in </a>
+
+  <a *ngIf="token.length==0"
+     routerLink="/register"
+     routerLinkActive="active">
+    Sign up </a>
+</div>
+<div *ngIf="token.length>0" class="afterLogin">
+  <p>Welcome,{{login}}</p>
+  <a
+    routerLink="/account"
+    routerLinkActive="active">
+    Account
+  </a>
+
+  <logout-component></logout-component>
+</div>
+

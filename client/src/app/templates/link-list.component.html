@@ -1,0 +1,26 @@
+<div *ngIf="!hidden">
+  <table border="1">
+    <tr>
+      <th>
+        Shorted url
+      </th>
+      <th>
+        Original url
+      </th>
+      <th>
+      </th>
+    </tr>
+    <tr *ngFor="let link of links">
+      <td>
+        <a (click)="redirectToUrl(link.shortLink)">{{link.shortLink}}</a>
+      </td>
+      <td>
+        <a href={{link.originalLink}}>{{link.originalLink}}</a>
+      </td>
+      <td>
+        <button (click)="showDetails(link.linkId)">Show details</button>
+      </td>
+    </tr>
+  </table>
+</div>
+<router-outlet></router-outlet>

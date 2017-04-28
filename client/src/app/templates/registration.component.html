@@ -1,0 +1,18 @@
+<form>
+  <label for="loginField">Login</label>
+  <input type="text"
+         name="login"
+         id="loginField"
+         [(ngModel)]="loginAndPassword.login"
+
+
+  >
+  <br>
+  <label for="passwordField">Password</label>
+  <input type="password"
+         name="password"
+         id="passwordField"
+         [(ngModel)]="loginAndPassword.password"
+  >
+  <button (click)="registerUser()">Submit</button>
+</form>

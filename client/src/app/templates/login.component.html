@@ -1,0 +1,21 @@
+<form>
+  <label for="loginField">Login </label>
+  <input type="text"
+         placeholder="Your Login"
+         id="loginField"
+         required
+         name="login"
+         [(ngModel)]="loginAndPassword.login"
+
+  >
+  <br>
+  <label>Password</label>
+  <input type="password"
+         placeholder="Your password"
+         name="pass"
+         id="passwordField"
+         [(ngModel)]="loginAndPassword.password">
+  <br>
+  <button (click)="logIn()">Log in</button>
+</form>
+

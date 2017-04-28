@@ -1,0 +1,35 @@
+<div>
+  <table border="1">
+    <tr>
+      <th>
+        Shorted url
+      </th>
+      <th>
+        Original url
+      </th>
+      <th>
+        Summary
+      </th>
+      <th>
+        Tags
+      </th>
+    </tr>
+    <tr>
+      <td>
+        <a (click)="redirectToUrl(currentLink.shortLink)">{{currentLink.shortLink}}</a>
+      </td>
+      <td>
+        <a href="{{currentLink.originalLink}}">{{currentLink.originalLink}}</a>
+      </td>
+      <td>
+        {{currentLink.summary}}
+      </td>
+      <td>
+        <div *ngFor="let tag of currentLink.tags.split(' ')">
+          <a (click)="showLinksWithSameTag(tag)">{{tag}}</a>
+        </div>
+      </td>
+    </tr>
+  </table>
+  <button (click)="goBack()">Back</button>
+</div>
