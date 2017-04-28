@@ -4,6 +4,7 @@ import com.github.olegbal.urlshortingtool.filtres.StatelessAuthenticationFilter;
 import com.github.olegbal.urlshortingtool.services.impl.UserServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -40,9 +41,13 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("**/*.css").permitAll()
                 .antMatchers("**/*.js").permitAll()
 
-                .antMatchers("/api/v1/**").permitAll()
+//                .antMatchers("/api/v1/links?userId=**").hasRole("USER")
+//                .antMatchers(HttpMethod.DELETE, "/api/v1/links/{id}").hasRole("USER")
+//                .antMatchers("/api/v1/account**").hasRole("USER")
 
-                .antMatchers("/api/v1/account").hasRole("USER")
+                .antMatchers("/api/v1/login", "/api/v1/register", "/api/v1/links", "/api/v1/links?tag={tag}",
+                        "/api/v1/shortlinks/{value}").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/v1/links/{id}").permitAll()
 
                 .anyRequest().authenticated().and()
 
