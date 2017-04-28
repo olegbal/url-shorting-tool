@@ -43,7 +43,6 @@ public class AuthController {
         if (userService.createUser(loginAndPasswordDto)) {
             return new ResponseEntity(HttpStatus.OK);
         }
-
         return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
 
 
