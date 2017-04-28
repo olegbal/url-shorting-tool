@@ -30,6 +30,16 @@ public class LinkServiceImpl implements LinkService {
     private UserRepository userRepository;
 
     @Override
+    public LinkDto getLinkById(long id) {
+        Link link = linkRepository.findOne(id);
+
+        if (link != null) {
+            return new LinkEntityToDtoConverter().convert(link);
+        }
+        return null;
+    }
+
+    @Override
     public Link findByShortLink(String shortLink) {
 
         Link link = linkRepository.findByShortLink(shortLink);
@@ -81,7 +91,7 @@ public class LinkServiceImpl implements LinkService {
     }
 
     @Override
-    public boolean updateLink(long userId, LinkDto linkDto) {
+    public long createLink(long userId, LinkDto linkDto) {
 
         Link link = new LinkDtoToEntityConverter().convert(linkDto);
         User user = userRepository.findOne(userId);
@@ -92,10 +102,9 @@ public class LinkServiceImpl implements LinkService {
 
         try {
             userRepository.save(user);
-            return true;
+            return linkRepository.findByShortLink(link.getShortLink()).getLinkId();
         } catch (TransactionException ex) {
-
-            return false;
+            return 0;
         }
     }
 
@@ -129,5 +138,27 @@ public class LinkServiceImpl implements LinkService {
         links = links.stream().filter(x -> x.getTags().contains(tag)).collect(Collectors.toSet());
 
         return new LinkEntityToDtoConverter().convertSet(links);
+    }
+
+    @Override
+    public boolean updateLink(long userId, LinkDto linkDto) {
+        Link link = new LinkDtoToEntityConverter().convert(linkDto);
+        User user = userRepository.findOne(userId);
+
+        Link deletingLink = user.getLinkSet().stream().filter(x -> x.getLinkId() == linkDto.getLinkId()).findAny().get();
+        user.getLinkSet().remove(deletingLink);
+        user.getLinkSet().add(link);
+        link.setUser(user);
+
+        user.getLinkSet().add(link);
+
+        try {
+            userRepository.save(user);
+            return true;
+        } catch (TransactionException ex) {
+
+            return false;
+        }
+
     }
 }
