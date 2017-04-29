@@ -2,7 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {LinkService} from "../../services/links/link.service";
 import {Link} from "app/models/link";
 import {Location} from "@angular/common";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'link-info-component',
@@ -15,23 +15,31 @@ export class LinkInfoComponent implements OnInit {
 
   constructor(private linkService: LinkService,
               private location: Location,
-              private router: Router) {
+              private router: Router,
+              private activatedRoute: ActivatedRoute) {
   }
 
   currentLink: Link = new Link(0, "", "", 0, "", "", null);
   redirectUrl = localStorage.getItem("RedirectLink");
-  linkId = localStorage.getItem("LinkId");
 
   ngOnInit() {
-    this.linkService.getLinkInfo(this.linkId).subscribe((res) => {
-        this.currentLink = res.json();
-      },
-      (err) => {
-        if (err.status < 200 || err.status > 299) {
-          console.log("Unable to get link info", err);
-          this.router.navigate(['/'])
-        }
-      })
+
+    this.activatedRoute.params.subscribe((params) => {
+
+      let param = params['id'];
+
+      this.linkService.getLinkInfo(param).subscribe((res) => {
+          this.currentLink = res.json();
+        },
+        (err) => {
+          if (err.status < 200 || err.status > 299) {
+            console.log("Unable to get link info", err);
+            this.router.navigate(['/'])
+          }
+        })
+
+    });
+
   }
 
   redirectToUrl(shortLink: string) {

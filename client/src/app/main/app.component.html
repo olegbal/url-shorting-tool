@@ -1,3 +1,24 @@
-<personal-account></personal-account>
+<a routerLink="/" routerLinkActive="active">Main page</a>
+<div>
+  <a *ngIf="!authService.isLoggedIn"
+     routerLink="/login"
+     routerLinkActive="active">
+    Sign in </a>
+
+  <a *ngIf="!authService.isLoggedIn"
+     routerLink="/register"
+     routerLinkActive="active">
+    Sign up </a>
+</div>
+<div *ngIf="authService.isLoggedIn">
+  <p>Welcome,{{authService.login || {} }}</p>
+  <a
+    routerLink="/account"
+    routerLinkActive="active">
+    Account
+  </a>
+  <a (click)="authService.logout()" href="">Logout</a>
+</div>
+
 
 <router-outlet></router-outlet>

@@ -55,14 +55,29 @@
         <button (click)="removeLink(link.linkId)">Delete</button>
       </td>
     </tr>
-    <div *ngIf="isAdding">
-      <label>Link</label>
-      <input [(ngModel)]="addingLink.originalLink">
-      <label>Tags(user space as delimeter)</label>
-      <input [(ngModel)]="addingLink.tags">
-      <label>Summary</label>
-      <input [(ngModel)]="addingLink.summary">
-    </div>
+    <tr *ngIf="isAdding">
+      <td>
+
+      </td>
+      <td>
+        <label>Link</label>
+        <input [(ngModel)]="addingLink.originalLink">
+      </td>
+      <td>
+
+      </td>
+      <td>
+        <label>Summary</label>
+        <input [(ngModel)]="addingLink.summary">
+      </td>
+      <td>
+
+      </td>
+      <td>
+        <label>Tags(user space as delimeter)</label>
+        <input [(ngModel)]="addingLink.tags">
+      </td>
+    </tr>
     <button *ngIf="!isAdding" (click)="isAdding=true">AddNew</button>
     <button *ngIf="isAdding" (click)="addLink(user.userId,addingLink)">Submit</button>
   </table>
