@@ -23,7 +23,7 @@ public class UserController {
 
     @PostAuthorize("@userPreAuthorizeService.checkRightsToUrlByUsername(#request,#userName)")
     @RequestMapping(path = "/api/v1/account", params = "userName", method = RequestMethod.GET)
-    private ResponseEntity getUserDetails(HttpServletRequest request, @RequestParam("userName") String userName) {
+    public ResponseEntity getUserDetails(HttpServletRequest request, @RequestParam("userName") String userName) {
 
         return new ResponseEntity(userService.getUserByLogin(userName), HttpStatus.OK);
     }

@@ -26,7 +26,7 @@ public class AuthController {
     private TokenAuthenticationService tokenAuthenticationService;
 
     @RequestMapping(path = "login", method = RequestMethod.POST)
-    private ResponseEntity logIn(HttpServletResponse httpServletResponse, @RequestBody LoginAndPasswordDto loginAndPasswordDto) {
+    public ResponseEntity logIn(HttpServletResponse httpServletResponse, @RequestBody LoginAndPasswordDto loginAndPasswordDto) {
 
 
         if (tokenAuthenticationService.checkLogin(httpServletResponse, loginAndPasswordDto)) {
@@ -38,7 +38,7 @@ public class AuthController {
     }
 
     @RequestMapping(path = "register", method = RequestMethod.POST)
-    private ResponseEntity register(@RequestBody LoginAndPasswordDto loginAndPasswordDto) {
+    public ResponseEntity register(@RequestBody LoginAndPasswordDto loginAndPasswordDto) {
 
         if (userService.createUser(loginAndPasswordDto)) {
             return new ResponseEntity(HttpStatus.OK);

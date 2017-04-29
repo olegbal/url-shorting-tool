@@ -9,6 +9,7 @@ import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping(path = "/api/v1/links")
@@ -59,7 +60,7 @@ public class LinkController {
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity deleteLinks(@PathVariable long id) {
+    public ResponseEntity deleteLinks(HttpServletRequest request, @PathVariable long id) {
 
         if (linkService.removeLink(id)) {
             return new ResponseEntity(HttpStatus.OK);
