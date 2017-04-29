@@ -19,6 +19,7 @@ public class LinkDtoToEntityConverter extends SetConverter<LinkDto, Link> implem
         link.setShortLink(linkDto.getShortLink());
         link.setTags(linkDto.getTags());
         link.setSummary(linkDto.getSummary());
+        link.setCreationDate(linkDto.getCreationDate());
 
         return link;
     }

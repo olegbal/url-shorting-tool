@@ -18,7 +18,7 @@ public class LinkEntityToDtoConverter extends SetConverter<Link, LinkDto> implem
         linkDto.setClicksCount(link.getClicksCount());
         linkDto.setTags(link.getTags());
         linkDto.setSummary(link.getSummary());
-
+        linkDto.setCreationDate(link.getCreationDate());
         return linkDto;
     }
 }

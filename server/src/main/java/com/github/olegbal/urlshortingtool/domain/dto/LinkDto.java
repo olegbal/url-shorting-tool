@@ -1,5 +1,7 @@
 package com.github.olegbal.urlshortingtool.domain.dto;
 
+import java.util.Date;
+
 public class LinkDto {
 
     private long linkId;
@@ -14,23 +16,9 @@ public class LinkDto {
 
     private String summary;
 
+    private Date creationDate;
+
     public LinkDto() {
-    }
-
-    public String getSummary() {
-        return summary;
-    }
-
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
-
-    public String getTags() {
-        return tags;
-    }
-
-    public void setTags(String tags) {
-        this.tags = tags;
     }
 
     public long getLinkId() {
@@ -63,5 +51,29 @@ public class LinkDto {
 
     public void setClicksCount(int clicksCount) {
         this.clicksCount = clicksCount;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
 }
