@@ -1,5 +1,7 @@
 package com.github.olegbal.urlshortingtool.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class LinkDto {
@@ -16,6 +18,7 @@ public class LinkDto {
 
     private String summary;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm")
     private Date creationDate;
 
     public LinkDto() {

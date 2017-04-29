@@ -1,6 +1,8 @@
 package com.github.olegbal.urlshortingtool.domain.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -28,6 +30,7 @@ public class Link {
     @Column(name = "summary")
     private String summary;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm")
     @Column(name = "creation_date")
     private Date creationDate;
 
