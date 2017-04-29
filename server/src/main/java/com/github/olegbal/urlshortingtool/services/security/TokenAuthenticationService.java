@@ -1,7 +1,9 @@
-package com.github.olegbal.urlshortingtool.security;
+package com.github.olegbal.urlshortingtool.services.security;
 
 import com.github.olegbal.urlshortingtool.domain.dto.LoginAndPasswordDto;
 import com.github.olegbal.urlshortingtool.domain.entity.User;
+import com.github.olegbal.urlshortingtool.security.TokenHandler;
+import com.github.olegbal.urlshortingtool.security.UserAuthentication;
 import com.github.olegbal.urlshortingtool.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,7 +21,7 @@ public class TokenAuthenticationService {
 
     private static final String AUTH_HEADER_NAME = "Auth";
 
-    private final TokenHandler tokenHandler;
+     final TokenHandler tokenHandler;
 
     public TokenAuthenticationService(String secret, UserServiceImpl userService) {
         tokenHandler = new TokenHandler(secret, userService);
