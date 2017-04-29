@@ -23,7 +23,7 @@ export class AccountDetailsComponent implements OnInit {
   }
 
   user: User = new User(0, "", "", new Array<Role>(), new Array<Link>());
-  addingLink = new Link(0, "", "", 0, "", "");
+  addingLink = new Link(0, "", "", 0, "", "", null);
   redirectUrl = localStorage.getItem("RedirectUrl");
   isEditing = false;
   isAdding = false;
@@ -65,13 +65,14 @@ export class AccountDetailsComponent implements OnInit {
 
   addLink(id: string, link: Link) {
     link.shortLink = Md5.hashStr(link.originalLink).slice(0, 6).toString();
+    link.creationDate = new Date();
     this.linkService.createLink(id, link).subscribe((res) => {
       if (res.status == 200) {
         console.log("link successfully created");
         link.linkId = res.json();
         this.user.links.push(link);
         this.isAdding = false;
-        this.addingLink = new Link(0, "", "", 0, "", "");
+        this.addingLink = new Link(0, "", "", 0, "", "", null);
       }
     })
   }

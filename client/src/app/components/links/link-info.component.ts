@@ -18,7 +18,7 @@ export class LinkInfoComponent implements OnInit {
               private router: Router) {
   }
 
-  currentLink: Link = new Link(0, "", "", 0, "", "");
+  currentLink: Link = new Link(0, "", "", 0, "", "", null);
   redirectUrl = localStorage.getItem("RedirectLink");
   linkId = localStorage.getItem("LinkId");
 
@@ -28,7 +28,7 @@ export class LinkInfoComponent implements OnInit {
       },
       (err) => {
         if (err.status < 200 || err.status > 299) {
-          console.log("Unable to get link info", err)
+          console.log("Unable to get link info", err);
           this.router.navigate(['/'])
         }
       })

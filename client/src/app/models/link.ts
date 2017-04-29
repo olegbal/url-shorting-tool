@@ -4,6 +4,7 @@ export class Link {
               public shortLink: string,
               public clicksCount: number,
               public tags: string,
-              public summary: string) {
+              public summary: string,
+              public creationDate: Date) {
   }
 }

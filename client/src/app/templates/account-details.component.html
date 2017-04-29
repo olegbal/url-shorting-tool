@@ -16,6 +16,9 @@
         Summary
       </th>
       <th>
+        Creation date
+      </th>
+      <th>
         Tags
       </th>
     </tr>
@@ -28,6 +31,9 @@
       </td>
       <td>
         {{link.clicksCount}}
+      </td>
+      <td>
+        {{link.creationDate}}
       </td>
       <td>
         <label *ngIf="!isEditing">{{link.summary}}</label>
