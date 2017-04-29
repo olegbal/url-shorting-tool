@@ -5,11 +5,10 @@ import com.github.olegbal.urlshortingtool.services.impl.LinkServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping(path = "/api/v1/links")
@@ -36,7 +35,7 @@ public class LinkController {
         return new ResponseEntity(linkService.getLinksByTag(tag), HttpStatus.OK);
     }
 
-    @PostAuthorize("@userPreAuthorizeService.checkRightsToUrlById(#request,#id)")
+    @PreAuthorize("@userPreAuthorizeService.checkRightsToUrlById(#request,#id)")
     @RequestMapping(path = "", params = "userId", method = RequestMethod.POST)
     public ResponseEntity createUserLink(HttpServletRequest request, @RequestBody LinkDto linkDto, @RequestParam("userId") long id) {
 
@@ -49,7 +48,7 @@ public class LinkController {
 
     }
 
-    @PostAuthorize("@userPreAuthorizeService.checkRightsToUrlById(#request,#id)")
+    @PreAuthorize("@userPreAuthorizeService.checkRightsToUrlById(#request,#id)")
     @RequestMapping(path = "", params = "userId", method = RequestMethod.PUT)
     public ResponseEntity updateUserLink(HttpServletRequest request, @RequestBody LinkDto linkDto, @RequestParam("userId") long id) {
 
@@ -58,8 +57,9 @@ public class LinkController {
         }
         return new ResponseEntity(HttpStatus.NOT_MODIFIED);
     }
-    @PostAuthorize("@userPreAuthorizeService.checkRightsToLinkUrlByLinkId(#request,#id)")
+
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
+    @PreAuthorize("@userPreAuthorizeService.checkRightsToLinkUrlByLinkId(#request,#id)")
     public ResponseEntity deleteLinks(HttpServletRequest request, @PathVariable long id) {
 
         if (linkService.removeLink(id)) {
