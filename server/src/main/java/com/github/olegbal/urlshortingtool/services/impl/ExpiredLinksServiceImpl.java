@@ -19,8 +19,8 @@ public class ExpiredLinksServiceImpl implements ExpiredLinksService {
     @Autowired
     private LinkRepository linkRepository;
 
-    @Transactional
-    @Scheduled(fixedRate = repeatInMills, initialDelay = repeatInMills)
+    //    @Transactional
+//    @Scheduled(fixedRate = repeatInMills, initialDelay = repeatInMills)
     public void removeExpiredLinks() {
 
 
