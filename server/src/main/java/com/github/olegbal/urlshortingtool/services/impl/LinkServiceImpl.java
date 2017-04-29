@@ -12,11 +12,8 @@ import com.google.common.collect.Sets;
 import org.hibernate.TransactionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -95,7 +92,8 @@ public class LinkServiceImpl implements LinkService {
     @Override
     public long createLink(long userId, LinkDto linkDto) {
 
-        if (linkDto.getTags() != null && linkDto.getSummary() != null && linkDto.getOriginalLink() != null && linkDto.getShortLink() != null && linkDto.getCreationDate() != null) {
+        if (linkDto.getTags() != null || linkDto.getSummary() != null || linkDto.getOriginalLink() != null
+                || linkDto.getShortLink() != null || linkDto.getCreationDate() != null) {
 
 
             Link link = new LinkDtoToEntityConverter().convert(linkDto);
@@ -119,12 +117,12 @@ public class LinkServiceImpl implements LinkService {
     @Override
     public boolean updateLink(long userId, LinkDto linkDto) {
         User user = userRepository.findOne(userId);
-
         Link editingLink = user.getLinkSet().stream().filter(x -> x.getLinkId() == linkDto.getLinkId()).findAny().get();
 
-        if (linkDto.getSummary() != null && linkDto.getTags() != null) {
+        if (linkDto.getTags() != null || linkDto.getSummary() != null || linkDto.getOriginalLink() != null
+                || linkDto.getShortLink() != null || linkDto.getCreationDate() != null) {
             editingLink.setSummary(linkDto.getSummary());
-            editingLink.setTags(linkDto.getSummary());
+            editingLink.setTags(linkDto.getTags());
         }
 
         try {
