@@ -39,7 +39,6 @@ export class SameTagLinksComponent implements OnInit {
   }
 
   showDetails(id: string) {
-    localStorage.setItem("LinkId", id.toString());
     this.router.navigate(['/links/' + id])
   }
 

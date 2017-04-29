@@ -6,6 +6,7 @@ import {Role} from "../../models/role";
 import {LinkService} from "../../services/links/link.service";
 import {Router} from "@angular/router";
 import {Md5} from 'ts-md5/dist/md5';
+import {AuthService} from "../../services/auth/auth.service";
 
 
 @Component({
@@ -18,7 +19,8 @@ export class AccountDetailsComponent implements OnInit {
 
   constructor(private accountDetailsService: AccountDetailsService,
               private linkService: LinkService,
-              private router: Router) {
+              private router: Router,
+              private authService: AuthService) {
 
   }
 
@@ -29,7 +31,7 @@ export class AccountDetailsComponent implements OnInit {
   isAdding = false;
 
   ngOnInit() {
-    this.accountDetailsService.getUserInfo(localStorage.getItem("Login")).subscribe((res) => {
+    this.accountDetailsService.getUserInfo(this.authService.login).subscribe((res) => {
         this.user = res.json();
       },
       (err) => {

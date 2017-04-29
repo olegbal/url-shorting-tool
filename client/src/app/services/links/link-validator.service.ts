@@ -8,11 +8,8 @@ export class LinkValidatorService {
   }
 
 
-  private linksUrl = "/api/v1/links";
 
-  headers: Headers;
-
-  getAllLinks() {
-    return this.http.get(this.linksUrl);
+  getAllLinks(url:string) {
+    return this.http.get(url);
   }
 }
