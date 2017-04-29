@@ -3,6 +3,7 @@ package com.github.olegbal.urlshortingtool.controllers;
 import com.github.olegbal.urlshortingtool.domain.dto.LinkDto;
 import com.github.olegbal.urlshortingtool.services.impl.LinkServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,21 +19,21 @@ public class LinkController {
     private LinkServiceImpl linkService;
 
     @RequestMapping(path = "", method = RequestMethod.GET)
-    public ResponseEntity getAllLinks() {
-        return new ResponseEntity(linkService.findAllLinks(), HttpStatus.OK);
+    public ResponseEntity getAllLinks(Pageable pageable) {
+        return new ResponseEntity(linkService.findAllLinks(pageable), HttpStatus.OK);
     }
 
 
     @RequestMapping(path = "", params = "userId", method = RequestMethod.GET)
-    public ResponseEntity getUsersLinks(@RequestParam("userId") long id) {
+    public ResponseEntity getUsersLinks(Pageable pageable, @RequestParam("userId") long id) {
 
-        return new ResponseEntity(linkService.findAllUsersLinks(id), HttpStatus.OK);
+        return new ResponseEntity(linkService.findAllUsersLinks(pageable, id), HttpStatus.OK);
     }
 
     @RequestMapping(path = "", params = "tag", method = RequestMethod.GET)
-    public ResponseEntity getLinksByTag(@RequestParam("tag") String tag) {
+    public ResponseEntity getLinksByTag(Pageable pageable, @RequestParam("tag") String tag) {
 
-        return new ResponseEntity(linkService.getLinksByTag(tag), HttpStatus.OK);
+        return new ResponseEntity(linkService.getLinksByTag(pageable, tag), HttpStatus.OK);
     }
 
     @PreAuthorize("@userPreAuthorizeService.checkRightsToUrlById(#request,#id)")

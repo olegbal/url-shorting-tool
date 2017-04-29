@@ -11,8 +11,10 @@ import com.github.olegbal.urlshortingtool.services.LinkService;
 import com.google.common.collect.Sets;
 import org.hibernate.TransactionException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -77,8 +79,9 @@ public class LinkServiceImpl implements LinkService {
     }
 
     @Override
-    public Set<LinkDto> findAllLinks() {
-        Set<Link> links = Sets.newHashSet(linkRepository.findAll());
+    public Set<LinkDto> findAllLinks(Pageable pageable) {
+
+        Set<Link> links = new HashSet<>(linkRepository.findAll(pageable).getContent());
 
         if (links != null) {
             return new LinkEntityToDtoConverter().convertSet(links);
@@ -105,9 +108,9 @@ public class LinkServiceImpl implements LinkService {
     }
 
     @Override
-    public Set<LinkDto> findAllUsersLinks(long userId) {
+    public Set<LinkDto> findAllUsersLinks(Pageable pageable, long userId) {
 
-        Set<Link> links = linkRepository.findByUserUserId(userId);
+        Set<Link> links = Sets.newHashSet(linkRepository.findByUserUserId(pageable, userId).getContent());
 
         if (links != null) {
             return new LinkEntityToDtoConverter().convertSet(links);
@@ -127,9 +130,9 @@ public class LinkServiceImpl implements LinkService {
     }
 
     @Override
-    public Set<LinkDto> getLinksByTag(String tag) {
+    public Set<LinkDto> getLinksByTag(Pageable pageable, String tag) {
 
-        Set<Link> links = Sets.newHashSet(linkRepository.findAll());
+        Set<Link> links = Sets.newHashSet(linkRepository.findAll(pageable).getContent());
 
         links = links.stream().filter(x -> x.getTags().contains(tag)).collect(Collectors.toSet());
 
@@ -157,4 +160,5 @@ public class LinkServiceImpl implements LinkService {
         }
 
     }
+
 }
