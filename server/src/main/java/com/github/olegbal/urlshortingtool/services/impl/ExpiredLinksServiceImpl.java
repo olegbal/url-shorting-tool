@@ -10,17 +10,21 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.Date;
 
+
 @Service
 public class ExpiredLinksServiceImpl implements ExpiredLinksService {
+
+    private static final long repeatInMills = 60 * 1000;
 
     @Autowired
     private LinkRepository linkRepository;
 
     @Transactional
-    @Scheduled(fixedRate = 60 * 1000, initialDelay = 60 * 1000)
+    @Scheduled(fixedRate = repeatInMills, initialDelay = repeatInMills)
     public void removeExpiredLinks() {
 
-        Date expirationDate = new Date(System.currentTimeMillis() - 60 * 1000);
+
+        Date expirationDate = new Date(System.currentTimeMillis() - repeatInMills);
 
         try {
             linkRepository.removeLinksByCreationDateBefore(expirationDate);
