@@ -12,8 +12,11 @@ import com.google.common.collect.Sets;
 import org.hibernate.TransactionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -92,19 +95,46 @@ public class LinkServiceImpl implements LinkService {
     @Override
     public long createLink(long userId, LinkDto linkDto) {
 
-        Link link = new LinkDtoToEntityConverter().convert(linkDto);
+        if (linkDto.getTags() != null && linkDto.getSummary() != null && linkDto.getOriginalLink() != null && linkDto.getShortLink() != null && linkDto.getCreationDate() != null) {
+
+
+            Link link = new LinkDtoToEntityConverter().convert(linkDto);
+
+            User user = userRepository.findOne(userId);
+
+            link.setUser(user);
+
+            user.getLinkSet().add(link);
+
+            try {
+                userRepository.save(user);
+                return linkRepository.findByShortLink(link.getShortLink()).getLinkId();
+            } catch (TransactionException ex) {
+                return 0;
+            }
+        }
+        return 0;
+    }
+
+    @Override
+    public boolean updateLink(long userId, LinkDto linkDto) {
         User user = userRepository.findOne(userId);
 
-        link.setUser(user);
+        Link editingLink = user.getLinkSet().stream().filter(x -> x.getLinkId() == linkDto.getLinkId()).findAny().get();
 
-        user.getLinkSet().add(link);
+        if (linkDto.getSummary() != null && linkDto.getTags() != null) {
+            editingLink.setSummary(linkDto.getSummary());
+            editingLink.setTags(linkDto.getSummary());
+        }
 
         try {
             userRepository.save(user);
-            return linkRepository.findByShortLink(link.getShortLink()).getLinkId();
+            return true;
         } catch (TransactionException ex) {
-            return 0;
+
+            return false;
         }
+
     }
 
     @Override
@@ -137,28 +167,6 @@ public class LinkServiceImpl implements LinkService {
         links = links.stream().filter(x -> x.getTags().contains(tag)).collect(Collectors.toSet());
 
         return new LinkEntityToDtoConverter().convertSet(links);
-    }
-
-    @Override
-    public boolean updateLink(long userId, LinkDto linkDto) {
-        Link link = new LinkDtoToEntityConverter().convert(linkDto);
-        User user = userRepository.findOne(userId);
-
-        Link deletingLink = user.getLinkSet().stream().filter(x -> x.getLinkId() == linkDto.getLinkId()).findAny().get();
-        user.getLinkSet().remove(deletingLink);
-        user.getLinkSet().add(link);
-        link.setUser(user);
-
-        user.getLinkSet().add(link);
-
-        try {
-            userRepository.save(user);
-            return true;
-        } catch (TransactionException ex) {
-
-            return false;
-        }
-
     }
 
 }
