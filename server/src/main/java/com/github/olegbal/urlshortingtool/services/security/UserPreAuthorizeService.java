@@ -16,6 +16,7 @@ public class UserPreAuthorizeService {
     @Autowired
     private UserRepository userRepository;
 
+
     public boolean checkRightsToUrlById(HttpServletRequest request, long id) {
 
         User requestingUser = tokenAuthenticationService.tokenHandler.parseUserFromToken(request.getHeader("Auth"));
@@ -30,7 +31,7 @@ public class UserPreAuthorizeService {
         return false;
     }
 
-   public  boolean checkRightsToUrlByUsername(HttpServletRequest request, String userName) {
+    public boolean checkRightsToUrlByUsername(HttpServletRequest request, String userName) {
 
         User requestingUser = tokenAuthenticationService.tokenHandler.parseUserFromToken(request.getHeader("Auth"));
 
@@ -40,6 +41,20 @@ public class UserPreAuthorizeService {
                 return true;
             }
         }
+        return false;
+    }
+
+    public boolean checkRightsToLinkUrlByLinkId(HttpServletRequest request, long id) {
+
+        User requestingUser = tokenAuthenticationService.tokenHandler.parseUserFromToken(request.getHeader("Auth"));
+
+        if (requestingUser != null) {
+
+            if (requestingUser.getLinkSet().stream().anyMatch(x -> x.getLinkId() == id)) {
+                return true;
+            }
+        }
+
         return false;
     }
 }

@@ -58,7 +58,7 @@ public class LinkController {
         }
         return new ResponseEntity(HttpStatus.NOT_MODIFIED);
     }
-
+    @PostAuthorize("@userPreAuthorizeService.checkRightsToLinkUrlByLinkId(#request,#id)")
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity deleteLinks(HttpServletRequest request, @PathVariable long id) {
 
@@ -68,6 +68,7 @@ public class LinkController {
 
         return new ResponseEntity(HttpStatus.NOT_MODIFIED);
     }
+
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public ResponseEntity getLinkById(@PathVariable long id) {
