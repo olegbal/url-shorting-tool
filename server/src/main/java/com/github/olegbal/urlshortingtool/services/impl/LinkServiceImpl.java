@@ -8,15 +8,11 @@ import com.github.olegbal.urlshortingtool.domain.entity.User;
 import com.github.olegbal.urlshortingtool.respositories.LinkRepository;
 import com.github.olegbal.urlshortingtool.respositories.UserRepository;
 import com.github.olegbal.urlshortingtool.services.LinkService;
-import com.github.olegbal.urlshortingtool.services.UserService;
 import com.google.common.collect.Sets;
 import org.hibernate.TransactionException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.core.CollectionFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 

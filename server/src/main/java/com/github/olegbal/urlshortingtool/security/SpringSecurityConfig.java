@@ -1,8 +1,8 @@
 package com.github.olegbal.urlshortingtool.security;
 
-import com.github.olegbal.urlshortingtool.filtres.StatelessAuthenticationFilter;
-import com.github.olegbal.urlshortingtool.services.security.TokenAuthenticationService;
+import com.github.olegbal.urlshortingtool.filters.StatelessAuthenticationFilter;
 import com.github.olegbal.urlshortingtool.services.impl.UserServiceImpl;
+import com.github.olegbal.urlshortingtool.services.security.TokenAuthenticationService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;

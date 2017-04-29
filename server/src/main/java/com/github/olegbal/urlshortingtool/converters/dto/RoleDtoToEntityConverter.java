@@ -2,9 +2,7 @@ package com.github.olegbal.urlshortingtool.converters.dto;
 
 import com.github.olegbal.urlshortingtool.converters.SetConverter;
 import com.github.olegbal.urlshortingtool.domain.dto.RoleDto;
-import com.github.olegbal.urlshortingtool.domain.dto.UserDto;
 import com.github.olegbal.urlshortingtool.domain.entity.Role;
-import com.github.olegbal.urlshortingtool.domain.entity.User;
 import org.springframework.core.convert.converter.Converter;
 
 public class RoleDtoToEntityConverter extends SetConverter<RoleDto, Role> implements Converter<RoleDto, Role> {

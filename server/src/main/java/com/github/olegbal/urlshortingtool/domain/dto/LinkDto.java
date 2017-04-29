@@ -1,7 +1,5 @@
 package com.github.olegbal.urlshortingtool.domain.dto;
 
-import java.util.Set;
-
 public class LinkDto {
 
     private long linkId;

@@ -9,7 +9,6 @@ import com.github.olegbal.urlshortingtool.respositories.UserRepository;
 import com.github.olegbal.urlshortingtool.services.UserService;
 import org.hibernate.TransactionException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;

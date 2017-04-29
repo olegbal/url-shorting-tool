@@ -2,7 +2,6 @@ package com.github.olegbal.urlshortingtool.domain.entity;
 
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Table(name = "user_links")

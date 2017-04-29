@@ -5,8 +5,6 @@ import com.github.olegbal.urlshortingtool.domain.dto.LinkDto;
 import com.github.olegbal.urlshortingtool.domain.entity.Link;
 import org.springframework.core.convert.converter.Converter;
 
-import java.util.Set;
-
 public class LinkEntityToDtoConverter extends SetConverter<Link, LinkDto> implements Converter<Link, LinkDto> {
 
     @Override
