@@ -1,6 +1,6 @@
 package com.github.olegbal.urlshortingtool.filtres;
 
-import com.github.olegbal.urlshortingtool.security.TokenAuthenticationService;
+import com.github.olegbal.urlshortingtool.services.security.TokenAuthenticationService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
