@@ -18,7 +18,6 @@ import {LinkInfoComponent} from "../components/links/link-info.component";
 import {SameTagLinksComponent} from "../components/links/same-tag-links.component";
 import {RedirectorComponent} from "../components/links/redirector.component";
 import {LoginGuard} from "app/guards/login.guard";
-import {LinkValidatorService} from "../services/links/link-validator.service";
 import {AuthService} from "app/services/auth/auth.service";
 
 @NgModule({
@@ -45,7 +44,6 @@ import {AuthService} from "app/services/auth/auth.service";
     AuthGuard,
     LinkService,
     LoginGuard,
-    LinkValidatorService,
     AuthService
   ],
   bootstrap: [AppComponent]

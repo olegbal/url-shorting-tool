@@ -66,17 +66,24 @@ export class AccountDetailsComponent implements OnInit {
   }
 
   addLink(id: string, link: Link) {
+    this.isAdding = false;
     link.shortLink = Md5.hashStr(link.originalLink).slice(0, 6).toString();
     link.creationDate = new Date();
     this.linkService.createLink(id, link).subscribe((res) => {
-      if (res.status == 200) {
-        console.log("link successfully created");
-        link.linkId = res.json();
-        this.user.links.push(link);
-        this.isAdding = false;
-        this.addingLink = new Link(0, "", "", 0, "", "", null);
-      }
-    })
+        if (res.status == 200) {
+          console.log("link successfully created");
+          link.linkId = res.json();
+          this.user.links.push(link);
+          this.addingLink = new Link(0, "", "", 0, "", "", null);
+        }
+      },
+      (error) => {
+        if (error.status < 200 || error.status > 299) {
+          console.log("Cannot create link", error);
+
+        }
+      },
+    );
   }
 
   showLinksWithSameTag(tag: string) {
