@@ -4,10 +4,8 @@ import com.github.olegbal.urlshortingtool.respositories.LinkRepository;
 import com.github.olegbal.urlshortingtool.services.ExpiredLinksService;
 import org.hibernate.TransactionException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.Date;
 
 

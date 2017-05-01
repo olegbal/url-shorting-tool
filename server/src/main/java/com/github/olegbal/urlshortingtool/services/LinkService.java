@@ -5,7 +5,6 @@ import com.github.olegbal.urlshortingtool.domain.dto.LinkDto;
 import com.github.olegbal.urlshortingtool.domain.entity.Link;
 import org.springframework.data.domain.Pageable;
 
-import java.util.Date;
 import java.util.Set;
 
 public interface LinkService {
