@@ -32,6 +32,8 @@ export class LoginComponent {
       },
       (err) => {
         if (err.status < 200 || err.status > 299) {
+          this.loginAndPassword.login="";
+          this.loginAndPassword.password="";
           console.log("Failed to log in", err)
         }
       }

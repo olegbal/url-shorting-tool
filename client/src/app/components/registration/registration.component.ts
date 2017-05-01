@@ -19,7 +19,8 @@ export class RegistrationComponent {
               private router: Router) {
   }
 
-  loginAndPassword: LoginAndPassword = new LoginAndPassword("", "");
+  loginAndPassword: LoginAndPassword = new LoginAndPassword("", "", "");
+  adminSelected = false;
 
   registerUser() {
     this.registrationService.register(this.loginAndPassword).subscribe(
@@ -30,7 +31,9 @@ export class RegistrationComponent {
       },
       ((err) => {
         if (err.status < 200 || err.status > 299) {
-
+          this.loginAndPassword.login = "";
+          this.loginAndPassword.password = "";
+          this.loginAndPassword.serialNumber = "";
           console.log("Registration failed")
         }
       }));
