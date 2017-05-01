@@ -3,6 +3,7 @@ package com.github.olegbal.urlshortingtool.domain.entity;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "roles")
@@ -15,6 +16,9 @@ public class Role implements GrantedAuthority {
 
     @Column(name = "role_name")
     private String roleName;
+
+    @ManyToMany(mappedBy = "roles")
+    private Set<User> users;
 
     public Role() {
     }
@@ -38,5 +42,13 @@ public class Role implements GrantedAuthority {
     @Override
     public String getAuthority() {
         return roleName;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 }
