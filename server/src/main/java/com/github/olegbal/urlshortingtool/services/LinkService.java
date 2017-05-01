@@ -27,4 +27,5 @@ public interface LinkService {
 
     boolean updateLink(long userId, LinkDto linkDto);
 
+    LinkDto getByOriginalLink(String originalLink);
 }

@@ -9,7 +9,8 @@ import com.github.olegbal.urlshortingtool.domain.entity.User;
 import com.github.olegbal.urlshortingtool.respositories.LinkRepository;
 import com.github.olegbal.urlshortingtool.respositories.UserRepository;
 import com.github.olegbal.urlshortingtool.services.LinkService;
-import com.github.olegbal.urlshortingtool.utils.encrypters.UrlShortener;
+import com.github.olegbal.urlshortingtool.utils.UrlShortener;
+import com.github.olegbal.urlshortingtool.utils.validators.LinkValidator;
 import com.google.common.collect.Sets;
 import org.hibernate.TransactionException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,8 @@ public class LinkServiceImpl implements LinkService {
 
     @Autowired
     private UserRepository userRepository;
+
+    private LinkValidator linkValidator = new LinkValidator();
 
     @Override
     public LinkDto getLinkById(long id) {
@@ -73,23 +76,16 @@ public class LinkServiceImpl implements LinkService {
 
         Set<Link> links = new HashSet<>(linkRepository.findAll(pageable).getContent());
 
-        if (links != null) {
-            return new LinkEntityToDtoConverter().convertSet(links);
-        }
-        return null;
+        return new LinkEntityToDtoConverter().convertSet(links);
     }
 
     @Override
     public CreatedLinkResponseDto createLink(long userId, LinkDto linkDto) {
 
-        if (linkDto.getTags() != null || linkDto.getSummary() != null || linkDto.getOriginalLink() != null
-                || linkDto.getShortLink() != null || linkDto.getCreationDate() != null) {
-
-            //here will be some validations(originalLink+ not-latin sumbols of other fields)
-
+        if (linkDto.getTags() != null && linkDto.getSummary() != null && linkDto.getOriginalLink() != null
+                && linkDto.getShortLink() != null && linkDto.getCreationDate() != null && linkValidator.validate(linkDto.getOriginalLink())) {
 
             Link link = new LinkDtoToEntityConverter().convert(linkDto);
-
 
             User user = userRepository.findOne(userId);
 
@@ -97,10 +93,8 @@ public class LinkServiceImpl implements LinkService {
             link.setShortLink(new UrlShortener().shortUrl(linkDto.getOriginalLink()));
             user.getLinkSet().add(link);
 
-
             try {
                 userRepository.save(user);
-
 
                 long id = linkRepository.findByShortLink(link.getShortLink()).getLinkId();
                 return new CreatedLinkResponseDto(id, link.getShortLink());
@@ -113,23 +107,29 @@ public class LinkServiceImpl implements LinkService {
 
     @Override
     public boolean updateLink(long userId, LinkDto linkDto) {
-        User user = userRepository.findOne(userId);
-        Link editingLink = user.getLinkSet().stream().filter(x -> x.getLinkId() == linkDto.getLinkId()).findAny().get();
 
-        if (linkDto.getTags() != null || linkDto.getSummary() != null || linkDto.getOriginalLink() != null
-                || linkDto.getShortLink() != null || linkDto.getCreationDate() != null) {
-            editingLink.setSummary(linkDto.getSummary());
-            editingLink.setTags(linkDto.getTags());
+        User user = null;
+
+        if (linkDto.getTags() != null && linkDto.getSummary() != null && linkDto.getOriginalLink() != null
+                && linkDto.getShortLink() != null && linkDto.getCreationDate() != null) {
+
+            user = userRepository.findOne(userId);
+            if (user != null) {
+                Link editingLink = user.getLinkSet().stream().filter(x -> x.getLinkId() == linkDto.getLinkId()).findAny().get();
+
+                editingLink.setSummary(linkDto.getSummary());
+                editingLink.setTags(linkDto.getTags());
+            }
+
+            try {
+                userRepository.save(user);
+                return true;
+            } catch (TransactionException ex) {
+
+                return false;
+            }
         }
-
-        try {
-            userRepository.save(user);
-            return true;
-        } catch (TransactionException ex) {
-
-            return false;
-        }
-
+        return false;
     }
 
     @Override
@@ -164,4 +164,14 @@ public class LinkServiceImpl implements LinkService {
         return new LinkEntityToDtoConverter().convertSet(links);
     }
 
+    @Override
+    public LinkDto getByOriginalLink(String originalLink) {
+
+        try {
+            Link link = linkRepository.findByOriginalLink(originalLink);
+            return new LinkEntityToDtoConverter().convert(link);
+        } catch (Exception ex) {
+            return null;
+        }
+    }
 }
