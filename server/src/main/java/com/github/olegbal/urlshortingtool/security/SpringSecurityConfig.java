@@ -3,6 +3,7 @@ package com.github.olegbal.urlshortingtool.security;
 import com.github.olegbal.urlshortingtool.filters.StatelessAuthenticationFilter;
 import com.github.olegbal.urlshortingtool.services.impl.UserServiceImpl;
 import com.github.olegbal.urlshortingtool.services.security.TokenAuthenticationService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -24,10 +25,13 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserServiceImpl userService;
     private final TokenAuthenticationService tokenAuthenticationService;
 
+
+    private final String secret = "MY_SECRET_TSSS";
+
     public SpringSecurityConfig() {
         super(true);
         this.userService = new UserServiceImpl();
-        tokenAuthenticationService = new TokenAuthenticationService("tooManySecrets", userService);
+        tokenAuthenticationService = new TokenAuthenticationService(secret, userService);
     }
 
     @Override
@@ -52,6 +56,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/v1/login", "/api/v1/register", "/api/v1/links", "/api/v1/links?tag={tag}",
                         "/api/v1/shortlinks/{value}").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/v1/links/{id}").permitAll()
+
+                .antMatchers(HttpMethod.DELETE, "/api/v1/user/{id}").hasRole("ADMIN")
+
+                .antMatchers("/api/v1/users").hasRole("ADMIN")
 
                 .anyRequest().authenticated().and()
 

@@ -15,8 +15,6 @@ public class UserPreAuthorizeService {
     @Autowired
     private TokenAuthenticationService tokenAuthenticationService;
 
-    @Autowired
-    private UserRepository userRepository;
 
     @Autowired
     private LinkRepository linkService;
@@ -28,7 +26,8 @@ public class UserPreAuthorizeService {
 
 
         if (requestingUser != null) {
-            if (requestingUser.getUserId() == id) {
+            if (requestingUser.getUserId() == id
+                    || requestingUser.getRoles().stream().anyMatch(x -> x.getRoleName().equals("ROLE_ADMIN"))) {
                 return true;
             }
         }
@@ -42,7 +41,8 @@ public class UserPreAuthorizeService {
 
 
         if (requestingUser != null) {
-            if (requestingUser.getUsername().equals(userName)) {
+            if (requestingUser.getUsername().equals(userName)
+                    || requestingUser.getRoles().stream().anyMatch(x -> x.getRoleName().equals("ROLE_ADMIN"))) {
                 return true;
             }
         }
@@ -60,8 +60,8 @@ public class UserPreAuthorizeService {
         // Response status is OK but nothing changed in DB
 
         if (requestingUser != null && link != null) {
-            if (link.getUser().getUserId() == requestingUser.getUserId()) {
-
+            if (link.getUser().getUserId() == requestingUser.getUserId()
+                    || requestingUser.getRoles().stream().anyMatch(x -> x.getRoleName().equals("ROLE_ADMIN"))) {
                 return true;
             }
         }
