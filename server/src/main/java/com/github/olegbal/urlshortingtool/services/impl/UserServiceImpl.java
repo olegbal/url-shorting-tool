@@ -59,7 +59,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 && registrationDto.getPassword() != null
                 && !registrationDto.getPassword().equals("")
                 && !registrationDto.getLogin().equals("")) {
-            User user = new User();
+
+
+            User user = userRepository.findByLogin(registrationDto.getLogin());
+            if (user != null) {
+                return false;
+            }
+            user = new User();
             user.setLogin(registrationDto.getLogin());
             user.setPassword(registrationDto.getPassword());
 
