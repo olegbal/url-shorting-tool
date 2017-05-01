@@ -16,16 +16,23 @@ export class LinkService {
   headers: Headers;
 
 
-
   getAllLinks(page: number) {
     return this.http.get(this.linksUrl + '?' + this.params[2] + page + '&' + this.params[3] + localStorage.getItem("PageSize"));
+  }
+
+  getLinkByTag(tag: string, page: number) {
+    this.headers = new Headers({'Content-Type': 'application/json'});
+    return this.http.get(this.linksUrl + '?' + this.params[1] + tag + '&' + this.params[2] + page + '&' + this.params[3] + localStorage.getItem("PageSize"));
+  }
+
+  getLinkInfo(id: string) {
+    return this.http.get(this.linksUrl + '/' + id);
   }
 
   updateLink(userId: string, link: Link) {
     this.headers = new Headers({'Content-Type': 'application/json', 'Auth': this.authService.token});
     return this.http.put(this.linksUrl + '?' + this.params[0] + userId, JSON.stringify(link), {headers: this.headers})
   }
-
 
   createLink(userId: string, link: Link) {
     this.headers = new Headers({'Content-Type': 'application/json', 'Auth': this.authService.token});
@@ -37,13 +44,9 @@ export class LinkService {
     return this.http.delete(this.linksUrl + '/' + id, {headers: this.headers});
   }
 
-  getLinkByTag(tag: string, page: number) {
-    this.headers = new Headers({'Content-Type': 'application/json'});
-    return this.http.get(this.linksUrl + '?' + this.params[1] + tag + '&' + this.params[2] + page + '&' + this.params[3] + localStorage.getItem("PageSize"));
-  }
-
-  getLinkInfo(id: String) {
-    return this.http.get(this.linksUrl + '/' + id);
+  checkIfLinkExist(link: string) {
+    this.headers = new Headers({'Auth': this.authService.token});
+    return this.http.get(this.linksUrl+"/check?url=" + link, {headers: this.headers});
   }
 
 }
