@@ -24,39 +24,15 @@ public class LinkController {
         return new ResponseEntity(linkService.findAllLinks(pageable), HttpStatus.OK);
     }
 
-
-    @RequestMapping(path = "", params = "userId", method = RequestMethod.GET)
-    public ResponseEntity getUsersLinks(Pageable pageable, @RequestParam("userId") long id) {
-
-        return new ResponseEntity(linkService.findAllUsersLinks(pageable, id), HttpStatus.OK);
+    @RequestMapping(path = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity getLinkById(@PathVariable long id) {
+        return new ResponseEntity(linkService.getLinkById(id), HttpStatus.OK);
     }
 
     @RequestMapping(path = "", params = "tag", method = RequestMethod.GET)
     public ResponseEntity getLinksByTag(Pageable pageable, @RequestParam("tag") String tag) {
 
         return new ResponseEntity(linkService.getLinksByTag(pageable, tag), HttpStatus.OK);
-    }
-
-    @PreAuthorize("@userPreAuthorizeService.checkRightsToUrlById(#request,#id)")
-    @RequestMapping(path = "", params = "userId", method = RequestMethod.POST)
-    public ResponseEntity createUserLink(HttpServletRequest request, @RequestBody LinkDto linkDto, @RequestParam("userId") long id) {
-
-        CreatedLinkResponseDto responseDto = linkService.createLink(id, linkDto);
-        if (responseDto != null) {
-            return new ResponseEntity(responseDto, HttpStatus.OK);
-        }
-        return new ResponseEntity(HttpStatus.NOT_MODIFIED);
-
-    }
-
-    @PreAuthorize("@userPreAuthorizeService.checkRightsToUrlById(#request,#id)")
-    @RequestMapping(path = "", params = "userId", method = RequestMethod.PUT)
-    public ResponseEntity updateUserLink(HttpServletRequest request, @RequestBody LinkDto linkDto, @RequestParam("userId") long id) {
-
-        if (linkService.updateLink(id, linkDto)) {
-            return new ResponseEntity(HttpStatus.OK);
-        }
-        return new ResponseEntity(HttpStatus.NOT_MODIFIED);
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
@@ -70,10 +46,15 @@ public class LinkController {
         return new ResponseEntity(HttpStatus.NOT_MODIFIED);
     }
 
+    @RequestMapping(path = "/check", params = "url", method = RequestMethod.GET)
+    public ResponseEntity checkLink(@RequestParam("url") String url) {
 
-    @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity getLinkById(@PathVariable long id) {
-        return new ResponseEntity(linkService.getLinkById(id), HttpStatus.OK);
+        LinkDto link = linkService.getByOriginalLink(url);
+
+        if (link != null) {
+            return new ResponseEntity(link, HttpStatus.OK);
+        }
+        return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
 
 }
