@@ -1,6 +1,7 @@
 package com.github.olegbal.urlshortingtool.controllers;
 
-import com.github.olegbal.urlshortingtool.domain.dto.LoginAndPasswordDto;
+import com.github.olegbal.urlshortingtool.domain.dto.LoginDto;
+import com.github.olegbal.urlshortingtool.domain.dto.RegistrationDto;
 import com.github.olegbal.urlshortingtool.services.impl.UserServiceImpl;
 import com.github.olegbal.urlshortingtool.services.security.TokenAuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class AuthController {
     private TokenAuthenticationService tokenAuthenticationService;
 
     @RequestMapping(path = "login", method = RequestMethod.POST)
-    public ResponseEntity logIn(HttpServletResponse httpServletResponse, @RequestBody LoginAndPasswordDto loginAndPasswordDto) {
+    public ResponseEntity logIn(HttpServletResponse httpServletResponse, @RequestBody LoginDto loginAndPasswordDto) {
 
 
         if (tokenAuthenticationService.checkLogin(httpServletResponse, loginAndPasswordDto)) {
@@ -38,9 +39,9 @@ public class AuthController {
     }
 
     @RequestMapping(path = "register", method = RequestMethod.POST)
-    public ResponseEntity register(@RequestBody LoginAndPasswordDto loginAndPasswordDto) {
+    public ResponseEntity register(@RequestBody RegistrationDto registrationDto) {
 
-        if (userService.createUser(loginAndPasswordDto)) {
+        if (userService.createUser(registrationDto)) {
             return new ResponseEntity(HttpStatus.OK);
         }
         return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
