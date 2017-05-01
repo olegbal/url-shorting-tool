@@ -26,7 +26,7 @@ export class LoginComponent {
     this.loginService.logIn(this.loginAndPassword).subscribe(
       (res) => {
         if (res.status === 202) {
-          this.authService.logIn(res.headers.get("Auth"),this.loginAndPassword.login);
+          this.authService.logIn(res.headers.get("Auth"), this.loginAndPassword.login);
           this.router.navigate(['/']);
         }
       },
@@ -37,5 +37,4 @@ export class LoginComponent {
       }
     );
   }
-
 }

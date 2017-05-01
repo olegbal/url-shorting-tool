@@ -5,6 +5,7 @@ export class Link {
               public clicksCount: number,
               public tags: string,
               public summary: string,
-              public creationDate: Date) {
+              public creationDate: Date,
+              public idEditing=false) {
   }
 }

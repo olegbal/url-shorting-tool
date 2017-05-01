@@ -5,7 +5,6 @@ import {User} from "../../models/user";
 import {Role} from "../../models/role";
 import {LinkService} from "../../services/links/link.service";
 import {Router} from "@angular/router";
-import {Md5} from 'ts-md5/dist/md5';
 import {AuthService} from "../../services/auth/auth.service";
 
 
@@ -21,18 +20,21 @@ export class AccountDetailsComponent implements OnInit {
               private linkService: LinkService,
               private router: Router,
               private authService: AuthService) {
-
   }
 
   user: User = new User(0, "", "", new Array<Role>(), new Array<Link>());
   addingLink = new Link(0, "", "", 0, "", "", null);
   redirectUrl = localStorage.getItem("RedirectUrl");
-  isEditing = false;
   isAdding = false;
 
   ngOnInit() {
-    this.accountDetailsService.getUserInfo(this.authService.login).subscribe((res) => {
-        this.user = res.json();
+     this.accountDetailsService.getUserInfo(this.authService.login).subscribe((res) => {
+
+        if (res.status == 200) {
+
+          this.user = res.json();
+        }
+
       },
       (err) => {
         if (err.status < 200 || err.status > 299) {
@@ -57,22 +59,23 @@ export class AccountDetailsComponent implements OnInit {
   }
 
   editLink(id: string, link: Link) {
+
+    link.tags.split(' ').filter(x => x == x);
+
     this.linkService.updateLink(id, link).subscribe((res) => {
       if (res.status == 200) {
         console.log("link successfully updated");
-        this.isEditing = false;
       }
     });
   }
 
   addLink(id: string, link: Link) {
-    this.isAdding = false;
-    link.shortLink = Md5.hashStr(link.originalLink).slice(0, 6).toString();
     link.creationDate = new Date();
     this.linkService.createLink(id, link).subscribe((res) => {
         if (res.status == 200) {
           console.log("link successfully created");
-          link.linkId = res.json();
+          link.linkId = res.json().linkId;
+          link.shortLink = res.json().shortedLink;
           this.user.links.push(link);
           this.addingLink = new Link(0, "", "", 0, "", "", null);
         }

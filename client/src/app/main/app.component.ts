@@ -10,11 +10,14 @@ export class AppComponent implements OnInit {
 
   private redirectUrl = "/api/v1/shortlinks/";
 
+  private pageSize="20";
+
   constructor(private authService: AuthService) {
   }
 
   ngOnInit() {
     localStorage.setItem("RedirectUrl", this.redirectUrl);
+    localStorage.setItem("PageSize",this.pageSize)
   }
 
 

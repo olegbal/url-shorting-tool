@@ -13,6 +13,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 
 export class LinkInfoComponent implements OnInit {
 
+
   constructor(private linkService: LinkService,
               private location: Location,
               private router: Router,
@@ -24,7 +25,7 @@ export class LinkInfoComponent implements OnInit {
 
   ngOnInit() {
 
-    this.activatedRoute.params.subscribe((params) => {
+  this.activatedRoute.params.subscribe((params) => {
 
       let param = params['id'];
 

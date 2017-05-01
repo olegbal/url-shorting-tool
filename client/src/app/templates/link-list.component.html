@@ -1,4 +1,9 @@
-<div *ngIf="!hidden">
+<div infinite-scroll
+     [infiniteScrollDistance]="1"
+     [infiniteScrollThrottle]="500"
+     [infiniteScrollDisabled]="isInCompleted"
+     (scrolled)="isInCompleted=true;loadLinks()">
+
   <table border="1">
     <tr>
       <th>
@@ -12,10 +17,14 @@
     </tr>
     <tr *ngFor="let link of links">
       <td>
-        <a (click)="redirectToUrl(link.shortLink)">{{link.shortLink}}</a>
+        <a class="text-primary"
+           routerLink="{{link.shortLink}}"
+           routerLinkActive="active"
+           (click)="redirectToUrl(link.shortLink)">{{link.shortLink}}
+        </a>
       </td>
       <td>
-        <a href={{link.originalLink}}>{{link.originalLink}}</a>
+        <a class="text-primary" href={{link.originalLink}}>{{link.originalLink}}</a>
       </td>
       <td>
         <button (click)="showDetails(link.linkId)">Show details</button>

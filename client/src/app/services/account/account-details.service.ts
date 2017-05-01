@@ -12,11 +12,11 @@ export class AccountDetailsService {
 
   private headers;
 
-  private url = "/api/v1/account?userName=";
+  private url = "/api/v1/account?";
 
   getUserInfo(userName: string) {
     this.headers = new Headers({'Auth': this.authService.token});
-    return this.http.get(this.url + userName, {headers: this.headers})
+    return this.http.get(this.url + 'userName=' + userName, {headers: this.headers})
   }
 
 }

@@ -1,6 +1,5 @@
-<div>
+<form>
   <h1>{{user.login}}</h1>
-
   <table border="1">
     <tr>
       <th>
@@ -24,32 +23,36 @@
     </tr>
     <tr *ngFor="let link of user.links">
       <td>
-        <a (click)="redirectToUrl(link.shortLink)">{{link.shortLink}}</a>
+        <a class="text-primary"
+           routerLink="{{link.shortLink}}"
+           routerLinkActive="active"
+           (click)="redirectToUrl(link.shortLink)">{{link.shortLink}}
+        </a>
       </td>
       <td>
-        <a href={{link.originalLink}}>{{link.originalLink}}</a>
+        <a class="text-primary" href={{link.originalLink}}>{{link.originalLink}}</a>
       </td>
       <td>
         {{link.clicksCount}}
       </td>
       <td>
+        <label *ngIf="!link.isEditing">{{link.summary}}</label>
+        <input *ngIf="link.isEditing" [(ngModel)]="link.summary" name="summaryEditor">
+      </td>
+      <td>
         {{link.creationDate}}
       </td>
       <td>
-        <label *ngIf="!isEditing">{{link.summary}}</label>
-        <input *ngIf="isEditing" [(ngModel)]="link.summary">
-      </td>
-      <td>
-        <div *ngIf="!isEditing">
+        <div *ngIf="!link.isEditing">
           <div *ngFor="let tag of link.tags.split(' ')">
             <a (click)="showLinksWithSameTag(tag)">{{tag}}</a>
           </div>
         </div>
-        <input *ngIf="isEditing" [(ngModel)]="link.tags">
+        <input *ngIf="link.isEditing" [(ngModel)]="link.tags" name="tagsEditor">
       </td>
       <td>
-        <button *ngIf="!isEditing" (click)="isEditing=true">Edit</button>
-        <button *ngIf="isEditing" (click)="editLink(user.userId,link)">Submit</button>
+        <button *ngIf="!link.isEditing" (click)="link.isEditing=true">Edit</button>
+        <button *ngIf="link.isEditing" (click)="editLink(user.userId,link);link.isEditing=false">Submit</button>
       </td>
       <td>
         <button (click)="removeLink(link.linkId)">Delete</button>
@@ -61,24 +64,24 @@
       </td>
       <td>
         <label>Link</label>
-        <input [(ngModel)]="addingLink.originalLink">
+        <input [(ngModel)]="addingLink.originalLink" name="originalLinkCreator">
       </td>
       <td>
 
       </td>
       <td>
         <label>Summary</label>
-        <input [(ngModel)]="addingLink.summary">
+        <input [(ngModel)]="addingLink.summary" name="summaryCreator">
       </td>
-      <td>
 
+      <td>
       </td>
       <td>
         <label>Tags(user space as delimeter)</label>
-        <input [(ngModel)]="addingLink.tags">
+        <input [(ngModel)]="addingLink.tags" name="tagsCreator">
       </td>
     </tr>
     <button *ngIf="!isAdding" (click)="isAdding=true">AddNew</button>
-    <button *ngIf="isAdding" (click)="addLink(user.userId,addingLink)">Submit</button>
+    <button *ngIf="isAdding" (click)="addLink(user.userId,addingLink);isAdding=false">Submit</button>
   </table>
-</div>
+</form>

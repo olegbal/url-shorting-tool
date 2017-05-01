@@ -20,10 +20,36 @@ export class LinkListComponent implements OnInit {
 
   links: Link[] = new Array<Link>();
   redirectUrl = localStorage.getItem("RedirectUrl");
+  page = 0;
+  isInCompleted = false;
+  addingLinks: Link[] = new Array<Link>();
 
   ngOnInit() {
-    this.linkService.getAllLinks().subscribe((res) => {
-        this.links = res.json();
+    this.loadLinks();
+  }
+
+  loadLinks() {
+   this.linkService.getAllLinks(this.page).subscribe((res) => {
+
+        if (res.status == 200) {
+
+          this.addingLinks = res.json();
+
+          if (this.addingLinks.length > 0) {
+
+
+            for (var i = 0; i < this.addingLinks.length; i++) {
+              if (!this.links.includes(this.addingLinks[i])) {
+                this.links.push(this.addingLinks[i]);
+              }
+
+            }
+
+
+            this.isInCompleted = false;
+            this.page++;
+          }
+        }
       },
       (err) => {
         if (err.status < 200 || err.status > 299) {

@@ -2,6 +2,7 @@ import {BrowserModule} from "@angular/platform-browser";
 import {NgModule} from "@angular/core";
 import {FormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {AppComponent} from "./app.component";
 import {AppRoutingModule} from "./routes/app-routig.module";
@@ -19,6 +20,7 @@ import {SameTagLinksComponent} from "../components/links/same-tag-links.componen
 import {RedirectorComponent} from "../components/links/redirector.component";
 import {LoginGuard} from "app/guards/login.guard";
 import {AuthService} from "app/services/auth/auth.service";
+import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,8 @@ import {AuthService} from "app/services/auth/auth.service";
     FormsModule,
     HttpModule,
     AppRoutingModule,
+    InfiniteScrollModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     LoginService,
