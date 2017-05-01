@@ -1,5 +1,6 @@
 package com.github.olegbal.urlshortingtool.controllers;
 
+import com.github.olegbal.urlshortingtool.domain.dto.CreatedLinkResponseDto;
 import com.github.olegbal.urlshortingtool.domain.dto.LinkDto;
 import com.github.olegbal.urlshortingtool.services.impl.LinkServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,10 +41,9 @@ public class LinkController {
     @RequestMapping(path = "", params = "userId", method = RequestMethod.POST)
     public ResponseEntity createUserLink(HttpServletRequest request, @RequestBody LinkDto linkDto, @RequestParam("userId") long id) {
 
-        long resultId = 0;
-        resultId = linkService.createLink(id, linkDto);
-        if (resultId != 0) {
-            return new ResponseEntity(resultId, HttpStatus.OK);
+        CreatedLinkResponseDto responseDto = linkService.createLink(id, linkDto);
+        if (responseDto != null) {
+            return new ResponseEntity(responseDto, HttpStatus.OK);
         }
         return new ResponseEntity(HttpStatus.NOT_MODIFIED);
 

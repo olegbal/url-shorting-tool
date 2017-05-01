@@ -2,12 +2,14 @@ package com.github.olegbal.urlshortingtool.services.impl;
 
 import com.github.olegbal.urlshortingtool.converters.dto.LinkDtoToEntityConverter;
 import com.github.olegbal.urlshortingtool.converters.entity.LinkEntityToDtoConverter;
+import com.github.olegbal.urlshortingtool.domain.dto.CreatedLinkResponseDto;
 import com.github.olegbal.urlshortingtool.domain.dto.LinkDto;
 import com.github.olegbal.urlshortingtool.domain.entity.Link;
 import com.github.olegbal.urlshortingtool.domain.entity.User;
 import com.github.olegbal.urlshortingtool.respositories.LinkRepository;
 import com.github.olegbal.urlshortingtool.respositories.UserRepository;
 import com.github.olegbal.urlshortingtool.services.LinkService;
+import com.github.olegbal.urlshortingtool.utils.encrypters.UrlShortener;
 import com.google.common.collect.Sets;
 import org.hibernate.TransactionException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,18 +52,6 @@ public class LinkServiceImpl implements LinkService {
     }
 
     @Override
-    public LinkDto getLinkInfoByShortLink(String shortLink) {
-
-        Link link = findByShortLink(shortLink);
-
-        if (link != null) {
-            return new LinkEntityToDtoConverter().convert(link);
-        }
-        return null;
-    }
-
-
-    @Override
     public String checkLink(String shortlink) {
 
         Link link = findByShortLink(shortlink);
@@ -90,28 +80,35 @@ public class LinkServiceImpl implements LinkService {
     }
 
     @Override
-    public long createLink(long userId, LinkDto linkDto) {
+    public CreatedLinkResponseDto createLink(long userId, LinkDto linkDto) {
 
         if (linkDto.getTags() != null || linkDto.getSummary() != null || linkDto.getOriginalLink() != null
                 || linkDto.getShortLink() != null || linkDto.getCreationDate() != null) {
 
+            //here will be some validations(originalLink+ not-latin sumbols of other fields)
+
 
             Link link = new LinkDtoToEntityConverter().convert(linkDto);
+
 
             User user = userRepository.findOne(userId);
 
             link.setUser(user);
-
+            link.setShortLink(new UrlShortener().shortUrl(linkDto.getOriginalLink()));
             user.getLinkSet().add(link);
+
 
             try {
                 userRepository.save(user);
-                return linkRepository.findByShortLink(link.getShortLink()).getLinkId();
+
+
+                long id = linkRepository.findByShortLink(link.getShortLink()).getLinkId();
+                return new CreatedLinkResponseDto(id, link.getShortLink());
             } catch (TransactionException ex) {
-                return 0;
+                return null;
             }
         }
-        return 0;
+        return null;
     }
 
     @Override

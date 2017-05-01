@@ -1,5 +1,6 @@
 package com.github.olegbal.urlshortingtool.services;
 
+import com.github.olegbal.urlshortingtool.domain.dto.CreatedLinkResponseDto;
 import com.github.olegbal.urlshortingtool.domain.dto.LinkDto;
 import com.github.olegbal.urlshortingtool.domain.entity.Link;
 import org.springframework.data.domain.Pageable;
@@ -13,15 +14,13 @@ public interface LinkService {
 
     Set<LinkDto> findAllLinks(Pageable pageable);
 
-    long createLink(long userId, LinkDto linkDto);
+    CreatedLinkResponseDto createLink(long userId, LinkDto linkDto);
 
     Set<LinkDto> findAllUsersLinks(Pageable pageable, long userId);
 
     boolean removeLink(long link);
 
     String checkLink(String shortlink);
-
-    LinkDto getLinkInfoByShortLink(String shortLink);
 
     Set<LinkDto> getLinksByTag(Pageable pageable, String tag);
 
