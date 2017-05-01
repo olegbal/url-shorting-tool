@@ -52,9 +52,9 @@ public class LinkController {
         LinkDto link = linkService.getByOriginalLink(url);
 
         if (link != null) {
-            return new ResponseEntity(link, HttpStatus.OK);
+            return new ResponseEntity(link, HttpStatus.CONFLICT);
         }
-        return new ResponseEntity(HttpStatus.NOT_FOUND);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 }
