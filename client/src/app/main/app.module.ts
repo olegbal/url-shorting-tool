@@ -2,7 +2,6 @@ import {BrowserModule} from "@angular/platform-browser";
 import {NgModule} from "@angular/core";
 import {FormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 
@@ -42,7 +41,6 @@ import {AuthService} from "app/services/auth/auth.service";
     HttpModule,
     AppRoutingModule,
     InfiniteScrollModule,
-    BrowserAnimationsModule,
   ],
   providers: [
     LoginService,
