@@ -83,7 +83,7 @@ public class LinkServiceImpl implements LinkService {
     public CreatedLinkResponseDto createLink(long userId, LinkDto linkDto) {
 
         if (linkDto.getTags() != null && linkDto.getSummary() != null && linkDto.getOriginalLink() != null
-                && linkDto.getShortLink() != null && linkDto.getCreationDate() != null && linkValidator.validate(linkDto.getOriginalLink())) {
+                && linkDto.getCreationDate() != null && linkValidator.validate(linkDto.getOriginalLink())) {
 
             Link link = new LinkDtoToEntityConverter().convert(linkDto);
 
