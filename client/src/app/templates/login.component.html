@@ -1,20 +1,27 @@
-<form>
-  <label for="loginField">Login </label>
-  <input type="text"
-         placeholder="Your Login"
-         id="loginField"
-         required
-         name="login"
-         [(ngModel)]="loginAndPassword.login"
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
-  >
-  <br>
-  <label>Password</label>
-  <input type="password"
-         placeholder="Your password"
-         name="pass"
-         id="passwordField"
-         [(ngModel)]="loginAndPassword.password">
-  <br>
-  <button (click)="logIn()">Log in</button>
+<form>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-offset-5 col-md-3">
+        <div class="form-login">
+          <input type="text" id="userName" class="form-control input-sm chat-input" placeholder="username"
+                 required
+                 name="login"
+                 [(ngModel)]="loginAndPassword.login"/>
+          <br>
+          <input type="text" id="userPassword" class="form-control input-sm chat-input" placeholder="password"
+                 name="pass"
+                 id="passwordField"
+                 [(ngModel)]="loginAndPassword.password"/>
+          <br>
+          <div class="wrapper">
+            <span class="group-btn">
+               <button class="btn btn-primary btn-md" (click)="logIn()">Log in</button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </form>
