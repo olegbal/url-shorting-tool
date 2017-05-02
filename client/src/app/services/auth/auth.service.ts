@@ -24,6 +24,6 @@ export class AuthService {
     this.isLoggedIn = false;
     this.token = "";
     this.login = "";
-    this.router.navigate(['/']);
+    this.router.navigate(['/links']);
   }
 }

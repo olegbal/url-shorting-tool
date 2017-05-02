@@ -6,9 +6,6 @@ import {Role} from "../../models/role";
 import {LinkService} from "../../services/links/link.service";
 import {Router} from "@angular/router";
 import {AuthService} from "../../services/auth/auth.service";
-import {ModalService} from "ng2-modal-dialog/modal.module";
-import {LinkExistsModal} from "../modals/link-exists.modal";
-import {AppModule} from "../../main/app.module";
 import {ToasterService} from "../../services/ui/ToasterService";
 
 
@@ -24,7 +21,6 @@ export class AccountDetailsComponent implements OnInit {
               private linkService: LinkService,
               private router: Router,
               private authService: AuthService,
-              private modalService: ModalService,
               private toasterService: ToasterService) {
   }
 
@@ -33,6 +29,8 @@ export class AccountDetailsComponent implements OnInit {
   editingLink;
   redirectUrl = localStorage.getItem("RedirectUrl");
   isAdding = false;
+  showDialog=false;
+  existingLinkFullAddres:String;
 
   ngOnInit() {
     this.accountDetailsService.getUserInfo(this.authService.login).subscribe((res) => {
@@ -57,10 +55,13 @@ export class AccountDetailsComponent implements OnInit {
 
   removeLink(id: string) {
 
+
     this.linkService.deleteLink(id).subscribe((res) => {
 
       if (res.status == 200) {
-        this.user.links.splice(this.user.links.indexOf(this.user.links.find(x => x.linkId.toString() === id)) + 1, 1);
+
+        this.user.links = this.user.links.filter(x => x.linkId != Number.parseInt(id));
+
         console.log("successfully deleted");
         this.toasterService.showToaster("Deleted");
       }
@@ -80,8 +81,10 @@ export class AccountDetailsComponent implements OnInit {
 
   addLink(id: string, link: Link) {
 
+
     this.linkService.checkIfLinkExist(link.originalLink).subscribe(
       (res) => {
+
         if (res.status == 200) {
           link.creationDate = new Date();
           this.linkService.createLink(id, link).subscribe((res) => {
@@ -108,8 +111,11 @@ export class AccountDetailsComponent implements OnInit {
       },
       (error) => {
         if (error.status == 409) {
-          this.modalService.create(AppModule, LinkExistsModal,
-            {originalLink: window.location.hostname + ':' + window.location.port + '/' + error.json().shortLink});
+
+           this.existingLinkFullAddres=window.location.hostname + ':'
+             + window.location.port + '/' + error.json().shortLink;
+          this.showDialog=true;
+
           this.flushAddingLink();
 
         }
@@ -123,7 +129,10 @@ export class AccountDetailsComponent implements OnInit {
   }
 
   startEditing(link: Link) {
-    this.editingLink = new Link(link.linkId, link.originalLink, link.shortLink, link.clicksCount, link.tags, link.summary, link.creationDate, link.idEditing);
+    this.editingLink =
+      new Link(link.linkId, link.originalLink,
+        link.shortLink, link.clicksCount, link.tags,
+        link.summary, link.creationDate, link.idEditing);
   }
 
   cancelEditing(link: Link) {

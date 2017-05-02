@@ -4,7 +4,9 @@ import {FormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
-import {ModalModule} from 'ng2-modal-dialog/modal.module';
+// import {ModalModule} from 'ng2-modal-dialog/modal.module';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {MaterialModule} from "@angular/material";
 import "hammerjs";
 
 import {AppComponent} from "./app.component";
@@ -23,10 +25,10 @@ import {SameTagLinksComponent} from "../components/links/same-tag-links.componen
 import {RedirectorComponent} from "../components/links/redirector.component";
 import {LoginGuard} from "app/guards/login.guard";
 import {AuthService} from "app/services/auth/auth.service";
-import {LinkExistsModal} from '../components/modals/link-exists.modal';
-import {MaterialModule} from "@angular/material";
+// import {LinkExistsModal} from '../components/modals/link-exists.modal';
+
 import {ToasterService} from "../services/ui/ToasterService";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {DialogComponent} from "app/components/modals/dialog.component";
 
 
 @NgModule({
@@ -39,7 +41,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     LinkInfoComponent,
     SameTagLinksComponent,
     RedirectorComponent,
-    LinkExistsModal,
+    DialogComponent
   ],
   imports: [
     NgbModule.forRoot(),
@@ -48,7 +50,6 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     HttpModule,
     AppRoutingModule,
     InfiniteScrollModule,
-    ModalModule,
     MaterialModule.forRoot(),
     BrowserAnimationsModule,
 
