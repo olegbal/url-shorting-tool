@@ -31,7 +31,7 @@
     </td>
     <td>
       <div *ngFor="let tag of currentLink.tags.split(' ')">
-        <a (click)="showLinksWithSameTag(tag)">{{tag}}</a>
+        <a class="text-primary" (click)="showLinksWithSameTag(tag)">{{tag}}</a>
       </div>
     </td>
   </tr>
