@@ -4,6 +4,7 @@ import {FormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
+import { ModalModule } from 'ng2-modal-dialog/modal.module';
 
 import {AppComponent} from "./app.component";
 import {AppRoutingModule} from "./routes/app-routig.module";
@@ -21,6 +22,7 @@ import {SameTagLinksComponent} from "../components/links/same-tag-links.componen
 import {RedirectorComponent} from "../components/links/redirector.component";
 import {LoginGuard} from "app/guards/login.guard";
 import {AuthService} from "app/services/auth/auth.service";
+import { LinkExistsModal } from '../components/modals/link-exists.modal';
 
 
 @NgModule({
@@ -33,6 +35,7 @@ import {AuthService} from "app/services/auth/auth.service";
     LinkInfoComponent,
     SameTagLinksComponent,
     RedirectorComponent,
+    LinkExistsModal,
   ],
   imports: [
     NgbModule.forRoot(),
@@ -41,6 +44,8 @@ import {AuthService} from "app/services/auth/auth.service";
     HttpModule,
     AppRoutingModule,
     InfiniteScrollModule,
+    ModalModule,
+
   ],
   providers: [
     LoginService,
