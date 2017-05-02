@@ -13,6 +13,20 @@
          name="password"
          id="passwordField"
          [(ngModel)]="loginAndPassword.password"
+
   >
+  <br>
+  <div class="radio">
+    <label><input (click)="adminSelected=false;loginAndPassword.serialNumber=''" type="radio"
+                  name="optradio">User</label>
+  </div>
+  <div class="radio">
+    <label><input (click)="adminSelected=true;" type="radio" name="optradio">Admin</label>
+  </div>
+  <div *ngIf="adminSelected">
+    <label>Serial Number</label>
+    <input type="text" name="serialNumberInput" [(ngModel)]="loginAndPassword.serialNumber">
+  </div>
+
 </form>
 <button (click)="registerUser()">Submit</button>

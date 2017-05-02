@@ -24,8 +24,6 @@
     <tr *ngFor="let link of user.links">
       <td>
         <a class="text-primary"
-           routerLink="{{link.shortLink}}"
-           routerLinkActive="active"
            (click)="redirectToUrl(link.shortLink)">{{link.shortLink}}
         </a>
       </td>
@@ -81,7 +79,7 @@
         <input [(ngModel)]="addingLink.tags" name="tagsCreator">
       </td>
     </tr>
-    <button *ngIf="!isAdding" (click)="isAdding=true">AddNew</button>
+    <button *ngIf="!isAdding" (click)="clickAddLinkButton()">Add new link</button>
     <button *ngIf="isAdding" (click)="addLink(user.userId,addingLink);isAdding=false">Submit</button>
   </table>
 </form>

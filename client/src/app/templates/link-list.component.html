@@ -18,8 +18,6 @@
     <tr *ngFor="let link of links">
       <td>
         <a class="text-primary"
-           routerLink="{{link.shortLink}}"
-           routerLinkActive="active"
            (click)="redirectToUrl(link.shortLink)">{{link.shortLink}}
         </a>
       </td>
