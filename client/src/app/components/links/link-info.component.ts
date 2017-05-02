@@ -18,6 +18,7 @@ export class LinkInfoComponent implements OnInit {
               private location: Location,
               private router: Router,
               private activatedRoute: ActivatedRoute) {
+
   }
 
   currentLink: Link = new Link(0, "", "", 0, "", "", null);

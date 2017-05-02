@@ -1,4 +1,10 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400);
+
+.loginForm{
+  margin-top:10%;
+  margin-left:38%;
+}
+
 body {
   background-color:#fff;
   -webkit-font-smoothing: antialiased;
@@ -7,6 +13,7 @@ body {
 
 .container {
   padding: 25px;
+
   position: fixed;
 }
 
@@ -20,6 +27,8 @@ body {
   border-color:#d2d2d2;
   border-width: 5px;
   box-shadow:0 1px 0 #cfcfcf;
+  height: 200px;
+  width:300px;
 }
 
 h4 {

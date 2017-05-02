@@ -9,6 +9,7 @@ import {AuthService} from "../../services/auth/auth.service";
 import {ModalService} from "ng2-modal-dialog/modal.module";
 import {LinkExistsModal} from "../modals/link-exists.modal";
 import {AppModule} from "../../main/app.module";
+import {ToasterService} from "../../services/ui/ToasterService";
 
 
 @Component({
@@ -23,11 +24,13 @@ export class AccountDetailsComponent implements OnInit {
               private linkService: LinkService,
               private router: Router,
               private authService: AuthService,
-              private modalService: ModalService) {
+              private modalService: ModalService,
+              private toasterService: ToasterService) {
   }
 
   user: User = new User(0, "", "", new Array<Role>(), new Array<Link>());
   addingLink = new Link(0, "", "", 0, "", "", null);
+  editingLink;
   redirectUrl = localStorage.getItem("RedirectUrl");
   isAdding = false;
 
@@ -42,6 +45,7 @@ export class AccountDetailsComponent implements OnInit {
       },
       (err) => {
         if (err.status < 200 || err.status > 299) {
+          this.toasterService.showToaster("Failed to get account data");
           console.log("Failed to get account data", err)
         }
       });
@@ -58,6 +62,7 @@ export class AccountDetailsComponent implements OnInit {
       if (res.status == 200) {
         this.user.links.splice(this.user.links.indexOf(this.user.links.find(x => x.linkId.toString() === id)) + 1, 1);
         console.log("successfully deleted");
+        this.toasterService.showToaster("Deleted");
       }
     });
   }
@@ -68,6 +73,7 @@ export class AccountDetailsComponent implements OnInit {
     this.linkService.updateLink(id, link).subscribe((res) => {
       if (res.status == 200) {
         console.log("link successfully updated");
+        this.toasterService.showToaster("Updated");
       }
     });
   }
@@ -81,6 +87,7 @@ export class AccountDetailsComponent implements OnInit {
           this.linkService.createLink(id, link).subscribe((res) => {
               if (res.status == 200) {
                 console.log("link successfully created");
+                this.toasterService.showToaster("Created");
                 link.linkId = res.json().linkId;
                 link.shortLink = res.json().shortedLink;
                 this.user.links.push(link);
@@ -90,9 +97,8 @@ export class AccountDetailsComponent implements OnInit {
             (error) => {
               if (error.status < 200 || error.status > 299) {
 
-                this.addingLink.originalLink = "";
-                this.addingLink.summary = "";
-                this.addingLink.tags = "";
+                this.flushAddingLink();
+                this.toasterService.showToaster("Cannot create link");
                 console.log("Cannot create link", error);
 
               }
@@ -104,11 +110,8 @@ export class AccountDetailsComponent implements OnInit {
         if (error.status == 409) {
           this.modalService.create(AppModule, LinkExistsModal,
             {originalLink: window.location.hostname + ':' + window.location.port + '/' + error.json().shortLink});
-          this.addingLink.originalLink = "";
-          this.addingLink.summary = "";
-          this.addingLink.tags = "";
+          this.flushAddingLink();
 
-          //POPUP WILL BE SOON
         }
 
       });
@@ -116,10 +119,28 @@ export class AccountDetailsComponent implements OnInit {
 
   showLinksWithSameTag(tag: string) {
     this.router.navigate(['/links/tag/' + tag]);
+
   }
 
-  clickAddLinkButton() {
-    this.isAdding = true;
+  startEditing(link: Link) {
+    this.editingLink = new Link(link.linkId, link.originalLink, link.shortLink, link.clicksCount, link.tags, link.summary, link.creationDate, link.idEditing);
+  }
+
+  cancelEditing(link: Link) {
+    link.originalLink = this.editingLink.originalLink;
+    link.summary = this.editingLink.summary;
+    link.tags = this.editingLink.tags;
+  }
+
+  flushAddingLink() {
+    this.addingLink.originalLink = "";
+    this.addingLink.summary = "";
+    this.addingLink.tags = "";
+  }
+
+  cancelAdding(link: Link) {
+    this.flushAddingLink();
+    this.isAdding = false;
   }
 
 }

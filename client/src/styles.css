@@ -5,3 +5,28 @@ a {
 tr {
   height: 80px;
 }
+
+.cdk-visually-hidden {
+  display: none;
+}
+
+.cdk-overlay-container {
+  position: fixed;
+  top: 40%;
+  right: 30%;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+table {
+  position: absolute;
+  top: 20%;
+  table-layout: fixed;
+  word-wrap:break-word;
+}
+
+

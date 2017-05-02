@@ -1,16 +1,16 @@
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
-<form>
-  <div class="container">
+<form class="loginForm">
+  <div class="container center-block">
     <div class="row">
       <div class="col-md-offset-5 col-md-3">
         <div class="form-login">
-          <input type="text" id="userName" class="form-control input-sm chat-input" placeholder="username"
+          <input type="text" id="LoginUserName" class="form-control input-sm chat-input" placeholder="username"
                  required
                  name="login"
                  [(ngModel)]="loginAndPassword.login"/>
           <br>
-          <input type="text" id="userPassword" class="form-control input-sm chat-input" placeholder="password"
+          <input type="password" id="LoginUserPassword" class="form-control input-sm chat-input" placeholder="password"
                  name="pass"
                  id="passwordField"
                  [(ngModel)]="loginAndPassword.password"/>

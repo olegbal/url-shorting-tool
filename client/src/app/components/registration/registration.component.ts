@@ -4,6 +4,7 @@ import {Response} from "@angular/http";
 import {RegistrationService} from "../../services/registration/registration.service";
 import {Router} from "@angular/router";
 import {LoginAndPassword} from "../../models/loginAndPassword";
+import {ToasterService} from "../../services/ui/ToasterService";
 
 @Component({
 
@@ -16,7 +17,8 @@ import {LoginAndPassword} from "../../models/loginAndPassword";
 export class RegistrationComponent {
 
   constructor(private registrationService: RegistrationService,
-              private router: Router) {
+              private router: Router,
+              private toasterService: ToasterService) {
   }
 
   loginAndPassword: LoginAndPassword = new LoginAndPassword("", "", "");
@@ -26,6 +28,8 @@ export class RegistrationComponent {
     this.registrationService.register(this.loginAndPassword).subscribe(
       (res: Response) => {
         if (res.status == 200) {
+          this.toasterService.showToaster("Successfully registered!Now you can log in");
+          console.log("User registered");
           this.router.navigate(['/']);
         }
       },
@@ -34,6 +38,7 @@ export class RegistrationComponent {
           this.loginAndPassword.login = "";
           this.loginAndPassword.password = "";
           this.loginAndPassword.serialNumber = "";
+          this.toasterService.showToaster("Registration failed!");
           console.log("Registration failed")
         }
       }));

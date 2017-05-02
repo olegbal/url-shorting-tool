@@ -1,25 +1,60 @@
 <form>
   <h1>{{user.login}}</h1>
-  <table border="1">
+  <button class="btn btn-primary btn-lg fixed-bottom" *ngIf="!isAdding" (click)="this.isAdding = true;">Add new link
+  </button>
+
+  <table class="table table table-striped table-bordered">
+    <thead>
     <tr>
-      <th>
+      <th width="6%">
         Shorted url
       </th>
-      <th>
+      <th width="25%">
         Original url
       </th>
-      <th>
+      <th width="5%">
         Clicks count
       </th>
-      <th>
+      <th width="10%">
         Summary
       </th>
-      <th>
+      <th width="9%">
         Creation date
       </th>
-      <th>
+      <th width="10%">
         Tags
       </th>
+      <th width="6%">
+      </th>
+      <th width="6%">
+      </th>
+    </tr>
+    </thead>
+    <tr class="fixed-bottom bg-primary" *ngIf="isAdding">
+      <td>
+      </td>
+      <td>
+        <label>Link</label>
+        <input [(ngModel)]="addingLink.originalLink" name="originalLinkCreator">
+      </td>
+      <td>
+
+      </td>
+      <td>
+        <label>Summary</label>
+        <input [(ngModel)]="addingLink.summary" name="summaryCreator">
+      </td>
+
+      <td>
+      </td>
+      <td>
+        <label class="">Tags(use space as delimeter)</label>
+        <input [(ngModel)]="addingLink.tags" name="tagsCreator">
+        <button class="btn btn-danger" *ngIf="isAdding" (click)="cancelAdding()">Cancel</button>
+        <button class="btn btn-success" *ngIf="isAdding"
+                (click)="addLink(user.userId,addingLink);isAdding=false">Submit
+        </button>
+      </td>
     </tr>
     <tr *ngFor="let link of user.links">
       <td>
@@ -49,37 +84,19 @@
         <input *ngIf="link.isEditing" [(ngModel)]="link.tags" name="tagsEditor">
       </td>
       <td>
-        <button *ngIf="!link.isEditing" (click)="link.isEditing=true">Edit</button>
-        <button *ngIf="link.isEditing" (click)="editLink(user.userId,link);link.isEditing=false">Submit</button>
+        <button class="btn btn-outline-success" *ngIf="!link.isEditing"
+                (click)="startEditing(link);link.isEditing=true;">Edit
+        </button>
+        <button class="btn btn-outline-danger" *ngIf="link.isEditing"
+                (click)="cancelEditing(link);link.isEditing=false">Cancel
+        </button>
+        <button class="btn btn-outline-success" *ngIf="link.isEditing"
+                (click)="editLink(user.userId,link);link.isEditing=false">Submit
+        </button>
       </td>
       <td>
-        <button (click)="removeLink(link.linkId)">Delete</button>
+        <button class="btn btn-outline-danger" (click)="removeLink(link.linkId)">Delete</button>
       </td>
     </tr>
-    <tr *ngIf="isAdding">
-      <td>
-
-      </td>
-      <td>
-        <label>Link</label>
-        <input [(ngModel)]="addingLink.originalLink" name="originalLinkCreator">
-      </td>
-      <td>
-
-      </td>
-      <td>
-        <label>Summary</label>
-        <input [(ngModel)]="addingLink.summary" name="summaryCreator">
-      </td>
-
-      <td>
-      </td>
-      <td>
-        <label>Tags(user space as delimeter)</label>
-        <input [(ngModel)]="addingLink.tags" name="tagsCreator">
-      </td>
-    </tr>
-    <button *ngIf="!isAdding" (click)="clickAddLinkButton()">Add new link</button>
-    <button *ngIf="isAdding" (click)="addLink(user.userId,addingLink);isAdding=false">Submit</button>
   </table>
 </form>
