@@ -45,9 +45,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/").permitAll()
                 .antMatchers("/favicon.ico").permitAll()
-                .antMatchers("**/*.html").permitAll()
-                .antMatchers("**/*.css").permitAll()
-                .antMatchers("**/*.js").permitAll()
+                .antMatchers("/**.html").permitAll()
+                .antMatchers("/**.css").permitAll()
+                .antMatchers("/**.js").permitAll()
 
 //                .antMatchers("/api/v1/links?userId=**").hasRole("USER")
 //                .antMatchers(HttpMethod.DELETE, "/api/v1/links/{id}").hasRole("USER")
