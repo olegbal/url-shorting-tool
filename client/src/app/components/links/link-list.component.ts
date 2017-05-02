@@ -21,7 +21,7 @@ export class LinkListComponent implements OnInit {
   links: Link[] = new Array<Link>();
   redirectUrl = localStorage.getItem("RedirectUrl");
   page = 0;
-  isInCompleted = false;
+  isInCompleted = true;
   addingLinks: Link[] = new Array<Link>();
 
   ngOnInit() {
@@ -29,6 +29,7 @@ export class LinkListComponent implements OnInit {
   }
 
   loadLinks() {
+    if(this.isInCompleted){
    this.linkService.getAllLinks(this.page).subscribe((res) => {
 
         if (res.status == 200) {
@@ -49,6 +50,9 @@ export class LinkListComponent implements OnInit {
             this.isInCompleted = false;
             this.page++;
           }
+          else {
+            this.isInCompleted=true;
+          }
         }
       },
       (err) => {
@@ -56,6 +60,7 @@ export class LinkListComponent implements OnInit {
           console.log("Cannot get links", err)
         }
       });
+    }
   }
 
   showDetails(id: string) {

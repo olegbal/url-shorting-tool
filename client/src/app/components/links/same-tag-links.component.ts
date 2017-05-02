@@ -23,7 +23,7 @@ export class SameTagLinksComponent implements OnInit {
   links: Link[] = new Array<Link>();
   redirectUrl = localStorage.getItem("RedirectUrl");
   addingLinks: Link[] = new Array<Link>();
-  isInCompleted = false;
+  isInCompleted = true;
   page = 0;
 
   ngOnInit() {
@@ -31,7 +31,7 @@ export class SameTagLinksComponent implements OnInit {
   }
 
   loadLinks() {
-
+    if(this.isInCompleted){
     this.activatedRoute.params.subscribe((res) => {
       let param = res['tagName'];
       this.linkService.getLinkByTag(param, this.page).subscribe((res) => {
@@ -52,8 +52,11 @@ export class SameTagLinksComponent implements OnInit {
 
               this.isInCompleted = false;
             }
+            else {
+              this.isInCompleted=true;
+            }
           }
-        },
+      },
         (err) => {
           if (err.status < 200 || err.status > 299) {
             console.log("Cannot get Link by tag " + param, err);
@@ -61,8 +64,8 @@ export class SameTagLinksComponent implements OnInit {
           }
         });
     });
-
   }
+}
 
   showDetails(id: string) {
     this.router.navigate(['/links/' + id])
