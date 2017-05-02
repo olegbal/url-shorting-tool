@@ -26,7 +26,7 @@ public class UserController {
         return new ResponseEntity(userService.getUserByLogin(userName), HttpStatus.OK);
     }
 
-    @RequestMapping(path = "/api/v1/users")
+    @RequestMapping(path = "/api/v1/users",method = RequestMethod.GET)
     public ResponseEntity getRegisteredUsers() {
 
         return new ResponseEntity(userService.getRegisteredUsers(), HttpStatus.OK);
