@@ -102,7 +102,6 @@ export class AccountDetailsComponent implements OnInit {
       },
       (error) => {
         if (error.status == 409) {
-
           this.modalService.create(AppModule, LinkExistsModal,
             {originalLink: window.location.hostname + ':' + window.location.port + '/' + error.json().shortLink});
           this.addingLink.originalLink = "";
