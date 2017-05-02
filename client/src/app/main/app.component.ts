@@ -10,14 +10,16 @@ export class AppComponent implements OnInit {
 
   private redirectUrl = "/api/v1/shortlinks/";
 
-  private pageSize="20";
+  private pageSize="10";
 
   constructor(private authService: AuthService) {
   }
+   // Service callback function to create the modal with an object passed as a parameter
+
 
   ngOnInit() {
     localStorage.setItem("RedirectUrl", this.redirectUrl);
-    localStorage.setItem("PageSize",this.pageSize)
+    localStorage.setItem("PageSize",this.pageSize);
   }
 
 
