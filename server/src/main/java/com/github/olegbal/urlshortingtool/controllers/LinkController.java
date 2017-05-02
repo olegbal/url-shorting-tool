@@ -54,7 +54,7 @@ public class LinkController {
         if (link != null) {
             return new ResponseEntity(link, HttpStatus.CONFLICT);
         }
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(link.shortLink,HttpStatus.OK);
     }
 
 }
