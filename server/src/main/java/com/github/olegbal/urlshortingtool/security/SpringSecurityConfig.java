@@ -40,7 +40,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().and()
                 .anonymous().and()
                 .servletApi().and()
-                .headers().cacheControl().and()
+                .headers().and()
                 .authorizeRequests()
 
                 .antMatchers("/").permitAll()
