@@ -29,8 +29,8 @@ export class AccountDetailsComponent implements OnInit {
   editingLink;
   redirectUrl = localStorage.getItem("RedirectUrl");
   isAdding = false;
-  showDialog=false;
-  existingLinkFullAddres:String;
+  showDialog = false;
+  existingLinkFullAddres: String;
 
   ngOnInit() {
     this.accountDetailsService.getUserInfo(this.authService.login).subscribe((res) => {
@@ -38,6 +38,8 @@ export class AccountDetailsComponent implements OnInit {
         if (res.status == 200) {
 
           this.user = res.json();
+
+
         }
 
       },
@@ -81,7 +83,6 @@ export class AccountDetailsComponent implements OnInit {
 
   addLink(id: string, link: Link) {
 
-
     this.linkService.checkIfLinkExist(link.originalLink).subscribe(
       (res) => {
 
@@ -112,9 +113,9 @@ export class AccountDetailsComponent implements OnInit {
       (error) => {
         if (error.status == 409) {
 
-           this.existingLinkFullAddres=window.location.hostname + ':'
-             + window.location.port + '/' + error.json().shortLink;
-          this.showDialog=true;
+          this.existingLinkFullAddres = window.location.hostname + ':'
+            + window.location.port + '/' + error.json().shortLink;
+          this.showDialog = true;
 
           this.flushAddingLink();
 
@@ -151,5 +152,5 @@ export class AccountDetailsComponent implements OnInit {
     this.flushAddingLink();
     this.isAdding = false;
   }
-
+  
 }
