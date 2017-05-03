@@ -2,17 +2,19 @@
 
 Url shorter written with using angular-2 framework(on client side) and spring framework(on server side)
 
-###Important info 
+#Important info 
 
 Backend has feature that removes expired links. I set expiring period on 60 seconds(for demonstrating only).
 To change expiring period see com.github.olegbal.urlshortingtool.services.impl.ExpiredLinksServiceImpl class
 
-```
+#Prerequisites
 Make sure that you have inststalled 
 
+```
 * nodejs v6.9.5 and higher.
 * jdk 8
 * maven 
+```
 
 ## Installing
 
@@ -20,9 +22,7 @@ Make sure that you have inststalled
 cd ./client
 npm install
 ```
-
 #Running
-
 
 ###Client 
 
