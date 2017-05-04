@@ -15,27 +15,26 @@ import javax.xml.ws.Response;
 @RestController
 public class UserController {
 
-    @Qualifier("userServiceImpl")
     @Autowired
-    private UserServiceImpl userService;
+    private UserServiceImpl userServiceImpl;
 
     @PreAuthorize("@userPreAuthorizeService.checkRightsToUrlByUsername(#request,#userName)")
     @RequestMapping(path = "/api/v1/account", params = "userName", method = RequestMethod.GET)
     public ResponseEntity getUserDetails(HttpServletRequest request, @RequestParam("userName") String userName) {
 
-        return new ResponseEntity(userService.getUserByLogin(userName), HttpStatus.OK);
+        return new ResponseEntity(userServiceImpl.getUserByLogin(userName), HttpStatus.OK);
     }
 
     @RequestMapping(path = "/api/v1/users",method = RequestMethod.GET)
     public ResponseEntity getRegisteredUsers() {
 
-        return new ResponseEntity(userService.getRegisteredUsers(), HttpStatus.OK);
+        return new ResponseEntity(userServiceImpl.getRegisteredUsers(), HttpStatus.OK);
     }
 
     @RequestMapping(path = "/api/v1/user/{id}", method = RequestMethod.DELETE)
     public ResponseEntity deleteUser(@PathVariable long id) {
 
-        if (userService.deleteUser(id)) {
+        if (userServiceImpl.deleteUser(id)) {
             return new ResponseEntity(HttpStatus.OK);
         }
         return new ResponseEntity(HttpStatus.NOT_MODIFIED);

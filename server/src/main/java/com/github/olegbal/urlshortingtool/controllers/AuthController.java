@@ -15,13 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 
-@RestController
+@RestController("authController")
 @RequestMapping("/api/v1/")
 public class AuthController {
 
-    @Qualifier("userServiceImpl")
     @Autowired
-    private UserServiceImpl userService;
+    private UserServiceImpl userServiceImpl;
 
     @Autowired
     private TokenAuthenticationService tokenAuthenticationService;
@@ -41,7 +40,7 @@ public class AuthController {
     @RequestMapping(path = "register", method = RequestMethod.POST)
     public ResponseEntity register(@RequestBody RegistrationDto registrationDto) {
 
-        if (userService.createUser(registrationDto)) {
+        if (userServiceImpl.createUser(registrationDto)) {
             return new ResponseEntity(HttpStatus.OK);
         }
         return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
