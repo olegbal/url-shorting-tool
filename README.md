@@ -2,17 +2,19 @@
 
 Url shorter written with using angular-2 framework(on client side) and spring framework(on server side)
 
-###Important info 
+# Important info 
 
 Backend has feature that removes expired links. I set expiring period on 60 seconds(for demonstrating only).
 To change expiring period see com.github.olegbal.urlshortingtool.service.impl.ExpiredLinksServiceImpl class
 
-```
+# Prerequisites
 Make sure that you have inststalled 
 
+```
 * nodejs v6.9.5 and higher.
 * jdk 8
 * maven 
+```
 
 ## Installing
 
@@ -20,11 +22,9 @@ Make sure that you have inststalled
 cd ./client
 npm install
 ```
+# Running
 
-#Running
-
-
-###Client 
+### Client 
 
 To run client use
 ```
@@ -33,9 +33,9 @@ npm start
 ```
 Client port 4200
 
-###Server
+### Server
 
-To run server use
+To run server
 
 ```
 cd ./server
@@ -44,14 +44,19 @@ mvn spring-boot:run
 
 Server  port 8080
 
+# Testing
 
-##Server api
+```
+mvn test
+```
 
-###Auth
+## Server api
+
+### Auth
 * POST /api/v1/login -log in system.
 * POST /api/v1/register - register with role user/admin. 
 
-###Links
+### Links
 
 * GET  /api/v1/links?page=0&size=5 -- getting paginated links
 * GET  /api/v1/links?tag=tagname&page=0&size=5 -- get paged links by tag
@@ -62,16 +67,16 @@ Server  port 8080
 * PUT  /api/v1/links?userId=1 -- update user's link
 * DELETE /api/v1/links/{id} remove link by id
 
-###Shortedlinks
+### Shortedlinks
 * GET /api/v1/shortlinks/{linkValue} find original link in db and redirect to it (by shorted link)
 
-###Users
+### Users
 * GET /api/v1/account?userName="login" -- get user account details (logn + links)
 
 * GET /api/v1/users -- get all registered users with role USER (will be in admin cabinet)
 * DELETE /api/v1/user/{id} --remove user by id
 
-###Production mode
+### Production mode
 
 To make unified jar file use
 
