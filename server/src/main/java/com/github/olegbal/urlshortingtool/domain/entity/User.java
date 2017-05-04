@@ -38,6 +38,13 @@ public class User implements UserDetails {
         roles = new HashSet<Role>();
     }
 
+    public User(String login, String password, Set<Link> linkSet, Set<Role> roles) {
+        this.login = login;
+        this.password = password;
+        this.linkSet = linkSet;
+        this.roles = roles;
+    }
+
     public Set<Role> getRoles() {
         return roles;
     }

@@ -41,6 +41,16 @@ public class Link {
     public Link() {
     }
 
+    public Link(String originalLink, String shortLink, int clicksCount, String tags, String summary, Date creationDate, User user) {
+        this.originalLink = originalLink;
+        this.shortLink = shortLink;
+        this.clicksCount = clicksCount;
+        this.tags = tags;
+        this.summary = summary;
+        this.creationDate = creationDate;
+        this.user = user;
+    }
+
     public long getLinkId() {
         return linkId;
     }
