@@ -2,6 +2,7 @@ package dao;
 
 import com.github.olegbal.urlshortingtool.Application;
 import com.github.olegbal.urlshortingtool.domain.entity.Link;
+import com.github.olegbal.urlshortingtool.domain.entity.User;
 import com.github.olegbal.urlshortingtool.respositories.LinkRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,10 +11,14 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
+import java.util.HashSet;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
@@ -50,6 +55,29 @@ public class LinkRepositoryTest {
 
     @Test
     public void findByUserIdShouldReturnLinkPage() throws Exception {
+
+        User user = new User("user1", "user1", new HashSet<Link>(), null);
+
+        user.getLinkSet().add(new Link("http://github.com",
+                "Abcdef", 0, "tag1 tag2",
+                "summary 1", new Date(), user));
+        user.getLinkSet().add(new Link("http://link2.com",
+                "Ghijkl", 0, "tag3 tag4",
+                "summary 2", new Date(), user));
+        this.entityManager.persist(user);
+
+
+        assertThat(this.repository.findByUserUserId(new PageRequest(0, 1),
+                (long) this.entityManager.getId(user)).getSize())
+                .isEqualTo(1);
+
+        assertThat(this.repository.findByUserUserId(new PageRequest(0, 2),
+                (long) this.entityManager.getId(user)).getSize())
+                .isEqualTo(2);
+
+        assertThat(this.repository.findByUserUserId(new PageRequest(1, 1),
+                (long) this.entityManager.getId(user)).getSize())
+                .isEqualTo(1);
 
 
     }
