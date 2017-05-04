@@ -1,4 +1,4 @@
-package services;
+package com.github.olegbal.urlshortingtool.services;
 
 
 import com.github.olegbal.urlshortingtool.Application;
@@ -19,9 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.Arrays;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
