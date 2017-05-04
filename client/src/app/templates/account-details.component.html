@@ -1,7 +1,5 @@
 <form *ngIf="user.links.length>0">
   <h1>{{user.login}}</h1>
-  <button class="btn btn-primary btn-lg fixed-bottom" *ngIf="!isAdding" (click)="this.isAdding = true;">Add new link
-  </button>
 
   <table class="table table table-striped table-bordered">
     <thead>
@@ -109,3 +107,5 @@
     </div>
   </div>
 </app-dialog>
+<button class="btn btn-primary btn-lg fixed-bottom" *ngIf="!isAdding" (click)="this.isAdding = true;">Add new link
+</button>
