@@ -9,6 +9,11 @@ public class LoginDto {
     public LoginDto() {
     }
 
+    public LoginDto(String login, String password) {
+        this.login = login;
+        this.password = password;
+    }
+
     public String getLogin() {
         return login;
     }

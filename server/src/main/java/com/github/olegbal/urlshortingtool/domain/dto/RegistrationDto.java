@@ -10,6 +10,12 @@ public class RegistrationDto {
     public RegistrationDto() {
     }
 
+    public RegistrationDto(String login, String password, String serialNumber) {
+        this.login = login;
+        this.password = password;
+        this.serialNumber = serialNumber;
+    }
+
     public String getLogin() {
         return login;
     }
