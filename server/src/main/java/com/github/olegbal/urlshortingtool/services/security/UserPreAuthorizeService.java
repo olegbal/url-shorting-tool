@@ -2,6 +2,7 @@ package com.github.olegbal.urlshortingtool.services.security;
 
 import com.github.olegbal.urlshortingtool.domain.entity.Link;
 import com.github.olegbal.urlshortingtool.domain.entity.User;
+import com.github.olegbal.urlshortingtool.enums.RolesEnum;
 import com.github.olegbal.urlshortingtool.respositories.LinkRepository;
 import com.github.olegbal.urlshortingtool.respositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class UserPreAuthorizeService {
 
         if (requestingUser != null) {
             if (requestingUser.getUserId() == id
-                    || requestingUser.getRoles().stream().anyMatch(x -> x.getRoleName().equals("ROLE_ADMIN"))) {
+                    || requestingUser.getRoles().stream().anyMatch(x -> x.getRoleName().equals(RolesEnum.ADMIN.role_name))) {
                 return true;
             }
         }
@@ -42,7 +43,7 @@ public class UserPreAuthorizeService {
 
         if (requestingUser != null) {
             if (requestingUser.getUsername().equals(userName)
-                    || requestingUser.getRoles().stream().anyMatch(x -> x.getRoleName().equals("ROLE_ADMIN"))) {
+                    || requestingUser.getRoles().stream().anyMatch(x -> x.getRoleName().equals(RolesEnum.ADMIN.role_name))) {
                 return true;
             }
         }

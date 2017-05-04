@@ -5,6 +5,7 @@ import com.github.olegbal.urlshortingtool.domain.dto.RegistrationDto;
 import com.github.olegbal.urlshortingtool.domain.dto.UserDto;
 import com.github.olegbal.urlshortingtool.domain.entity.Role;
 import com.github.olegbal.urlshortingtool.domain.entity.User;
+import com.github.olegbal.urlshortingtool.enums.RolesEnum;
 import com.github.olegbal.urlshortingtool.respositories.UserRepository;
 import com.github.olegbal.urlshortingtool.services.UserService;
 import org.hibernate.TransactionException;
@@ -72,9 +73,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             Role role = null;
 
             if (registrationDto.getSerialNumber().equals("")) {
-                role = roleService.getByRoleName("ROLE_USER");
+                role = roleService.getByRoleName(RolesEnum.ADMIN.role_name);
             } else if (registrationDto.getSerialNumber().equals(serialNumber)) {
-                role = roleService.getByRoleName("ROLE_ADMIN");
+                role = roleService.getByRoleName(RolesEnum.USER.role_name);
             } else if (!registrationDto.getSerialNumber().equals(serialNumber)) {
                 return false;
             }
@@ -96,7 +97,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public Set<UserDto> getRegisteredUsers() {
 
         try {
-            Set<User> users = roleService.getByRoleName("ROLE_USER").getUsers();
+            Set<User> users = roleService.getByRoleName(RolesEnum.USER.role_name).getUsers();
 
             return new UserEntityToDtoConverter().convertSet(users);
         } catch (Exception ex) {
