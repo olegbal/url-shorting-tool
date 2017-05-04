@@ -35,7 +35,7 @@ Client port 4200
 
 ### Server
 
-To run server use
+To run server
 
 ```
 cd ./server
@@ -44,6 +44,11 @@ mvn spring-boot:run
 
 Server  port 8080
 
+# Testing
+
+```
+mvn test
+```
 
 ## Server api
 
