@@ -6,6 +6,7 @@ import com.github.olegbal.urlshortingtool.domain.dto.RegistrationDto;
 import com.github.olegbal.urlshortingtool.domain.dto.UserDto;
 import com.github.olegbal.urlshortingtool.domain.entity.Role;
 import com.github.olegbal.urlshortingtool.domain.entity.User;
+import com.github.olegbal.urlshortingtool.enums.RolesEnum;
 import com.github.olegbal.urlshortingtool.respositories.RoleRepository;
 import com.github.olegbal.urlshortingtool.respositories.UserRepository;
 import com.github.olegbal.urlshortingtool.services.impl.RoleServiceImpl;
@@ -51,56 +52,56 @@ public class UserServiceTest {
     @Test
     public void loadUserByUserNameShouldReturnUser() throws Exception {
 
-        userRepository.save(new User("user1", "1234", null, null));
+        userRepository.save(new User("test_user_1", "1234", null, null));
 
-        User user = userServiceImpl.loadUserByUsername("user1");
+        User user = userServiceImpl.loadUserByUsername("test_user_1");
 
         assertThat(user).isNotNull();
 
-        assertThat(user.getLogin()).isEqualTo("user1");
+        assertThat(user.getLogin()).isEqualTo("test_user_1");
     }
 
     @Test
     public void getUserByLoginShouldReturnUserDto() throws Exception {
 
-        userRepository.save(new User("user1", "1234", null, null));
+        userRepository.save(new User("test_user_1", "1234", null, null));
 
-        UserDto user = userServiceImpl.getUserByLogin("user1");
+        UserDto user = userServiceImpl.getUserByLogin("test_user_1");
 
         assertThat(user).isNotNull();
 
-        assertThat(user.getLogin()).isEqualTo("user1");
+        assertThat(user.getLogin()).isEqualTo("test_user_1");
     }
 
     @Test
     public void createUserShouldAddUserInRepo() throws Exception {
-        Role role1 = new Role("ROLE_ADMIN", new HashSet<>());
-        Role role2 = new Role("ROLE_USER", new HashSet<>());
+        Role role1 = new Role(RolesEnum.ADMIN.role_name, new HashSet<>());
+        Role role2 = new Role(RolesEnum.USER.role_name, new HashSet<>());
         roleRepository.save(role1);
         roleRepository.save(role2);
 
-        assertThat(userServiceImpl.createUser(new RegistrationDto("user1","1234",""))).isTrue();
+        assertThat(userServiceImpl.createUser(new RegistrationDto("test_user_1", "1234", ""))).isTrue();
 
-        assertThat(userServiceImpl.createUser(new RegistrationDto("user1","1234",""))).isFalse();
+        assertThat(userServiceImpl.createUser(new RegistrationDto("test_user_1", "1234", ""))).isFalse();
 
     }
 
     @Test
     public void getRegisteredUserShouldReturnUserSet() throws Exception {
 
-        Role role1 = new Role("ROLE_ADMIN", null);
-        Role role2 = new Role("ROLE_USER", null);
+        Role role1 = new Role(RolesEnum.ADMIN.role_name, null);
+        Role role2 = new Role(RolesEnum.USER.role_name, null);
         roleRepository.save(role1);
         roleRepository.save(role2);
-        User user1 = new User("user1", "1234", new HashSet<>(), new HashSet<>());
-        User user2 = new User("user2", "1234", new HashSet<>(), new HashSet<>());
+        User user1 = new User("test_user_1", "1234", new HashSet<>(), new HashSet<>());
+        User user2 = new User("test_user_2", "1234", new HashSet<>(), new HashSet<>());
         userRepository.save(user1);
         userRepository.save(user2);
-        User user3 = userRepository.findByLogin("user1");
-        User user4 = userRepository.findByLogin("user2");
+        User user3 = userRepository.findByLogin("test_user_1");
+        User user4 = userRepository.findByLogin("test_user_2");
 
-        Role role3 = roleRepository.findByRoleName("ROLE_USER");
-        Role role4 = roleRepository.findByRoleName("ROLE_ADMIN");
+        Role role3 = roleRepository.findByRoleName(RolesEnum.USER.role_name);
+        Role role4 = roleRepository.findByRoleName(RolesEnum.ADMIN.role_name);
 
         user3.getRoles().add(role3);
         user4.getRoles().add(role4);
@@ -122,13 +123,13 @@ public class UserServiceTest {
 
     @Test
     public void deleteUserShouldDeleteUserFromRepo() throws Exception {
-        userRepository.save(new User("user1", "1234", null, null));
+        userRepository.save(new User("test_user_1", "1234", null, null));
 
-        User user = userRepository.findByLogin("user1");
+        User user = userRepository.findByLogin("test_user_1");
 
         assertThat(user).isNotNull();
 
-        assertThat(user.getLogin()).isEqualTo("user1");
+        assertThat(user.getLogin()).isEqualTo("test_user_1");
 
         userServiceImpl.deleteUser(user.getUserId());
 

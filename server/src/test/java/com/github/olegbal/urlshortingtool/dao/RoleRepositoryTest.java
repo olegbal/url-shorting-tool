@@ -31,11 +31,11 @@ public class RoleRepositoryTest {
 
     @Test
     public void findByRolenameShouldReturnRole() throws Exception{
-        this.entityManager.persist(new Role("ROLE_USER",null));
+        this.entityManager.persist(new Role("test_role",null));
 
-        Role role = roleRepository.findByRoleName("ROLE_USER");
+        Role role = roleRepository.findByRoleName("test_role");
 
-        assertThat(role.getRoleName()).isEqualTo("ROLE_USER");
+        assertThat(role.getRoleName()).isEqualTo("test_role");
     }
 
 }

@@ -35,32 +35,32 @@ public class LinkRepositoryTest {
 
     @Test
     public void findByOriginalLinkShouldReturnLink() throws Exception {
-        this.entityManager.persist(new Link("http://github.com",
-                "Abcdef", 0, "tag1 tag2",
+        this.entityManager.persist(new Link("test_origLink",
+                "test_shortlink", 0, "tag1 tag2",
                 "summary 1", new Date(), null));
-        Link link = repository.findByOriginalLink("http://github.com");
-        assertThat(link.getOriginalLink()).isEqualTo("http://github.com");
+        Link link = repository.findByOriginalLink("test_origLink");
+        assertThat(link.getOriginalLink()).isEqualTo("test_origLink");
     }
 
     @Test
     public void findByShortLinkShouldReturnLink() throws Exception {
-        this.entityManager.persist(new Link("http://github.com",
-                "Abcdef", 0, "tag1 tag2",
+        this.entityManager.persist(new Link("test_origLink",
+                "test_shortlink", 0, "tag1 tag2",
                 "summary 1", new Date(), null));
-        Link link = repository.findByShortLink("Abcdef");
-        assertThat(link.getShortLink()).isEqualTo("Abcdef");
+        Link link = repository.findByShortLink("test_shortlink");
+        assertThat(link.getShortLink()).isEqualTo("test_shortlink");
     }
 
     @Test
     public void findByUserIdShouldReturnLinkPage() throws Exception {
 
-        User user = new User("user1", "user1", new HashSet<Link>(), null);
+        User user = new User("test_user_1", "test_user_1", new HashSet<Link>(), null);
 
-        user.getLinkSet().add(new Link("http://github.com",
-                "Abcdef", 0, "tag1 tag2",
+        user.getLinkSet().add(new Link("test_origLink",
+                "test_shortlink", 0, "tag1 tag2",
                 "summary 1", new Date(), user));
-        user.getLinkSet().add(new Link("http://link2.com",
-                "Ghijkl", 0, "tag3 tag4",
+        user.getLinkSet().add(new Link("test_link_2",
+                "test_shortlink_2", 0, "tag3 tag4",
                 "summary 2", new Date(), user));
         this.entityManager.persist(user);
 
@@ -83,19 +83,19 @@ public class LinkRepositoryTest {
     @Test
     public void removeLinksByCreationDateBeforeShouldDeleteExpiredLinks() throws Exception {
 
-        this.entityManager.persist(new Link("http://github.com",
-                "Abcdef", 0, "tag1 tag2",
+        this.entityManager.persist(new Link("test_origLink",
+                "test_shortlink", 0, "tag1 tag2",
                 "summary 1", new Date(System.currentTimeMillis()), null));
 
-        this.entityManager.persist(new Link("http://link2.com",
-                "Ghijkl", 0, "tag3 tag4",
+        this.entityManager.persist(new Link("test_link_2",
+                "test_shortlink_2", 0, "tag3 tag4",
                 "summary 2", new Date(System.currentTimeMillis() + 2000), null));
 
         repository.removeLinksByCreationDateBefore(new Date(System.currentTimeMillis() + 1000));
 
-        assertThat(repository.findByOriginalLink("http://github.com")).isNull();
+        assertThat(repository.findByOriginalLink("test_origLink")).isNull();
 
-        assertThat(repository.findByOriginalLink("http://link2.com")).isNotNull();
+        assertThat(repository.findByOriginalLink("test_link_2")).isNotNull();
     }
 
 

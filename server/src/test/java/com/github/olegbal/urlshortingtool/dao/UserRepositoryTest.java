@@ -30,11 +30,11 @@ public class UserRepositoryTest {
 
     @Test
     public void findByLoginShouldReturnUser() throws Exception {
-        this.entityManager.persist(new User("user1", "1234", null, null));
+        this.entityManager.persist(new User("test_user1", "1234", null, null));
 
-        User user = userRepository.findByLogin("user1");
+        User user = userRepository.findByLogin("test_user1");
 
-        assertThat(user.getLogin()).isEqualTo("user1");
+        assertThat(user.getLogin()).isEqualTo("test_user1");
 
     }
 
