@@ -69,14 +69,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             user.setLogin(registrationDto.getLogin());
             user.setPassword(registrationDto.getPassword());
 
-            Role role = new Role();
+            Role role = null;
 
             if (registrationDto.getSerialNumber().equals("")) {
-                role.setRoleName("ROLE_USER");
-                role.setRoleId(1);
+                role = roleService.getByRoleName("ROLE_USER");
             } else if (registrationDto.getSerialNumber().equals(serialNumber)) {
-                role.setRoleId(2);
-                role.setRoleName("ROLE_ADMIN");
+                role = roleService.getByRoleName("ROLE_ADMIN");
             } else if (!registrationDto.getSerialNumber().equals(serialNumber)) {
                 return false;
             }
