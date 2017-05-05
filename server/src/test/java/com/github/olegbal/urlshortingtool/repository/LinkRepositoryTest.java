@@ -1,4 +1,4 @@
-package com.github.olegbal.urlshortingtool.dao;
+package com.github.olegbal.urlshortingtool.repository;
 
 import com.github.olegbal.urlshortingtool.Application;
 import com.github.olegbal.urlshortingtool.domain.entity.Link;

@@ -1,8 +1,8 @@
-package com.github.olegbal.urlshortingtool.dao;
+package com.github.olegbal.urlshortingtool.repository;
 
 import com.github.olegbal.urlshortingtool.Application;
-import com.github.olegbal.urlshortingtool.domain.entity.Role;
-import com.github.olegbal.urlshortingtool.respositories.RoleRepository;
+import com.github.olegbal.urlshortingtool.domain.entity.User;
+import com.github.olegbal.urlshortingtool.respositories.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,23 +20,23 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 @TestPropertySource(locations = {"classpath:application-test.properties"})
 @SpringBootTest(classes = {Application.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class RoleRepositoryTest {
+public class UserRepositoryTest {
 
     @Autowired
     private TestEntityManager entityManager;
 
     @Autowired
-    private RoleRepository roleRepository;
-
+    private UserRepository userRepository;
 
     @Test
-    public void findByRolenameShouldReturnRole() throws Exception{
-        this.entityManager.persist(new Role("test_role",null));
+    public void findByLoginShouldReturnUser() throws Exception {
+        this.entityManager.persist(new User("test_user1", "1234", null, null));
 
-        Role role = roleRepository.findByRoleName("test_role");
+        User user = userRepository.findByLogin("test_user1");
 
-        assertThat(role).isNotNull();
-        assertThat(role.getRoleName()).isEqualTo("test_role");
+        assertThat(user).isNotNull();
+        assertThat(user.getLogin()).isEqualTo("test_user1");
+
     }
 
 }
