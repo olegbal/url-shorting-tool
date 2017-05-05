@@ -1,6 +1,6 @@
 # Created by .ignore support plugin (hsz.mobi)
 /.idea/
-/urlshortingtool.iml
+/url-shorting-tool.iml
 /server/server.iml
 /client/client.iml
 /npm-debug.log
