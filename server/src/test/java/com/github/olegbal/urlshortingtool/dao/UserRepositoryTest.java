@@ -34,6 +34,7 @@ public class UserRepositoryTest {
 
         User user = userRepository.findByLogin("test_user1");
 
+        assertThat(user).isNotNull();
         assertThat(user.getLogin()).isEqualTo("test_user1");
 
     }

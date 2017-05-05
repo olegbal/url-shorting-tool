@@ -39,6 +39,7 @@ public class LinkRepositoryTest {
                 "test_shortlink", 0, "tag1 tag2",
                 "summary 1", new Date(), null));
         Link link = repository.findByOriginalLink("test_origLink");
+        assertThat(link).isNotNull();
         assertThat(link.getOriginalLink()).isEqualTo("test_origLink");
     }
 
@@ -48,6 +49,7 @@ public class LinkRepositoryTest {
                 "test_shortlink", 0, "tag1 tag2",
                 "summary 1", new Date(), null));
         Link link = repository.findByShortLink("test_shortlink");
+        assertThat(link).isNotNull();
         assertThat(link.getShortLink()).isEqualTo("test_shortlink");
     }
 

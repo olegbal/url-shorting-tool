@@ -35,6 +35,7 @@ public class RoleRepositoryTest {
 
         Role role = roleRepository.findByRoleName("test_role");
 
+        assertThat(role).isNotNull();
         assertThat(role.getRoleName()).isEqualTo("test_role");
     }
 
