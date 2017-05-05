@@ -14,7 +14,7 @@ import java.util.Date;
 @Service
 public class ExpiredLinksServiceImpl implements ExpiredLinksService {
 
-    private static final long repeatInMills = 60 * 1000;
+    private static final long repeatInMills = 24*60*60 * 1000;
 
     @Autowired
     private LinkRepository linkRepository;
