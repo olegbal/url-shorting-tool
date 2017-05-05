@@ -24,6 +24,16 @@ public class LinkDto {
     public LinkDto() {
     }
 
+    public LinkDto(long linkId, String originalLink, String shortLink, int clicksCount, String tags, String summary, Date creationDate) {
+        this.linkId = linkId;
+        this.originalLink = originalLink;
+        this.shortLink = shortLink;
+        this.clicksCount = clicksCount;
+        this.tags = tags;
+        this.summary = summary;
+        this.creationDate = creationDate;
+    }
+
     public long getLinkId() {
         return linkId;
     }
