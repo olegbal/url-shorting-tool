@@ -73,9 +73,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             Role role = null;
 
             if (registrationDto.getSerialNumber().equals("")) {
-                role = roleService.getByRoleName(RolesEnum.ADMIN.role_name);
-            } else if (registrationDto.getSerialNumber().equals(serialNumber)) {
                 role = roleService.getByRoleName(RolesEnum.USER.role_name);
+            } else if (registrationDto.getSerialNumber().equals(serialNumber)) {
+                role = roleService.getByRoleName(RolesEnum.ADMIN.role_name);
             } else if (!registrationDto.getSerialNumber().equals(serialNumber)) {
                 return false;
             }
