@@ -4,7 +4,7 @@ Url shorter written with using angular-2 framework(on client side) and spring fr
 
 # Important info 
 
-Backend has feature that removes expired links. I set expiring period on 60 seconds(for demonstrating only).
+Backend has feature that removes expired links. I set expiring period on 24 hours (in milleseconds)
 To change expiring period see com.github.olegbal.urlshortingtool.service.impl.ExpiredLinksServiceImpl class
 
 # Prerequisites
