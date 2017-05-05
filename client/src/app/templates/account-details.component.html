@@ -1,4 +1,4 @@
-<form *ngIf="user.links.length>0">
+<form>
   <h1>{{user.login}}</h1>
 
   <table class="table table table-striped table-bordered">
@@ -76,7 +76,7 @@
       <td>
         <div *ngIf="!link.isEditing">
           <div *ngFor="let tag of link.tags.split(' ')">
-            <a (click)="showLinksWithSameTag(tag)">{{tag}}</a>
+            <a class="text-primary" (click)="showLinksWithSameTag(tag)">{{tag}}</a>
           </div>
         </div>
         <input *ngIf="link.isEditing" [(ngModel)]="link.tags" name="tagsEditor">
