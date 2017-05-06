@@ -55,11 +55,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/api/v1/login", "/api/v1/register", "/api/v1/links", "/api/v1/links?tag={tag}",
                         "/api/v1/shortlinks/{value}").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/v1/links/{id}").permitAll()
-
-                .antMatchers(HttpMethod.DELETE, "/api/v1/user/{id}").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/v1/links/{\\d+}").permitAll()
 
                 .antMatchers("/api/v1/users").hasRole("ADMIN")
+
+                .antMatchers("/api/v1/user/{\\d+}").hasRole("ADMIN")
 
                 .anyRequest().authenticated().and()
 
