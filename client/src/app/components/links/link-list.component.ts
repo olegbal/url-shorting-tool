@@ -3,6 +3,7 @@ import {LinkService} from "../../services/links/link.service";
 import {Link} from "app/models/link";
 import {Router} from "@angular/router";
 import {Location} from "@angular/common";
+import {ToasterService} from "../../services/ui/ToasterService";
 
 @Component({
   selector: 'link-list-component',
@@ -15,7 +16,8 @@ export class LinkListComponent implements OnInit {
 
   constructor(private linkService: LinkService,
               private router: Router,
-              private location: Location) {
+              private location: Location,
+              private toasterService: ToasterService) {
   }
 
   links: Link[] = new Array<Link>();
@@ -29,37 +31,38 @@ export class LinkListComponent implements OnInit {
   }
 
   loadLinks() {
-    if(this.isInCompleted){
-   this.linkService.getAllLinks(this.page).subscribe((res) => {
+    if (this.isInCompleted) {
+      this.linkService.getAllLinks(this.page).subscribe((res) => {
 
-        if (res.status == 200) {
+          if (res.status == 200) {
 
-          this.addingLinks = res.json();
+            this.addingLinks = res.json();
 
-          if (this.addingLinks.length > 0) {
+            if (this.addingLinks.length > 0) {
 
 
-            for (var i = 0; i < this.addingLinks.length; i++) {
-              if (!this.links.includes(this.addingLinks[i])) {
-                this.links.push(this.addingLinks[i]);
+              for (var i = 0; i < this.addingLinks.length; i++) {
+                if (!this.links.includes(this.addingLinks[i])) {
+                  this.links.push(this.addingLinks[i]);
+                }
+
               }
 
+
+              this.isInCompleted = false;
+              this.page++;
             }
-
-
-            this.isInCompleted = false;
-            this.page++;
+            else {
+              this.isInCompleted = true;
+            }
           }
-          else {
-            this.isInCompleted=true;
+        },
+        (err) => {
+          if (err.status < 200 || err.status > 299) {
+            this.toasterService.showToaster("Cannot get link list");
+            console.log("Cannot get links", err)
           }
-        }
-      },
-      (err) => {
-        if (err.status < 200 || err.status > 299) {
-          console.log("Cannot get links", err)
-        }
-      });
+        });
     }
   }
 
