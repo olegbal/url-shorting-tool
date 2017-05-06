@@ -48,10 +48,6 @@ export class LinkInfoComponent implements OnInit {
     window.location.href = this.redirectUrl + shortLink;
   }
 
-  goBack() {
-    this.location.back();
-  }
-
   showLinksWithSameTag(tag: string) {
     this.router.navigate(['/links/tag/' + tag]);
   }
