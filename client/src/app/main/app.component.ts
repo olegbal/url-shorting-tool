@@ -14,7 +14,6 @@ export class AppComponent implements OnInit {
 
   constructor(private authService: AuthService) {
   }
-   // Service callback function to create the modal with an object passed as a parameter
 
 
   ngOnInit() {

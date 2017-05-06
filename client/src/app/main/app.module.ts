@@ -2,9 +2,8 @@ import {BrowserModule} from "@angular/platform-browser";
 import {NgModule} from "@angular/core";
 import {FormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {InfiniteScrollModule} from 'ngx-infinite-scroll';
-// import {ModalModule} from 'ng2-modal-dialog/modal.module';
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import {InfiniteScrollModule} from "ngx-infinite-scroll";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MaterialModule} from "@angular/material";
 import "hammerjs";
@@ -25,11 +24,11 @@ import {SameTagLinksComponent} from "../components/links/same-tag-links.componen
 import {RedirectorComponent} from "../components/links/redirector.component";
 import {LoginGuard} from "app/guards/login.guard";
 import {AuthService} from "app/services/auth/auth.service";
-// import {LinkExistsModal} from '../components/modals/link-exists.modal';
-
 import {ToasterService} from "../services/ui/ToasterService";
 import {DialogComponent} from "app/components/modals/dialog.component";
-
+import {UserService} from "../services/user/user.service";
+import {UserListComponent} from "../components/user/user-list.component";
+import {UserInfoComponent} from "../components/user/user-details.component";
 
 @NgModule({
   declarations: [
@@ -41,7 +40,9 @@ import {DialogComponent} from "app/components/modals/dialog.component";
     LinkInfoComponent,
     SameTagLinksComponent,
     RedirectorComponent,
-    DialogComponent
+    DialogComponent,
+    UserListComponent,
+    UserInfoComponent,
   ],
   imports: [
     NgbModule.forRoot(),
@@ -63,6 +64,7 @@ import {DialogComponent} from "app/components/modals/dialog.component";
     LoginGuard,
     AuthService,
     ToasterService,
+    UserService,
   ],
   bootstrap: [AppComponent]
 })

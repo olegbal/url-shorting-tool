@@ -9,7 +9,8 @@ import {LinkInfoComponent} from "../../components/links/link-info.component";
 import {SameTagLinksComponent} from "../../components/links/same-tag-links.component";
 import {RedirectorComponent} from "app/components/links/redirector.component";
 import {LoginGuard} from "../../guards/login.guard";
-
+import {UserListComponent} from "../../components/user/user-list.component";
+import {UserInfoComponent} from "../../components/user/user-details.component";
 
 const routes: Routes = [
 
@@ -20,7 +21,9 @@ const routes: Routes = [
   {path: 'links', component: LinkListComponent},
   {path: 'links/:id', component: LinkInfoComponent},
   {path: 'links/tag/:tagName', component: SameTagLinksComponent},
-  {path: '**', component: RedirectorComponent}
+  {path: 'admin/users', component: UserListComponent},
+  {path: 'admin/users/:userName',component: UserInfoComponent},
+  {path: '**', component: RedirectorComponent},
 
 ];
 
