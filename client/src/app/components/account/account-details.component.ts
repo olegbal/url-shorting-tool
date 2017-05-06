@@ -38,8 +38,6 @@ export class AccountDetailsComponent implements OnInit {
         if (res.status == 200) {
 
           this.user = res.json();
-
-
         }
 
       },
@@ -120,6 +118,11 @@ export class AccountDetailsComponent implements OnInit {
           this.flushAddingLink();
 
         }
+        else if(error.status<200 || error.status>299){
+          this.flushAddingLink();
+          this.toasterService.showToaster("Cannot create link");
+          console.log("Cannot create link", error);
+        }
 
       });
   }
@@ -134,6 +137,10 @@ export class AccountDetailsComponent implements OnInit {
       new Link(link.linkId, link.originalLink,
         link.shortLink, link.clicksCount, link.tags,
         link.summary, link.creationDate, link.idEditing);
+  }
+
+  openAdminCabinet() {
+    this.router.navigate(['/admin/users']);
   }
 
   cancelEditing(link: Link) {
@@ -152,5 +159,5 @@ export class AccountDetailsComponent implements OnInit {
     this.flushAddingLink();
     this.isAdding = false;
   }
-  
+
 }

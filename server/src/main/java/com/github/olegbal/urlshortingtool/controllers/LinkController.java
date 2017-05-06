@@ -46,10 +46,10 @@ public class LinkController {
         return new ResponseEntity(HttpStatus.NOT_MODIFIED);
     }
 
-    @RequestMapping(path = "/check", params = "url", method = RequestMethod.GET)
-    public ResponseEntity checkLink(@RequestParam("url") String url) {
+    @RequestMapping(path = "/check", method = RequestMethod.POST)
+    public ResponseEntity checkLink(@RequestBody String url) {
 
-        LinkDto link = linkService.getByOriginalLink(url);
+        LinkDto link = linkService.getByOriginalLink(url.replace("\"",""));
 
         if (link != null) {
             return new ResponseEntity(link, HttpStatus.CONFLICT);

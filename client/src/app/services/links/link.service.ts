@@ -44,9 +44,9 @@ export class LinkService {
     return this.http.delete(this.linksUrl + '/' + id, {headers: this.headers});
   }
 
-  checkIfLinkExist(link: string) {
+  checkIfLinkExist(url: string) {
     this.headers = new Headers({'Auth': this.authService.token});
-    return this.http.get(this.linksUrl+"/check?url=" + link, {headers: this.headers});
+    return this.http.post(this.linksUrl+"/check",JSON.stringify(url), {headers: this.headers});
   }
 
 }
