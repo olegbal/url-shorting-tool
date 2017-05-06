@@ -29,6 +29,7 @@ import {DialogComponent} from "app/components/modals/dialog.component";
 import {UserService} from "../services/user/user.service";
 import {UserListComponent} from "../components/user/user-list.component";
 import {UserInfoComponent} from "../components/user/user-details.component";
+import {AdminCabinetGuard} from "../guards/admin-cabinet.guard";
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import {UserInfoComponent} from "../components/user/user-details.component";
     AuthService,
     ToasterService,
     UserService,
+    AdminCabinetGuard,
   ],
   bootstrap: [AppComponent]
 })
