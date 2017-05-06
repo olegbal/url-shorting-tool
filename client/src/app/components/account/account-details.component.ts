@@ -27,7 +27,6 @@ export class AccountDetailsComponent implements OnInit {
   user: User = new User(0, "", "", new Array<Role>(), new Array<Link>());
   addingLink = new Link(0, "", "", 0, "", "", null);
   editingLink;
-  redirectUrl = localStorage.getItem("RedirectUrl");
   isAdding = false;
   showDialog = false;
   spinnerOn=false;
@@ -54,7 +53,7 @@ export class AccountDetailsComponent implements OnInit {
   }
 
   redirectToUrl(shortLink: string) {
-    window.location.href = this.redirectUrl + shortLink;
+    window.location.href = localStorage.getItem("RedirectUrl") + shortLink;
   }
 
   removeLink(id: string) {
@@ -74,6 +73,7 @@ export class AccountDetailsComponent implements OnInit {
 
   editLink(id: string, link: Link) {
 
+    link.tags=Array.from(new Set(link.tags.split(' '))).toString().split(',').join(' ');
 
     this.linkService.updateLink(id, link).subscribe((res) => {
       if (res.status == 200) {
@@ -84,6 +84,8 @@ export class AccountDetailsComponent implements OnInit {
   }
 
   addLink(id: string, link: Link) {
+
+    link.tags=Array.from(new Set(link.tags.split(' '))).toString().split(',').join(' ');
 
     this.linkService.checkIfLinkExist(link.originalLink).subscribe(
       (res) => {
