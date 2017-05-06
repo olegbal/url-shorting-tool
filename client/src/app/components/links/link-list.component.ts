@@ -8,7 +8,7 @@ import {ToasterService} from "../../services/ui/ToasterService";
 @Component({
   selector: 'link-list-component',
   templateUrl: '../../templates/link-list.component.html',
-  styleUrls: ['../../styles/link-list.component.css']
+  styleUrls: ['../../styles/link-list.component.css','../../styles/spinner.css']
 })
 
 
@@ -21,9 +21,9 @@ export class LinkListComponent implements OnInit {
   }
 
   links: Link[] = new Array<Link>();
-  redirectUrl = localStorage.getItem("RedirectUrl");
   page = 0;
   isInCompleted = true;
+  spinnerOn=false;
   addingLinks: Link[] = new Array<Link>();
 
   ngOnInit() {
@@ -32,7 +32,10 @@ export class LinkListComponent implements OnInit {
 
   loadLinks() {
     if (this.isInCompleted) {
+      this.spinnerOn=true;
       this.linkService.getAllLinks(this.page).subscribe((res) => {
+
+
 
           if (res.status == 200) {
 
@@ -48,18 +51,20 @@ export class LinkListComponent implements OnInit {
 
               }
 
-
+              this.spinnerOn=false;
               this.isInCompleted = false;
               this.page++;
             }
             else {
               this.isInCompleted = true;
+              this.spinnerOn=false;
             }
           }
         },
         (err) => {
           if (err.status < 200 || err.status > 299) {
             this.toasterService.showToaster("Cannot get link list");
+            this.spinnerOn=false;
             console.log("Cannot get links", err)
           }
         });

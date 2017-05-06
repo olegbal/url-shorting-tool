@@ -9,5 +9,8 @@
     </td>
   </tr>
 </table>
+<div class="spinnerContainer">
+  <spinner class="spinner" *ngIf="spinnerOn" [tickness]="3" [size]="100"></spinner>
+</div>
 <button class="btn btn-primary btn-lg fixed-bottom"
         (click)="location.back()">Back</button>

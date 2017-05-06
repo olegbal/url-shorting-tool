@@ -8,7 +8,7 @@ import {Location} from "@angular/common";
 @Component({
   selector: 'same-tag-links',
   templateUrl: '../../templates/link-list.component.html',
-  styleUrls: ['../../styles/link-list.component.css']
+  styleUrls: ['../../styles/link-list.component.css','../../styles/spinner.css']
 })
 
 export class SameTagLinksComponent implements OnInit {
@@ -21,9 +21,9 @@ export class SameTagLinksComponent implements OnInit {
   }
 
   links: Link[] = new Array<Link>();
-  redirectUrl = localStorage.getItem("RedirectUrl");
   addingLinks: Link[] = new Array<Link>();
   isInCompleted = true;
+  spinnerOn=false;
   page = 0;
 
   ngOnInit() {
@@ -31,6 +31,7 @@ export class SameTagLinksComponent implements OnInit {
   }
 
   loadLinks() {
+    this.spinnerOn=true;
     if (this.isInCompleted) {
       this.activatedRoute.params.subscribe((res) => {
         let param = res['tagName'];
@@ -49,10 +50,11 @@ export class SameTagLinksComponent implements OnInit {
                 }
 
                 this.page++;
-
+                this.spinnerOn=false;
                 this.isInCompleted = false;
               }
               else {
+                this.spinnerOn=false;
                 this.isInCompleted = true;
               }
             }
@@ -60,7 +62,8 @@ export class SameTagLinksComponent implements OnInit {
           (err) => {
             if (err.status < 200 || err.status > 299) {
               console.log("Cannot get Link by tag " + param, err);
-              this.router.navigate(['/']);
+              this.spinnerOn=false;
+              this.router.navigate(['/links']);
             }
           });
       });

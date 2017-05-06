@@ -14,7 +14,7 @@ import {ActivatedRoute } from "@angular/router";
 @Component({
   selector: 'account-details',
   templateUrl: '../../templates/user-details.component.html',
-  styleUrls: ['../../styles/user-details.component.css']
+  styleUrls: ['../../styles/user-details.component.css','../../styles/spinner.css']
 })
 
 export class UserInfoComponent implements OnInit {
@@ -30,8 +30,10 @@ export class UserInfoComponent implements OnInit {
 
   user: User = new User(0, "", "", new Array<Role>(), new Array<Link>());
   redirectUrl = localStorage.getItem("RedirectUrl");
+  spinnerOn=false;
 
   ngOnInit() {
+    this.spinnerOn=true;
     this.activatedRoute.params.subscribe((params) => {
 
         let param = params['userName'];
@@ -39,12 +41,14 @@ export class UserInfoComponent implements OnInit {
           (res)=>{
             if(res.status==200){
               this.user=res.json();
+              this.spinnerOn=false;
             }
         },
       (err)=>{
         if (err.status < 200 || err.status > 299) {
           console.log("Unable to get  user info", err);
-          this.router.navigate(['/links'])
+          this.spinnerOn=false;
+          this.router.navigate(['/admin/users'])
         }
       });
 
@@ -52,7 +56,8 @@ export class UserInfoComponent implements OnInit {
           (err) => {
             if (err.status < 200 || err.status > 299) {
               console.log("Unable to param userLogin info", err);
-              this.router.navigate(['/links'])
+              this.spinnerOn=false;
+              this.router.navigate(['/admin/users'])
             }
           });
 

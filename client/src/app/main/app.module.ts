@@ -6,6 +6,7 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {InfiniteScrollModule} from "ngx-infinite-scroll";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MaterialModule} from "@angular/material";
+import {SpinnerModule} from 'angular2-spinner/dist';
 import "hammerjs";
 
 import {AppComponent} from "./app.component";
@@ -46,6 +47,7 @@ import {AdminCabinetGuard} from "../guards/admin-cabinet.guard";
     UserInfoComponent,
   ],
   imports: [
+    SpinnerModule,
     NgbModule.forRoot(),
     BrowserModule,
     FormsModule,

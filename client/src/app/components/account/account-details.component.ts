@@ -12,7 +12,7 @@ import {ToasterService} from "../../services/ui/ToasterService";
 @Component({
   selector: 'account-details',
   templateUrl: '../../templates/account-details.component.html',
-  styleUrls: ['../../styles/account-details.component.css']
+  styleUrls: ['../../styles/account-details.component.css','../../styles/spinner.css']
 })
 
 export class AccountDetailsComponent implements OnInit {
@@ -30,14 +30,17 @@ export class AccountDetailsComponent implements OnInit {
   redirectUrl = localStorage.getItem("RedirectUrl");
   isAdding = false;
   showDialog = false;
+  spinnerOn=false;
   existingLinkFullAddres: String;
 
   ngOnInit() {
+    this.spinnerOn=true;
     this.accountDetailsService.getUserInfo(this.authService.login).subscribe((res) => {
 
         if (res.status == 200) {
 
           this.user = res.json();
+          this.spinnerOn=false;
         }
 
       },
@@ -45,6 +48,7 @@ export class AccountDetailsComponent implements OnInit {
         if (err.status < 200 || err.status > 299) {
           this.toasterService.showToaster("Failed to get account data");
           console.log("Failed to get account data", err)
+          this.spinnerOn=false;
         }
       });
   }

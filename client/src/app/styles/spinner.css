@@ -1,0 +1,8 @@
+.spinner{
+  display:inline-block!important;
+}
+
+.spinnerContainer{
+  position: relative!important;
+  text-align: center!important;
+}

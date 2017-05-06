@@ -10,7 +10,7 @@ import {ToasterService} from "../../services/ui/ToasterService";
 @Component({
   selector: 'login-component',
   templateUrl: '../../templates/login.component.html',
-  styleUrls: ['../../styles/login.component.css']
+  styleUrls: ['../../styles/login.component.css','../../styles/spinner.css']
 })
 
 
@@ -23,13 +23,16 @@ export class LoginComponent {
   }
 
   loginAndPassword: LoginAndPassword = new LoginAndPassword("", "");
+  spinnerOn=false;
 
   logIn() {
+    this.spinnerOn=true;
     this.loginService.logIn(this.loginAndPassword).subscribe(
       (res) => {
         if (res.status === 202) {
           this.authService.logIn(res.headers.get("Auth"), this.loginAndPassword.login);
           this.toasterService.showToaster("Successfully logged in");
+          this.spinnerOn=false;
           this.router.navigate(['/']);
         }
       },
@@ -38,7 +41,8 @@ export class LoginComponent {
           this.loginAndPassword.login = "";
           this.loginAndPassword.password = "";
           this.toasterService.showToaster("Failed to log in");
-          console.log("Failed to log in", err)
+          console.log("Failed to log in", err);
+          this.spinnerOn=false;
         }
       }
     );

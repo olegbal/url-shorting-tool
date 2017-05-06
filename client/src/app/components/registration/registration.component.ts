@@ -10,7 +10,7 @@ import {ToasterService} from "../../services/ui/ToasterService";
 
   selector: 'registration-component',
   templateUrl: '../../templates/registration.component.html',
-  styleUrls: ['../../styles/registration.component.css']
+  styleUrls: ['../../styles/registration.component.css','../../styles/spinner.css']
 })
 
 
@@ -23,13 +23,16 @@ export class RegistrationComponent {
 
   loginAndPassword: LoginAndPassword = new LoginAndPassword("", "", "");
   adminSelected = false;
+  spinnerOn=false;
 
   registerUser() {
+    this.spinnerOn=true;
     this.registrationService.register(this.loginAndPassword).subscribe(
       (res: Response) => {
         if (res.status == 200) {
           this.toasterService.showToaster("Successfully registered!Now you can log in");
           console.log("User registered");
+          this.spinnerOn=false;
           this.router.navigate(['/']);
         }
       },
@@ -39,7 +42,8 @@ export class RegistrationComponent {
           this.loginAndPassword.password = "";
           this.loginAndPassword.serialNumber = "";
           this.toasterService.showToaster("Registration failed!");
-          console.log("Registration failed")
+          console.log("Registration failed");
+          this.spinnerOn=false;
         }
       }));
   };

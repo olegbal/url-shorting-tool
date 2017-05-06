@@ -9,7 +9,7 @@ import {Router} from "@angular/router";
 
   selector: "users-list",
   templateUrl: "../../templates/user-list.component.html",
-  styleUrls: ['../../styles/user-list.component.css']
+  styleUrls: ['../../styles/user-list.component.css','../../styles/spinner.css']
 })
 
 
@@ -17,23 +17,26 @@ export class UserListComponent implements OnInit {
 
   constructor(private userService: UserService,
               private toasterServer: ToasterService,
-              private location:Location,
               private router:Router) {
   }
 
   users: User[] = new Array<User>();
+  spinnerOn=false;
 
   ngOnInit() {
+    this.spinnerOn=true;
     this.userService.getRegisteredUsers().subscribe((res) => {
 
         if (res.status == 200) {
           this.users = res.json();
           console.log(this.users);
+          this.spinnerOn=false;
         }
       },
       (err) => {
         if (err.status < 200 || err.status > 299) {
           console.log("Failed to get users", err);
+          this.spinnerOn=false;
         }
       });
   }
