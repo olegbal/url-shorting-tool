@@ -29,7 +29,6 @@ export class UserInfoComponent implements OnInit {
   }
 
   user: User = new User(0, "", "", new Array<Role>(), new Array<Link>());
-  redirectUrl = localStorage.getItem("RedirectUrl");
   spinnerOn=false;
 
   ngOnInit() {
@@ -66,7 +65,7 @@ export class UserInfoComponent implements OnInit {
 
 
   redirectToUrl(shortLink: string) {
-    window.location.href = this.redirectUrl + shortLink;
+    window.location.href = localStorage.getItem("RedirectUrl") + shortLink;
   }
 
   showLinksWithSameTag(tag: string) {

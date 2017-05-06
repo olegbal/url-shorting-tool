@@ -2,7 +2,6 @@ import {Component, OnInit} from "@angular/core";
 import {LinkService} from "../../services/links/link.service";
 import {Link} from "app/models/link";
 import {Router} from "@angular/router";
-import {Location} from "@angular/common";
 import {ToasterService} from "../../services/ui/ToasterService";
 
 @Component({
@@ -16,7 +15,6 @@ export class LinkListComponent implements OnInit {
 
   constructor(private linkService: LinkService,
               private router: Router,
-              private location: Location,
               private toasterService: ToasterService) {
   }
 

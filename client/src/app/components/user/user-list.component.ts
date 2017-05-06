@@ -51,12 +51,12 @@ export class UserListComponent implements OnInit {
         this.toasterServer.showToaster("User deleted!");
           this.users = this.users.filter(x => x.userId != Number.parseInt(id));
       }
-    }),
+    },
       (err) => {
         if (err.status < 200 || err.status > 299) {
           this.toasterServer.showToaster("Failed to delete user!");
         }
-      };
+      });
   }
 
 }

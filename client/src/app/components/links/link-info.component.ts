@@ -1,7 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {LinkService} from "../../services/links/link.service";
 import {Link} from "app/models/link";
-import {Location} from "@angular/common";
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
@@ -15,14 +14,12 @@ export class LinkInfoComponent implements OnInit {
 
 
   constructor(private linkService: LinkService,
-              private location: Location,
               private router: Router,
               private activatedRoute: ActivatedRoute) {
 
   }
 
   currentLink: Link = new Link(0, "", "", 0, "", "", null);
-  redirectUrl = localStorage.getItem("RedirectLink");
   spinnerOn = false;
 
   ngOnInit() {
@@ -48,7 +45,7 @@ export class LinkInfoComponent implements OnInit {
   }
 
   redirectToUrl(shortLink: string) {
-    window.location.href = this.redirectUrl + shortLink;
+    window.location.href = localStorage.getItem("RedirectUrl") + shortLink;
   }
 
   showLinksWithSameTag(tag: string) {
