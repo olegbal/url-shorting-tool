@@ -98,7 +98,7 @@ public class LinkServiceImpl implements LinkService {
 
                 long id = linkRepository.findByShortLink(link.getShortLink()).getLinkId();
                 return new CreatedLinkResponseDto(id, link.getShortLink());
-            } catch (TransactionException ex) {
+            } catch (Exception ex) {
                 return null;
             }
         }
