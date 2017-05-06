@@ -4,6 +4,14 @@ INSERT IGNORE INTO `roles` (`role_id`, `role_name`) VALUES (2, 'ROLE_ADMIN');
 INSERT IGNORE INTO `users` (`user_id`, `login`, `password`) VALUES ('1', 'olegbal', '1234');
 INSERT IGNORE INTO `user_roles` (`user_id`, `role_id`) VALUES (1, 2);
 
+INSERT IGNORE INTO `users` (`user_id`, `login`, `password`) VALUES ('2', 'user1', '1234');
+INSERT IGNORE INTO `user_roles` (`user_id`, `role_id`) VALUES (2, 1);
+
+INSERT IGNORE INTO `users` (`user_id`, `login`, `password`) VALUES ('3', 'user2', '1234');
+INSERT IGNORE INTO `user_roles` (`user_id`, `role_id`) VALUES (3, 1);
+
+INSERT IGNORE INTO `users` (`user_id`, `login`, `password`) VALUES ('4', 'user3', '1234');
+INSERT IGNORE INTO `user_roles` (`user_id`, `role_id`) VALUES (4, 1);
 
 INSERT IGNORE INTO `user_links` (`link_id`, `clicks_count`, `creation_date`, `original_link`, `short_link`, `summary`, `tags`, `user_id`)
 VALUES ('1', 0, date(now()),
