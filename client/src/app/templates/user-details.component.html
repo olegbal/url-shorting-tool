@@ -1,0 +1,51 @@
+<form>
+  <h1>{{user.login}}</h1>
+  <button (click)="openAdminCabinet(user)">Admin cabinet</button>
+  <table class="table table table-striped table-bordered">
+    <tr>
+      <th width="6%">
+        Shorted url
+      </th>
+      <th width="25%">
+        Original url
+      </th>
+      <th width="5%">
+        Clicks count
+      </th>
+      <th width="10%">
+        Summary
+      </th>
+      <th width="9%">
+        Creation date
+      </th>
+      <th width="10%">
+        Tags
+      </th>
+    </tr>
+        <tr *ngFor="let link of user.links">
+      <td>
+        <a class="text-primary"
+           (click)="redirectToUrl(link.shortLink)">{{link.shortLink}}
+        </a>
+      </td>
+      <td>
+        <a class="text-primary" href={{link.originalLink}}>{{link.originalLink}}</a>
+      </td>
+      <td>
+        {{link.clicksCount}}
+      </td>
+      <td>
+        <label>{{link.summary}}</label>
+      </td>
+      <td>
+        {{link.creationDate}}
+      </td>
+      <td>
+          <div *ngFor="let tag of link.tags.split(' ')">
+            <a class="text-primary" (click)="showLinksWithSameTag(tag)">{{tag}}</a>
+        </div>
+      </td>
+    </tr>
+  </table>
+  <button class="btn btn-primary btn-lg fixed-bottom"
+          (click)="location.back()">Back</button>

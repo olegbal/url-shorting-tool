@@ -1,0 +1,13 @@
+<table class="table table-striped table-bordered">
+  <tr *ngFor="let user of users">
+    <td>{{user.login}}</td>
+    <td>
+      <button (click)="showUserInfo(user.login)" >More info</button>
+    </td>
+    <td>
+      <button (click)="removeUser(user.userId)">Delete</button>
+    </td>
+  </tr>
+</table>
+<button class="btn btn-primary btn-lg fixed-bottom"
+        (click)="location.back()">Back</button>
