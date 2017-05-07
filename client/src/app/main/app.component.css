@@ -2,6 +2,6 @@ nav {
   max-height: 50px;
 }
 
-ul {
-  max-height: 50px;
+div.dropdownButton {
+  right:50px;
 }
