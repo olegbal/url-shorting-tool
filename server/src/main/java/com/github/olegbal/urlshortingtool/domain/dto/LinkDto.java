@@ -18,14 +18,14 @@ public class LinkDto {
 
     private String summary;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm")
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm")
     private Date creationDate;
 
     public LinkDto() {
     }
 
     public LinkDto(long linkId, String originalLink, String shortLink, int clicksCount, String tags, String summary, Date creationDate) {
-        this.linkId = linkId;
+        http://localhost:4200/login       this.linkId = linkId;
         this.originalLink = originalLink;
         this.shortLink = shortLink;
         this.clicksCount = clicksCount;

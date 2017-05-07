@@ -27,7 +27,7 @@
       {{currentLink.summary}}
     </td>
     <td>
-      {{currentLink.creationDate}}
+      {{currentLink.creationDate | date:'medium'}}
     </td>
     <td>
       <div *ngFor="let tag of currentLink.tags.split(' ')">

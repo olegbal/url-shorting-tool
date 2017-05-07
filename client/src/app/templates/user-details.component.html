@@ -37,7 +37,7 @@
         <label>{{link.summary}}</label>
       </td>
       <td>
-        {{link.creationDate}}
+        {{link.creationDate | date:'medium'}}
       </td>
       <td>
           <div *ngFor="let tag of link.tags.split(' ')">

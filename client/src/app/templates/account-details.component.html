@@ -67,7 +67,7 @@
         <input *ngIf="link.isEditing" [(ngModel)]="link.summary" name="summaryEditor">
       </td>
       <td>
-        {{link.creationDate}}
+        {{link.creationDate | date:'medium'}}
       </td>
       <td>
         <div *ngIf="!link.isEditing">
