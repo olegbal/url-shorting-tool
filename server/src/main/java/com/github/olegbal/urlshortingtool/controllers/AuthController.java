@@ -1,5 +1,6 @@
 package com.github.olegbal.urlshortingtool.controllers;
 
+import com.github.olegbal.urlshortingtool.converters.entity.RoleEntityToDtoConverter;
 import com.github.olegbal.urlshortingtool.domain.dto.LoginDto;
 import com.github.olegbal.urlshortingtool.domain.dto.RegistrationDto;
 import com.github.olegbal.urlshortingtool.services.impl.UserServiceImpl;
@@ -31,7 +32,10 @@ public class AuthController {
 
         if (tokenAuthenticationService.checkLogin(httpServletResponse, loginAndPasswordDto)) {
 
-            return new ResponseEntity(HttpStatus.ACCEPTED);
+            return new ResponseEntity(userServiceImpl.
+                    getUserByLogin(loginAndPasswordDto.
+                            getLogin()).getRoles(),
+                    HttpStatus.ACCEPTED);
         }
 
         return new ResponseEntity(HttpStatus.UNAUTHORIZED);

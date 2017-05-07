@@ -1,5 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {AuthService} from "../services/auth/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -14,11 +15,10 @@ export class AppComponent implements OnInit {
 
   constructor(private authService: AuthService) {
   }
-  
+
   ngOnInit() {
     localStorage.setItem("RedirectUrl", this.redirectUrl);
     localStorage.setItem("PageSize", this.pageSize);
   }
-
 
 }

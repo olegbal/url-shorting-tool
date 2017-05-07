@@ -2,9 +2,6 @@ input{
   width:150px;
 }
 
-h1.login{
-  padding-top:4%;
-}
 
 .modal {
   /* This way it could be display flex or grid or whatever also. */

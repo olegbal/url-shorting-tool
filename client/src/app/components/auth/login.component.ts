@@ -6,6 +6,7 @@ import {LoginService} from "../../services/auth/login.service";
 import {LoginAndPassword} from "../../models/loginAndPassword";
 import {AuthService} from "../../services/auth/auth.service";
 import {ToasterService} from "../../services/ui/ToasterService";
+import {Role} from "../../models/role";
 
 @Component({
   selector: 'login-component',
@@ -30,6 +31,11 @@ export class LoginComponent {
     this.loginService.logIn(this.loginAndPassword).subscribe(
       (res) => {
         if (res.status === 202) {
+          let role:Role[]=res.json();
+          if(role.find(x=>x.roleName=="ROLE_ADMIN")!=undefined){
+            this.authService.asAdmin=true;
+
+          }
           this.authService.logIn(res.headers.get("Auth"), this.loginAndPassword.login);
           this.toasterService.showToaster("Successfully logged in");
           this.spinnerOn=false;

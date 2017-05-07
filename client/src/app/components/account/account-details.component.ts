@@ -145,10 +145,6 @@ export class AccountDetailsComponent implements OnInit {
         link.summary, link.creationDate, link.idEditing);
   }
 
-  openAdminCabinet() {
-    this.router.navigate(['/admin/users']);
-  }
-
   cancelEditing(link: Link) {
     link.originalLink = this.editingLink.originalLink;
     link.summary = this.editingLink.summary;

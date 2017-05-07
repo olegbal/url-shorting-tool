@@ -11,18 +11,24 @@ export class AuthService {
   isLoggedIn: boolean = false;
   token: string = "";
   login: string = "";
-  asAdmin = true; //????
+  asAdmin = false;
 
   constructor(private router: Router, private toasterService: ToasterService) {
     this.token = localStorage.getItem("Token") || "";
     this.login = localStorage.getItem("Login") || "";
-
+    let temp = localStorage.getItem("asAdmin") || "false";
+    if (temp.includes("true")) {
+      this.asAdmin = true;
+    }
     if (this.token !== "" && this.login !== "") {
       this.isLoggedIn = true;
     }
   }
 
   logIn(token: string, login: string) {
+    if (this.asAdmin) {
+      localStorage.setItem("asAdmin", "true");
+    }
     this.isLoggedIn = true;
     localStorage.setItem("Token", token);
     localStorage.setItem("Login", login);
@@ -36,16 +42,8 @@ export class AuthService {
     this.login = "";
     localStorage.removeItem("Auth");
     localStorage.removeItem("Login");
+    localStorage.removeItem("asAdmin");
     this.router.navigate(['/links']);
     this.toasterService.showToaster("Logged out")
-  }
-
-  isAdmin(user: User): boolean {
-
-    if (user.roles.find(x => x.roleName == "ROLE_ADMIN") != undefined) {
-      return true;
-    }
-
-    return false;
   }
 }
