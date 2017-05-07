@@ -12,7 +12,7 @@ import {ToasterService} from "../../services/ui/ToasterService";
 @Component({
   selector: 'account-details',
   templateUrl: '../../templates/account-details.component.html',
-  styleUrls: ['../../styles/account-details.component.css','../../styles/spinner.css']
+  styleUrls: ['../../styles/account-details.component.css', '../../styles/spinner.css']
 })
 
 export class AccountDetailsComponent implements OnInit {
@@ -29,25 +29,31 @@ export class AccountDetailsComponent implements OnInit {
   editingLink;
   isAdding = false;
   showDialog = false;
-  spinnerOn=false;
+  spinnerOn = false;
   existingLinkFullAddres: String;
 
   ngOnInit() {
-    this.spinnerOn=true;
+    this.spinnerOn = true;
     this.accountDetailsService.getUserInfo(this.authService.login).subscribe((res) => {
 
         if (res.status == 200) {
 
           this.user = res.json();
-          this.spinnerOn=false;
+          this.spinnerOn = false;
         }
 
       },
       (err) => {
-        if (err.status < 200 || err.status > 299) {
+
+        if (err.status == 403) {
+          this.spinnerOn = false;
+          this.authService.logout();
+          this.router.navigate(['/login']);
+        }
+        else if (err.status < 200 || err.status > 299) {
           this.toasterService.showToaster("Failed to get account data");
-          console.log("Failed to get account data", err)
-          this.spinnerOn=false;
+          console.log("Failed to get account data", err);
+          this.spinnerOn = false;
         }
       });
   }
@@ -59,33 +65,60 @@ export class AccountDetailsComponent implements OnInit {
   removeLink(id: string) {
 
 
-    this.linkService.deleteLink(id).subscribe((res) => {
+    this.linkService.deleteLink(id).subscribe(
+      (res) => {
 
-      if (res.status == 200) {
+        if (res.status == 200) {
 
-        this.user.links = this.user.links.filter(x => x.linkId != Number.parseInt(id));
+          this.user.links = this.user.links.filter(x => x.linkId != Number.parseInt(id));
 
-        console.log("successfully deleted");
-        this.toasterService.showToaster("Deleted");
-      }
-    });
+          console.log("successfully deleted");
+          this.toasterService.showToaster("Deleted");
+        }
+      },
+      (err) => {
+        if (err.status == 403) {
+          this.spinnerOn = false;
+          this.authService.logout();
+          this.router.navigate(['/login']);
+        }
+        else if (err.status < 200 || err.status > 299) {
+          this.toasterService.showToaster("Failed to get account data");
+          console.log("Failed to delete link", err);
+          this.spinnerOn = false;
+        }
+
+      });
   }
 
   editLink(id: string, link: Link) {
 
-    link.tags=Array.from(new Set(link.tags.split(' '))).toString().split(',').join(' ');
+    link.tags = Array.from(new Set(link.tags.split(' '))).toString().split(',').join(' ');
 
     this.linkService.updateLink(id, link).subscribe((res) => {
-      if (res.status == 200) {
-        console.log("link successfully updated");
-        this.toasterService.showToaster("Updated");
-      }
-    });
+        if (res.status == 200) {
+          console.log("link successfully updated");
+          this.toasterService.showToaster("Updated");
+        }
+      },
+      (err) => {
+        if (err.status == 403) {
+          this.spinnerOn = false;
+          this.authService.logout();
+          this.router.navigate(['/login']);
+        }
+        else if (err.status < 200 || err.status > 299) {
+          this.toasterService.showToaster("Failed to get account data");
+          console.log("Failed to update link", err);
+          this.spinnerOn = false;
+        }
+
+      });
   }
 
   addLink(id: string, link: Link) {
 
-    link.tags=Array.from(new Set(link.tags.split(' '))).toString().split(',').join(' ');
+    link.tags = Array.from(new Set(link.tags.split(' '))).toString().split(',').join(' ');
 
     this.linkService.checkIfLinkExist(link.originalLink).subscribe(
       (res) => {
@@ -103,7 +136,13 @@ export class AccountDetailsComponent implements OnInit {
               }
             },
             (error) => {
-              if (error.status < 200 || error.status > 299) {
+
+              if (error.status == 403) {
+                this.spinnerOn = false;
+                this.authService.logout();
+                this.router.navigate(['/login']);
+              }
+              else if (error.status < 200 || error.status > 299) {
 
                 this.flushAddingLink();
                 this.toasterService.showToaster("Cannot create link");
@@ -115,7 +154,13 @@ export class AccountDetailsComponent implements OnInit {
         }
       },
       (error) => {
-        if (error.status == 409) {
+
+        if (error.status == 403) {
+          this.spinnerOn = false;
+          this.authService.logout();
+          this.router.navigate(['/login']);
+        }
+        else if (error.status == 409) {
 
           this.existingLinkFullAddres = window.location.hostname + ':'
             + window.location.port + '/' + error.json().shortLink;
@@ -124,7 +169,7 @@ export class AccountDetailsComponent implements OnInit {
           this.flushAddingLink();
 
         }
-        else if(error.status<200 || error.status>299){
+        else if (error.status < 200 || error.status > 299) {
           this.flushAddingLink();
           this.toasterService.showToaster("Cannot create link");
           console.log("Cannot create link", error);

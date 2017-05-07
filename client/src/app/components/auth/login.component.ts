@@ -11,7 +11,7 @@ import {Role} from "../../models/role";
 @Component({
   selector: 'login-component',
   templateUrl: '../../templates/login.component.html',
-  styleUrls: ['../../styles/login.component.css','../../styles/spinner.css']
+  styleUrls: ['../../styles/login.component.css', '../../styles/spinner.css']
 })
 
 
@@ -24,21 +24,20 @@ export class LoginComponent {
   }
 
   loginAndPassword: LoginAndPassword = new LoginAndPassword("", "");
-  spinnerOn=false;
+  spinnerOn = false;
 
   logIn() {
-    this.spinnerOn=true;
+    this.spinnerOn = true;
     this.loginService.logIn(this.loginAndPassword).subscribe(
       (res) => {
         if (res.status === 202) {
-          let role:Role[]=res.json();
-          if(role.find(x=>x.roleName=="ROLE_ADMIN")!=undefined){
-            this.authService.asAdmin=true;
-
+          let role: Role[] = res.json();
+          if (role.find(x => x.roleName == "ROLE_ADMIN") != undefined) {
+            this.authService.asAdmin = true;
           }
           this.authService.logIn(res.headers.get("Auth"), this.loginAndPassword.login);
           this.toasterService.showToaster("Successfully logged in");
-          this.spinnerOn=false;
+          this.spinnerOn = false;
           this.router.navigate(['/']);
         }
       },
@@ -48,7 +47,7 @@ export class LoginComponent {
           this.loginAndPassword.password = "";
           this.toasterService.showToaster("Failed to log in");
           console.log("Failed to log in", err);
-          this.spinnerOn=false;
+          this.spinnerOn = false;
         }
       }
     );

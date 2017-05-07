@@ -40,10 +40,10 @@ export class AuthService {
     this.isLoggedIn = false;
     this.token = "";
     this.login = "";
-    localStorage.removeItem("Auth");
+    this.asAdmin = false;
+    localStorage.removeItem("Token");
     localStorage.removeItem("Login");
     localStorage.removeItem("asAdmin");
     this.router.navigate(['/links']);
-    this.toasterService.showToaster("Logged out")
   }
 }
