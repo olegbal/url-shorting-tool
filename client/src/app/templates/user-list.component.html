@@ -2,10 +2,10 @@
   <tr *ngFor="let user of users">
     <td>{{user.login}}</td>
     <td>
-      <button (click)="showUserInfo(user.login)" >More info</button>
+      <button class="btn btn-outline-primary" (click)="showUserInfo(user.login)" >More info</button>
     </td>
     <td>
-      <button (click)="removeUser(user.userId)">Delete</button>
+      <button class="btn btn-outline-danger" (click)="removeUser(user.userId)">Delete</button>
     </td>
   </tr>
 </table>

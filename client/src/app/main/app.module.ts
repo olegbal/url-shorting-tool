@@ -6,7 +6,7 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {InfiniteScrollModule} from "ngx-infinite-scroll";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MaterialModule} from "@angular/material";
-import {SpinnerModule} from 'angular2-spinner/dist';
+import {SpinnerModule} from "angular2-spinner/dist";
 import "hammerjs";
 
 import {AppComponent} from "./app.component";
@@ -31,6 +31,7 @@ import {UserService} from "../services/user/user.service";
 import {UserListComponent} from "../components/user/user-list.component";
 import {UserInfoComponent} from "../components/user/user-details.component";
 import {AdminCabinetGuard} from "../guards/admin-cabinet.guard";
+import {OrderByDatePipe} from "../pipes/date-order-pipe";
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import {AdminCabinetGuard} from "../guards/admin-cabinet.guard";
     DialogComponent,
     UserListComponent,
     UserInfoComponent,
+    OrderByDatePipe,
   ],
   imports: [
     SpinnerModule,

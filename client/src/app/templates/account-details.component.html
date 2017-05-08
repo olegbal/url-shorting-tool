@@ -50,7 +50,7 @@
         </button>
       </td>
     </tr>
-    <tr *ngFor="let link of user.links">
+    <tr *ngFor="let link of user.links | orderByDatePipe ">
       <td>
         <a class="text-primary"
            (click)="redirectToUrl(link.shortLink)">{{link.shortLink}}
@@ -67,7 +67,7 @@
         <input *ngIf="link.isEditing" [(ngModel)]="link.summary" name="summaryEditor">
       </td>
       <td>
-        {{link.creationDate | date:'medium'}}
+        {{link.creationDate| date:'d MMMM y H:mm:s'}}
       </td>
       <td>
         <div *ngIf="!link.isEditing">

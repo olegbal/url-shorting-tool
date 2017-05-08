@@ -2,19 +2,19 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" routerLink="/" routerLinkActive="active">Main page</a>
+        <a class="nav-link text-muted" routerLink="/" routerLinkActive="active">Main page</a>
       </li>
     </ul>
   </div>
   <div class="collapse navbar-collapse justify-content-end">
     <div class="nav-item">
-      <a class="nav-link" *ngIf="!authService.isLoggedIn"
+      <a class="nav-link text-muted" *ngIf="!authService.isLoggedIn"
          routerLink="/login"
          routerLinkActive="active">
         Sign in </a>
     </div>
     <div class="nav-item">
-      <a class="nav-link" *ngIf="!authService.isLoggedIn"
+      <a class="nav-link text-muted" *ngIf="!authService.isLoggedIn"
          routerLink="/register"
          routerLinkActive="active">
         Sign up </a>
@@ -25,19 +25,19 @@
       <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>{{authService.login}}</button>
       <div class="dropdown-menu" aria-labelledby="dropdownBasic1">
         <div class=" dropdown-item">
-          <a class="nav-link"
+          <a class="nav-link text-muted"
              routerLink="/account"
              routerLinkActive="active">
             Account
           </a>
         </div>
         <div class="dropdown-item">
-          <a class="nav-link" *ngIf="authService.asAdmin" routerLink="/admin/users" routerLinkActive="active">Admin
+          <a class="nav-link text-muted" *ngIf="authService.asAdmin" routerLink="/admin/users" routerLinkActive="active">Admin
             cabinet
           </a>
         </div>
         <div class="dropdown-item">
-          <a class="nav-link" (click)="authService.logout()">Logout</a>
+          <a class="nav-link text-muted" (click)="authService.logout()">Logout</a>
         </div>
       </div>
     </div>
