@@ -1,7 +1,10 @@
-input{
+input.editing_input{
   width:150px;
 }
 
+table{
+  margin-top:3%;
+}
 
 .modal {
   /* This way it could be display flex or grid or whatever also. */
@@ -41,4 +44,8 @@ input{
   height: 100%;
   z-index: 8000;
   background: rgba(0, 0, 0, 0.6);
+}
+
+div.search_div{
+  padding-top:5%;
 }

@@ -1,4 +1,9 @@
 <form>
+
+  <label class="col-form-label" style="padding-top:5%">Search</label>
+  <div class="col-10">
+    <input class="form-control" type="text" #search (keyup)="0">
+  </div>
   <table class="table table-striped table-bordered">
     <tr>
       <th width="6%">
@@ -50,7 +55,7 @@
         </button>
       </td>
     </tr>
-    <tr *ngFor="let link of user.links | orderByDatePipe ">
+    <tr *ngFor="let link of user.links | orderByDatePipe | searchPipe:search.value ">
       <td>
         <a class="text-primary"
            (click)="redirectToUrl(link.shortLink)">{{link.shortLink}}
@@ -64,7 +69,7 @@
       </td>
       <td>
         <label *ngIf="!link.isEditing">{{link.summary}}</label>
-        <input *ngIf="link.isEditing" [(ngModel)]="link.summary" name="summaryEditor">
+        <input class="editing_input" *ngIf="link.isEditing" [(ngModel)]="link.summary" name="summaryEditor">
       </td>
       <td>
         {{link.creationDate| date:'d MMMM y H:mm:s'}}
@@ -75,7 +80,7 @@
             <a class="text-primary" (click)="showLinksWithSameTag(tag)">{{tag}}</a>
           </div>
         </div>
-        <input *ngIf="link.isEditing" [(ngModel)]="link.tags" name="tagsEditor">
+        <input class="editing_input" *ngIf="link.isEditing" [(ngModel)]="link.tags" name="tagsEditor">
       </td>
       <td>
         <button class="btn btn-outline-success" *ngIf="!link.isEditing"

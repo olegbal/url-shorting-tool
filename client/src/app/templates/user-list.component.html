@@ -1,8 +1,9 @@
+<label class="col-form-label" style="padding-top:5%">Search</label>
 <table class="table table-striped table-bordered">
   <tr *ngFor="let user of users">
     <td>{{user.login}}</td>
     <td>
-      <button class="btn btn-outline-primary" (click)="showUserInfo(user.login)" >More info</button>
+      <button class="btn btn-outline-primary" (click)="showUserInfo(user.login)">More info</button>
     </td>
     <td>
       <button class="btn btn-outline-danger" (click)="removeUser(user.userId)">Delete</button>
@@ -13,4 +14,5 @@
   <spinner class="spinner" *ngIf="spinnerOn" [tickness]="3" [size]="100"></spinner>
 </div>
 <button class="btn btn-primary btn-lg fixed-bottom"
-        (click)="location.back()">Back</button>
+        (click)="location.back()">Back
+</button>
