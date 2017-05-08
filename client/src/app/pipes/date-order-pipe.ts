@@ -5,7 +5,6 @@ import {Injectable, Pipe, PipeTransform} from '@angular/core';
   pure: false
 })
 
-@Injectable()
 export class OrderByDatePipe implements PipeTransform {
 
   transform(value: any, args?: any): any {
