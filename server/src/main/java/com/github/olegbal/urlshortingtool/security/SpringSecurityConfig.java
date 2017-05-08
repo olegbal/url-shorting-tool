@@ -50,12 +50,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**.js").permitAll()
 
 
-
                 .antMatchers("/**").permitAll()
 
                 .antMatchers(HttpMethod.DELETE, "/api/v1/links/{\\d+}").hasRole("USER")
-                .antMatchers("/api/v1/account**").hasAnyRole("USER","ADMIN" +
-                "")
+                .antMatchers("/api/v1/account**").hasAnyRole("USER", "ADMIN")
 
                 .antMatchers("/api/v1/login", "/api/v1/register", "/api/v1/links", "/api/v1/links?tag={tag}",
                         "/api/v1/shortlinks/{value}").permitAll()

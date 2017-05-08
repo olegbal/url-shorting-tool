@@ -135,7 +135,7 @@ public class LinkServiceImpl implements LinkService {
     @Override
     public Set<LinkDto> findAllUsersLinks(Pageable pageable, long userId) {
 
-        Set<Link> links = Sets.newHashSet(linkRepository.findByUserUserId(pageable, userId).getContent());
+        Set<Link> links = Sets.newHashSet(linkRepository.findByUserUserId(pageable, userId));
 
         if (links != null) {
             return new LinkEntityToDtoConverter().convertSet(links);
