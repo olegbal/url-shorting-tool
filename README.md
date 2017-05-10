@@ -61,7 +61,7 @@ mvn test
 * GET  /api/v1/links?page=0&size=5 -- getting paginated links
 * GET  /api/v1/links?tag=tagname&page=0&size=5 -- get paged links by tag
 * GET  /api/v1/links/{id} -- get link info by id
-* GET  /api/v1/links?userId=1&page=0&size=4 -- get all paged user's links
+* GET  /api/v1/links?userId=1 -- get all paged user's links
 * GET /api/v1/links/check?url="adress" -- check is url exists in db
 * POST /api/v1/links?userId=1 -- create link
 * PUT  /api/v1/links?userId=1 -- update user's link
@@ -73,7 +73,7 @@ mvn test
 ### Users
 * GET /api/v1/account?userName="login" -- get user account details (logn + links)
 
-* GET /api/v1/users -- get all registered users with role USER (will be in admin cabinet)
+* GET /api/v1/users -- get all registered users with role USER
 * DELETE /api/v1/user/{id} --remove user by id
 
 ### Production mode
