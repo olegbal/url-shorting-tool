@@ -1,5 +1,6 @@
 package com.github.olegbal.urlshortingtool.domain.dto;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class UserDto {
@@ -15,6 +16,8 @@ public class UserDto {
     private Set<LinkDto> links;
 
     public UserDto() {
+        roles=new HashSet<>();
+        links=new HashSet<>();
     }
 
     public long getUserId() {

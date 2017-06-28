@@ -32,10 +32,8 @@ public class User implements UserDetails {
     private Set<Role> roles;
 
     public User() {
-
-        linkSet = new HashSet<Link>();
-
-        roles = new HashSet<Role>();
+        linkSet = new HashSet<>();
+        roles = new HashSet<>();
     }
 
     public User(String login, String password, Set<Link> linkSet, Set<Role> roles) {

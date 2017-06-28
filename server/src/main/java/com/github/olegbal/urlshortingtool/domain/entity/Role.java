@@ -3,6 +3,7 @@ package com.github.olegbal.urlshortingtool.domain.entity;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -21,6 +22,7 @@ public class Role implements GrantedAuthority {
     private Set<User> users;
 
     public Role() {
+        users=new HashSet<>();
     }
 
     public Role(String roleName, Set<User> users) {
