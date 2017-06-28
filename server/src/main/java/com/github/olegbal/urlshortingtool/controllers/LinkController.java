@@ -1,8 +1,8 @@
 package com.github.olegbal.urlshortingtool.controllers;
 
-import com.github.olegbal.urlshortingtool.domain.dto.CreatedLinkResponseDto;
 import com.github.olegbal.urlshortingtool.domain.dto.LinkDto;
-import com.github.olegbal.urlshortingtool.services.impl.LinkServiceImpl;
+import com.github.olegbal.urlshortingtool.services.LinkService;
+import com.github.olegbal.urlshortingtool.services.impl.CustomLinkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -16,8 +16,12 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping(path = "/api/v1/links")
 public class LinkController {
 
+    private final LinkService linkService;
+
     @Autowired
-    private LinkServiceImpl linkService;
+    public LinkController(LinkService linkService) {
+        this.linkService = linkService;
+    }
 
     @RequestMapping(path = "", method = RequestMethod.GET)
     public ResponseEntity getAllLinks(Pageable pageable) {
@@ -49,7 +53,7 @@ public class LinkController {
     @RequestMapping(path = "/check", method = RequestMethod.POST)
     public ResponseEntity checkLink(@RequestBody String url) {
 
-        LinkDto link = linkService.getByOriginalLink(url.replace("\"",""));
+        LinkDto link = linkService.getByOriginalLink(url.replace("\"", ""));
 
         if (link != null) {
             return new ResponseEntity(link, HttpStatus.CONFLICT);

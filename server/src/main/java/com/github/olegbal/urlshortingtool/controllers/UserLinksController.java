@@ -2,7 +2,8 @@ package com.github.olegbal.urlshortingtool.controllers;
 
 import com.github.olegbal.urlshortingtool.domain.dto.CreatedLinkResponseDto;
 import com.github.olegbal.urlshortingtool.domain.dto.LinkDto;
-import com.github.olegbal.urlshortingtool.services.impl.LinkServiceImpl;
+import com.github.olegbal.urlshortingtool.services.LinkService;
+import com.github.olegbal.urlshortingtool.services.impl.CustomLinkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -16,10 +17,12 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping(path = "/api/v1/links")
 public class UserLinksController {
 
+    private final LinkService linkService;
 
     @Autowired
-    private LinkServiceImpl linkService;
-
+    public UserLinksController(CustomLinkService linkService) {
+        this.linkService = linkService;
+    }
 
     @RequestMapping(path = "", params = "userId", method = RequestMethod.GET)
     public ResponseEntity getUsersLinks(Pageable pageable, @RequestParam("userId") long id) {

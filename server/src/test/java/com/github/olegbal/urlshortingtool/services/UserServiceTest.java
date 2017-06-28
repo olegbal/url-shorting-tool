@@ -9,8 +9,8 @@ import com.github.olegbal.urlshortingtool.domain.entity.User;
 import com.github.olegbal.urlshortingtool.enums.RolesEnum;
 import com.github.olegbal.urlshortingtool.respositories.RoleRepository;
 import com.github.olegbal.urlshortingtool.respositories.UserRepository;
-import com.github.olegbal.urlshortingtool.services.impl.RoleServiceImpl;
-import com.github.olegbal.urlshortingtool.services.impl.UserServiceImpl;
+import com.github.olegbal.urlshortingtool.services.impl.CustomRoleService;
+import com.github.olegbal.urlshortingtool.services.impl.CustomUserService;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,13 +32,13 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 public class UserServiceTest {
 
     @Autowired
-    private UserServiceImpl userServiceImpl;
+    private CustomUserService customUserService;
 
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
-    private RoleServiceImpl roleService;
+    private CustomRoleService roleService;
 
     @Autowired
     private RoleRepository roleRepository;
@@ -54,7 +54,7 @@ public class UserServiceTest {
 
         userRepository.save(new User("test_user_1", "1234", null, null));
 
-        User user = userServiceImpl.loadUserByUsername("test_user_1");
+        User user = customUserService.loadUserByUsername("test_user_1");
 
         assertThat(user).isNotNull();
 
@@ -66,7 +66,7 @@ public class UserServiceTest {
 
         userRepository.save(new User("test_user_1", "1234", null, null));
 
-        UserDto user = userServiceImpl.getUserByLogin("test_user_1");
+        UserDto user = customUserService.getUserByLogin("test_user_1");
 
         assertThat(user).isNotNull();
 
@@ -80,9 +80,9 @@ public class UserServiceTest {
         roleRepository.save(role1);
         roleRepository.save(role2);
 
-        assertThat(userServiceImpl.createUser(new RegistrationDto("test_user_1", "1234", ""))).isTrue();
+        assertThat(customUserService.createUser(new RegistrationDto("test_user_1", "1234", ""))).isTrue();
 
-        assertThat(userServiceImpl.createUser(new RegistrationDto("test_user_1", "1234", ""))).isFalse();
+        assertThat(customUserService.createUser(new RegistrationDto("test_user_1", "1234", ""))).isFalse();
 
     }
 
@@ -113,7 +113,7 @@ public class UserServiceTest {
         userRepository.save(user4);
 
 
-        Set<UserDto> registeredUsers = userServiceImpl.getRegisteredUsers();
+        Set<UserDto> registeredUsers = customUserService.getRegisteredUsers();
 
         assertThat(registeredUsers).isNotNull();
         assertThat(registeredUsers).size().isEqualTo(1);
@@ -131,7 +131,7 @@ public class UserServiceTest {
 
         assertThat(user.getLogin()).isEqualTo("test_user_1");
 
-        userServiceImpl.deleteUser(user.getUserId());
+        customUserService.deleteUser(user.getUserId());
 
         assertThat(userRepository.findOne(user.getUserId())).isNull();
 

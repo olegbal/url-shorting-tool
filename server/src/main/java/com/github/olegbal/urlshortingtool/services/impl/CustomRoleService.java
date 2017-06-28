@@ -11,10 +11,14 @@ import org.springframework.stereotype.Service;
 import java.util.Set;
 
 @Service
-public class RoleServiceImpl implements RoleService {
+public class CustomRoleService implements RoleService {
+
+    private final RoleRepository roleRepository;
 
     @Autowired
-    private RoleRepository roleRepository;
+    public CustomRoleService(RoleRepository roleRepository) {
+        this.roleRepository = roleRepository;
+    }
 
     @Override
     public Role getByRoleName(String roleName) {

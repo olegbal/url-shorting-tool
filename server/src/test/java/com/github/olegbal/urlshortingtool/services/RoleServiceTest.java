@@ -4,7 +4,7 @@ import com.github.olegbal.urlshortingtool.Application;
 import com.github.olegbal.urlshortingtool.domain.entity.Role;
 import com.github.olegbal.urlshortingtool.enums.RolesEnum;
 import com.github.olegbal.urlshortingtool.respositories.RoleRepository;
-import com.github.olegbal.urlshortingtool.services.impl.RoleServiceImpl;
+import com.github.olegbal.urlshortingtool.services.impl.CustomRoleService;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,7 +23,7 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 public class RoleServiceTest {
 
     @Autowired
-    private RoleServiceImpl roleServiceImpl;
+    private CustomRoleService customRoleService;
 
     @Autowired
     private RoleRepository roleRepository;
@@ -33,7 +33,7 @@ public class RoleServiceTest {
 
         roleRepository.save(new Role(RolesEnum.USER.role_name, null));
 
-        Role role = roleServiceImpl.getByRoleName(RolesEnum.USER.role_name);
+        Role role = customRoleService.getByRoleName(RolesEnum.USER.role_name);
 
         assertThat(role).isNotNull();
 

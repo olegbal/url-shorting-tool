@@ -12,12 +12,16 @@ import java.util.Date;
 
 
 @Service
-public class ExpiredLinksServiceImpl implements ExpiredLinksService {
+public class CustomExpiredLinksService implements ExpiredLinksService {
 
     private static final long repeatInMills = 24*60*60 * 1000;
 
+    private final LinkRepository linkRepository;
+
     @Autowired
-    private LinkRepository linkRepository;
+    public CustomExpiredLinksService(LinkRepository linkRepository) {
+        this.linkRepository = linkRepository;
+    }
 
     @Transactional
     @Scheduled(fixedRate = repeatInMills, initialDelay = repeatInMills)
