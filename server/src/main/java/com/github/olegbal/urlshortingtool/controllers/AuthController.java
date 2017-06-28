@@ -35,7 +35,7 @@ public class AuthController {
 
         if (tokenAuthenticationService.checkLogin(httpServletResponse, loginAndPasswordDto)) {
 
-            return new ResponseEntity(userService.
+            return new ResponseEntity<>(userService.
                     getUserByLogin(loginAndPasswordDto.
                             getLogin()).getRoles(),
                     HttpStatus.ACCEPTED);

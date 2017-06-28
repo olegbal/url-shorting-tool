@@ -27,7 +27,7 @@ public class UserLinksController {
     @RequestMapping(path = "", params = "userId", method = RequestMethod.GET)
     public ResponseEntity getUsersLinks(Pageable pageable, @RequestParam("userId") long id) {
 
-        return new ResponseEntity(linkService.findAllUsersLinks(pageable, id), HttpStatus.OK);
+        return new ResponseEntity<>(linkService.findAllUsersLinks(pageable, id), HttpStatus.OK);
     }
 
     @PreAuthorize("@userPreAuthorizeService.checkRightsToUrlById(#request,#id)")
@@ -37,7 +37,7 @@ public class UserLinksController {
 
         CreatedLinkResponseDto responseDto = linkService.createLink(id, linkDto);
         if (responseDto != null) {
-            return new ResponseEntity(responseDto, HttpStatus.OK);
+            return new ResponseEntity<>(responseDto, HttpStatus.OK);
         }
         return new ResponseEntity(HttpStatus.NOT_MODIFIED);
 

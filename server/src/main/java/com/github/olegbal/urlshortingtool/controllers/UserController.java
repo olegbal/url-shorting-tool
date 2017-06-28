@@ -26,13 +26,13 @@ public class UserController {
     @RequestMapping(path = "/api/v1/account", params = "userName", method = RequestMethod.GET)
     public ResponseEntity getUserDetails(HttpServletRequest request, @RequestParam("userName") String userName) {
 
-        return new ResponseEntity(userService.getUserByLogin(userName), HttpStatus.OK);
+        return new ResponseEntity<>(userService.getUserByLogin(userName), HttpStatus.OK);
     }
 
     @RequestMapping(path = "/api/v1/users", method = RequestMethod.GET)
     public ResponseEntity getRegisteredUsers() {
 
-        return new ResponseEntity(userService.getRegisteredUsers(), HttpStatus.OK);
+        return new ResponseEntity<>(userService.getRegisteredUsers(), HttpStatus.OK);
     }
 
     @RequestMapping(path = "/api/v1/user/{id}", method = RequestMethod.DELETE)

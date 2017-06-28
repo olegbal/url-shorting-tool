@@ -25,18 +25,18 @@ public class LinkController {
 
     @RequestMapping(path = "", method = RequestMethod.GET)
     public ResponseEntity getAllLinks(Pageable pageable) {
-        return new ResponseEntity(linkService.findAllLinks(pageable), HttpStatus.OK);
+        return new ResponseEntity<>(linkService.findAllLinks(pageable), HttpStatus.OK);
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public ResponseEntity getLinkById(@PathVariable long id) {
-        return new ResponseEntity(linkService.getLinkById(id), HttpStatus.OK);
+        return new ResponseEntity<>(linkService.getLinkById(id), HttpStatus.OK);
     }
 
     @RequestMapping(path = "", params = "tag", method = RequestMethod.GET)
     public ResponseEntity getLinksByTag(Pageable pageable, @RequestParam("tag") String tag) {
 
-        return new ResponseEntity(linkService.getLinksByTag(pageable, tag), HttpStatus.OK);
+        return new ResponseEntity<>(linkService.getLinksByTag(pageable, tag), HttpStatus.OK);
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
@@ -56,7 +56,7 @@ public class LinkController {
         LinkDto link = linkService.getByOriginalLink(url.replace("\"", ""));
 
         if (link != null) {
-            return new ResponseEntity(link, HttpStatus.CONFLICT);
+            return new ResponseEntity<>(link, HttpStatus.CONFLICT);
         }
         return new ResponseEntity(HttpStatus.OK);
     }
