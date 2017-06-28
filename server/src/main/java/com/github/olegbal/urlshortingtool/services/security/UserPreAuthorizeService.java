@@ -13,8 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 public class UserPreAuthorizeService {
 
     private final TokenAuthenticationService tokenAuthenticationService;
-
-
     private final LinkRepository linkService;
 
     @Autowired
@@ -26,7 +24,7 @@ public class UserPreAuthorizeService {
 
     public boolean checkRightsToUrlById(HttpServletRequest request, long id) {
 
-        User requestingUser = tokenAuthenticationService.tokenHandler.parseUserFromToken(request.getHeader("Auth"));
+        User requestingUser = tokenAuthenticationService.getTokenHandler().parseUserFromToken(request.getHeader("Auth"));
 
 
         if (requestingUser != null) {

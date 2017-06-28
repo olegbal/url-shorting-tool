@@ -6,34 +6,37 @@ import com.github.olegbal.urlshortingtool.domain.entity.Role;
 import com.github.olegbal.urlshortingtool.domain.entity.User;
 import com.github.olegbal.urlshortingtool.enums.RolesEnum;
 import com.github.olegbal.urlshortingtool.respositories.UserRepository;
+import com.github.olegbal.urlshortingtool.services.RoleService;
 import com.github.olegbal.urlshortingtool.services.UserService;
 import org.hibernate.TransactionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.TypeDescriptor;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 @Service
-public class CustomUserService implements UserService, UserDetailsService {
+public class CustomUserService implements UserService {
 
-//    TODO REMOVE FIElD AUTOWIRING!!!
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private CustomRoleService roleService;
+    private final RoleService roleService;
 
-    @Autowired
-    private ConversionService conversionService;
+    private final ConversionService conversionService;
 
     @Value("${admin.serialnumber}")
     private String serialNumber;
+
+    @Autowired
+    public CustomUserService(UserRepository userRepository, RoleService roleService, ConversionService conversionService) {
+        this.userRepository = userRepository;
+        this.roleService = roleService;
+        this.conversionService = conversionService;
+    }
 
     @Override
     public User loadUserByUsername(String s) throws UsernameNotFoundException {

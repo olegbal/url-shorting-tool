@@ -1,8 +1,11 @@
 package com.github.olegbal.urlshortingtool.security;
 
 import com.github.olegbal.urlshortingtool.filters.StatelessAuthenticationFilter;
+import com.github.olegbal.urlshortingtool.services.UserService;
 import com.github.olegbal.urlshortingtool.services.impl.CustomUserService;
 import com.github.olegbal.urlshortingtool.services.security.TokenAuthenticationService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -21,16 +24,17 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final CustomUserService userService;
+    private final UserService userService;
     private final TokenAuthenticationService tokenAuthenticationService;
 
 
     private final String secret = "MY_SECRET_TSSS";
 
-    public SpringSecurityConfig() {
+
+    public SpringSecurityConfig(@Qualifier("customUserService") @Autowired UserService userService) {
         super(true);
-        this.userService = new CustomUserService();
-        tokenAuthenticationService = new TokenAuthenticationService(secret, userService);
+        this.userService = userService;
+        tokenAuthenticationService = new TokenAuthenticationService(secret, this.userService);
     }
 
     @Override
@@ -77,12 +81,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
-    }
-
-    @Bean
-    @Override
-    public CustomUserService userDetailsService() {
-        return userService;
     }
 
     @Bean
