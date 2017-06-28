@@ -58,7 +58,6 @@ public class UserPreAuthorizeService {
 
         //Any operation with requestingUser.getLinkSet()
         // dont allow to execute repository.delete(id) method.
-        // Response status is OK but nothing changed in DB
 
         if (requestingUser != null && link != null) {
             if (link.getUser().getUserId() == requestingUser.getUserId()

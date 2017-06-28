@@ -1,6 +1,5 @@
 package com.github.olegbal.urlshortingtool.services.impl;
 
-import com.github.olegbal.urlshortingtool.converters.entity.UserEntityToDtoConverter;
 import com.github.olegbal.urlshortingtool.domain.dto.RegistrationDto;
 import com.github.olegbal.urlshortingtool.domain.dto.UserDto;
 import com.github.olegbal.urlshortingtool.domain.entity.Role;
@@ -11,6 +10,8 @@ import com.github.olegbal.urlshortingtool.services.UserService;
 import org.hibernate.TransactionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.convert.ConversionService;
+import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     private RoleServiceImpl roleService;
+
+    @Autowired
+    private ConversionService conversionService;
 
     @Value("${admin.serialnumber}")
     private String serialNumber;
@@ -47,7 +51,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         user = userRepository.findByLogin(login);
 
         if (user != null)
-            return new UserEntityToDtoConverter().convert(user);
+            return conversionService.convert(user, UserDto.class);
 
         return null;
     }
@@ -99,7 +103,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         try {
             Set<User> users = roleService.getByRoleName(RolesEnum.USER.role_name).getUsers();
 
-            return new UserEntityToDtoConverter().convertSet(users);
+            return (Set<UserDto>) conversionService.convert(users, TypeDescriptor.collection(Set.class, TypeDescriptor.valueOf(User.class)),
+                    TypeDescriptor.collection(Set.class, TypeDescriptor.valueOf(UserDto.class)));
         } catch (Exception ex) {
             return null;
         }

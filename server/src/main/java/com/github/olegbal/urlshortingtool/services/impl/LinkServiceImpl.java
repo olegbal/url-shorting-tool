@@ -12,8 +12,11 @@ import com.github.olegbal.urlshortingtool.services.LinkService;
 import com.github.olegbal.urlshortingtool.utils.UrlShortener;
 import com.github.olegbal.urlshortingtool.utils.validators.LinkValidator;
 import com.google.common.collect.Sets;
+import com.sun.org.apache.xml.internal.dtm.ref.sax2dtm.SAX2DTM2;
 import org.hibernate.TransactionException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.ConversionService;
+import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -30,14 +33,21 @@ public class LinkServiceImpl implements LinkService {
     @Autowired
     private UserRepository userRepository;
 
+    private final ConversionService conversionService;
+
     private LinkValidator linkValidator = new LinkValidator();
+
+    @Autowired
+    public LinkServiceImpl(ConversionService conversionService) {
+        this.conversionService = conversionService;
+    }
 
     @Override
     public LinkDto getLinkById(long id) {
         Link link = linkRepository.findOne(id);
 
         if (link != null) {
-            return new LinkEntityToDtoConverter().convert(link);
+            return conversionService.convert(link, LinkDto.class);
         }
         return null;
     }
@@ -76,7 +86,8 @@ public class LinkServiceImpl implements LinkService {
 
         Set<Link> links = new HashSet<>(linkRepository.findAll(pageable).getContent());
 
-        return new LinkEntityToDtoConverter().convertSet(links);
+        return (Set<LinkDto>) conversionService.convert(links, TypeDescriptor.collection(Set.class, TypeDescriptor.valueOf(Link.class)),
+                TypeDescriptor.collection(Set.class, TypeDescriptor.valueOf(LinkDto.class)));
     }
 
     @Override
@@ -85,7 +96,7 @@ public class LinkServiceImpl implements LinkService {
         if (linkDto.getTags() != null && linkDto.getSummary() != null && linkDto.getOriginalLink() != null
                 && linkDto.getCreationDate() != null && linkValidator.validate(linkDto.getOriginalLink())) {
 
-            Link link = new LinkDtoToEntityConverter().convert(linkDto);
+            Link link = conversionService.convert(linkDto, Link.class);
 
             User user = userRepository.findOne(userId);
 
@@ -138,7 +149,8 @@ public class LinkServiceImpl implements LinkService {
         Set<Link> links = Sets.newHashSet(linkRepository.findByUserUserId(pageable, userId));
 
         if (links != null) {
-            return new LinkEntityToDtoConverter().convertSet(links);
+            return (Set<LinkDto>) conversionService.convert(links, TypeDescriptor.collection(Set.class, TypeDescriptor.valueOf(Link.class)),
+                    TypeDescriptor.collection(Set.class, TypeDescriptor.valueOf(LinkDto.class)));
         }
         return null;
     }
@@ -161,7 +173,8 @@ public class LinkServiceImpl implements LinkService {
 
         links = links.stream().filter(x -> x.getTags().contains(tag)).collect(Collectors.toSet());
 
-        return new LinkEntityToDtoConverter().convertSet(links);
+        return (Set<LinkDto>) conversionService.convert(links, TypeDescriptor.collection(Set.class, TypeDescriptor.valueOf(Link.class)),
+                TypeDescriptor.collection(Set.class, TypeDescriptor.valueOf(LinkDto.class)));
     }
 
     @Override
@@ -169,7 +182,7 @@ public class LinkServiceImpl implements LinkService {
 
         try {
             Link link = linkRepository.findByOriginalLink(originalLink);
-            return new LinkEntityToDtoConverter().convert(link);
+            return conversionService.convert(link, LinkDto.class);
         } catch (Exception ex) {
             return null;
         }
