@@ -11,9 +11,7 @@ public class LinkDtoToEntityConverter implements Converter<LinkDto, Link> {
 
     @Override
     public Link convert(LinkDto linkDto) {
-
         Link link = new Link();
-
         link.setLinkId(linkDto.getLinkId());
         link.setClicksCount(linkDto.getClicksCount());
         link.setOriginalLink(linkDto.getOriginalLink());
@@ -21,7 +19,6 @@ public class LinkDtoToEntityConverter implements Converter<LinkDto, Link> {
         link.setTags(linkDto.getTags());
         link.setSummary(linkDto.getSummary());
         link.setCreationDate(linkDto.getCreationDate());
-
         return link;
     }
 }

@@ -12,33 +12,34 @@ import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Service
 public class UserDtoToEntityConverter implements Converter<UserDto, User> {
 
-    private final ConversionService conversionService;
+    private final LinkDtoToEntityConverter linkDtoToEntityConverter;
+    private final RoleDtoToEntityConverter roleDtoToEntityConverter;
 
     @Autowired
-    public UserDtoToEntityConverter(ConversionService conversionService) {
-        this.conversionService = conversionService;
+    public UserDtoToEntityConverter(LinkDtoToEntityConverter linkDtoToEntityConverter, RoleDtoToEntityConverter roleDtoToEntityConverter) {
+        this.linkDtoToEntityConverter = linkDtoToEntityConverter;
+        this.roleDtoToEntityConverter = roleDtoToEntityConverter;
     }
 
     @Override
     public User convert(UserDto userDto) {
-
         User user = new User();
-
         user.setUserId(userDto.getUserId());
         user.setLogin(userDto.getLogin());
         user.setPassword(userDto.getPassword());
-        user.setLinkSet((Set<Link>) conversionService.convert(userDto.getLinks(),
-                TypeDescriptor.collection(Set.class, TypeDescriptor.valueOf(LinkDto.class)),
-                TypeDescriptor.collection(Set.class, TypeDescriptor.valueOf(Link.class))));
-        user.setRoles((Set<Role>) conversionService.convert(userDto.getRoles(),
-                TypeDescriptor.collection(Set.class, TypeDescriptor.valueOf(RoleDto.class)),
-                TypeDescriptor.collection(Set.class, TypeDescriptor.valueOf(Role.class))));
 
+        for (LinkDto link : userDto.getLinks()) {
+            user.getLinkSet().add(linkDtoToEntityConverter.convert(link));
+        }
+        for (RoleDto role : userDto.getRoles()) {
+            user.getRoles().add(roleDtoToEntityConverter.convert(role));
+        }
 
         return user;
 

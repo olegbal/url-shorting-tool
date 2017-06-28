@@ -10,9 +10,7 @@ public class LinkEntityToDtoConverter implements Converter<Link, LinkDto> {
 
     @Override
     public LinkDto convert(Link link) {
-
         LinkDto linkDto = new LinkDto();
-
         linkDto.setLinkId(link.getLinkId());
         linkDto.setOriginalLink(link.getOriginalLink());
         linkDto.setShortLink(link.getShortLink());
