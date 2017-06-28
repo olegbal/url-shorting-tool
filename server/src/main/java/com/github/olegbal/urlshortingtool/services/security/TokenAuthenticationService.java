@@ -1,11 +1,10 @@
 package com.github.olegbal.urlshortingtool.services.security;
 
 import com.github.olegbal.urlshortingtool.domain.dto.LoginDto;
-import com.github.olegbal.urlshortingtool.domain.dto.RegistrationDto;
 import com.github.olegbal.urlshortingtool.domain.entity.User;
 import com.github.olegbal.urlshortingtool.security.TokenHandler;
 import com.github.olegbal.urlshortingtool.security.UserAuthentication;
-import com.github.olegbal.urlshortingtool.services.impl.UserServiceImpl;
+import com.github.olegbal.urlshortingtool.services.impl.CustomUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
@@ -15,16 +14,17 @@ import javax.servlet.http.HttpServletResponse;
 
 public class TokenAuthenticationService {
 
+//    TODO REMOVE FIELD AUTOWIRING
 
-    @Qualifier("userDetailsService")
+    @Qualifier("customUserService")
     @Autowired
-    private UserServiceImpl userService;
+    private CustomUserService userService;
 
     private static final String AUTH_HEADER_NAME = "Auth";
 
     final TokenHandler tokenHandler;
 
-    public TokenAuthenticationService(String secret, UserServiceImpl userService) {
+    public TokenAuthenticationService(String secret, CustomUserService userService) {
         tokenHandler = new TokenHandler(secret, userService);
     }
 

@@ -1,7 +1,7 @@
 package com.github.olegbal.urlshortingtool.security;
 
 import com.github.olegbal.urlshortingtool.domain.entity.User;
-import com.github.olegbal.urlshortingtool.services.impl.UserServiceImpl;
+import com.github.olegbal.urlshortingtool.services.impl.CustomUserService;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -13,10 +13,10 @@ import java.util.concurrent.TimeUnit;
 public final class TokenHandler {
 
     private final String secret;
-    private final UserServiceImpl userService;
+    private final CustomUserService userService;
 
 
-    public TokenHandler(String secret, UserServiceImpl userService) {
+    public TokenHandler(String secret, CustomUserService userService) {
         this.secret = secret;
         this.userService = userService;
     }

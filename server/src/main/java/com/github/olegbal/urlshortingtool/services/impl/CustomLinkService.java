@@ -1,7 +1,5 @@
 package com.github.olegbal.urlshortingtool.services.impl;
 
-import com.github.olegbal.urlshortingtool.converters.dto.LinkDtoToEntityConverter;
-import com.github.olegbal.urlshortingtool.converters.entity.LinkEntityToDtoConverter;
 import com.github.olegbal.urlshortingtool.domain.dto.CreatedLinkResponseDto;
 import com.github.olegbal.urlshortingtool.domain.dto.LinkDto;
 import com.github.olegbal.urlshortingtool.domain.entity.Link;
@@ -12,7 +10,6 @@ import com.github.olegbal.urlshortingtool.services.LinkService;
 import com.github.olegbal.urlshortingtool.utils.UrlShortener;
 import com.github.olegbal.urlshortingtool.utils.validators.LinkValidator;
 import com.google.common.collect.Sets;
-import com.sun.org.apache.xml.internal.dtm.ref.sax2dtm.SAX2DTM2;
 import org.hibernate.TransactionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
@@ -25,20 +22,25 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class LinkServiceImpl implements LinkService {
+public class CustomLinkService implements LinkService {
 
-    @Autowired
-    private LinkRepository linkRepository;
+    private final LinkRepository linkRepository;
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    private final UrlShortener urlShortener;
+
+    private final LinkValidator linkValidator;
 
     private final ConversionService conversionService;
 
-    private LinkValidator linkValidator = new LinkValidator();
 
     @Autowired
-    public LinkServiceImpl(ConversionService conversionService) {
+    public CustomLinkService(LinkRepository linkRepository, UserRepository userRepository, UrlShortener urlShortener, LinkValidator linkValidator, ConversionService conversionService) {
+        this.linkRepository = linkRepository;
+        this.userRepository = userRepository;
+        this.urlShortener = urlShortener;
+        this.linkValidator = linkValidator;
         this.conversionService = conversionService;
     }
 
@@ -101,7 +103,7 @@ public class LinkServiceImpl implements LinkService {
             User user = userRepository.findOne(userId);
 
             link.setUser(user);
-            link.setShortLink(new UrlShortener().shortUrl(linkDto.getOriginalLink()));
+            link.setShortLink(urlShortener.shortUrl(linkDto.getOriginalLink()));
             user.getLinkSet().add(link);
 
             try {

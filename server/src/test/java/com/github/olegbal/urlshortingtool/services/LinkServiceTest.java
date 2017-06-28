@@ -9,8 +9,8 @@ import com.github.olegbal.urlshortingtool.domain.entity.Link;
 import com.github.olegbal.urlshortingtool.domain.entity.User;
 import com.github.olegbal.urlshortingtool.respositories.LinkRepository;
 import com.github.olegbal.urlshortingtool.respositories.UserRepository;
-import com.github.olegbal.urlshortingtool.services.impl.LinkServiceImpl;
-import com.github.olegbal.urlshortingtool.services.impl.UserServiceImpl;
+import com.github.olegbal.urlshortingtool.services.impl.CustomLinkService;
+import com.github.olegbal.urlshortingtool.services.impl.CustomUserService;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,13 +33,13 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 public class LinkServiceTest {
 
     @Autowired
-    private LinkServiceImpl linkServiceImpl;
+    private CustomLinkService customLinkService;
 
     @Autowired
     private LinkRepository linkRepository;
 
     @Autowired
-    private UserServiceImpl userServiceImpl;
+    private CustomUserService customUserService;
 
     @Autowired
     private UserRepository userRepository;
@@ -57,7 +57,7 @@ public class LinkServiceTest {
                 , "summary1", null, null));
         Link link = linkRepository.findByShortLink("test_short_link");
         assertThat(link).isNotNull();
-        LinkDto link1 = linkServiceImpl.getLinkById(link.getLinkId());
+        LinkDto link1 = customLinkService.getLinkById(link.getLinkId());
         assertThat(link1).isNotNull();
         assertThat(link1.getLinkId() == link.getLinkId());
     }
@@ -70,7 +70,7 @@ public class LinkServiceTest {
                 , "summary1", null, null));
         Link link = linkRepository.findByOriginalLink("test_original_link");
         assertThat(link).isNotNull();
-        LinkDto link1 = linkServiceImpl.getByOriginalLink(link.getOriginalLink());
+        LinkDto link1 = customLinkService.getByOriginalLink(link.getOriginalLink());
         assertThat(link1).isNotNull();
         assertThat(link1.getOriginalLink()).isEqualTo("test_original_link");
     }
@@ -84,7 +84,7 @@ public class LinkServiceTest {
                 , "summary1", null, null));
         Link link = linkRepository.findByShortLink("test_short_link");
         assertThat(link).isNotNull();
-        Link link1 = linkServiceImpl.findByShortLink(link.getShortLink());
+        Link link1 = customLinkService.findByShortLink(link.getShortLink());
         assertThat(link1).isNotNull();
         assertThat(link1.getShortLink()).isEqualTo("test_short_link");
 
@@ -99,7 +99,7 @@ public class LinkServiceTest {
         Link link = linkRepository.findByShortLink("test_short_link");
         assertThat(link).isNotNull();
 
-        String expectedOriginalLInk = linkServiceImpl.checkLink(link.getShortLink());
+        String expectedOriginalLInk = customLinkService.checkLink(link.getShortLink());
 
         assertThat(expectedOriginalLInk).isNotNull();
 
@@ -123,10 +123,10 @@ public class LinkServiceTest {
         linkRepository.save(new Link("test_original_link2",
                 "test_short_link2", 0, "tag3 tag4"
                 , "summary2", null, null));
-        Set<LinkDto> linkDtoSet = linkServiceImpl.findAllLinks(new PageRequest(0, 2));
+        Set<LinkDto> linkDtoSet = customLinkService.findAllLinks(new PageRequest(0, 2));
         assertThat(linkDtoSet).isNotNull();
         assertThat(linkDtoSet).size().isEqualTo(2);
-        linkDtoSet = linkServiceImpl.findAllLinks(new PageRequest(1, 1));
+        linkDtoSet = customLinkService.findAllLinks(new PageRequest(1, 1));
         assertThat(linkDtoSet).isNotNull();
         assertThat(linkDtoSet).size().isEqualTo(1);
 
@@ -141,7 +141,7 @@ public class LinkServiceTest {
         assertThat(user).isNotNull();
         assertThat(user.getUsername()).isEqualTo("test_user_1");
 
-        CreatedLinkResponseDto createdLinkResponseDto = linkServiceImpl.createLink(user.getUserId(), new LinkDto(0,
+        CreatedLinkResponseDto createdLinkResponseDto = customLinkService.createLink(user.getUserId(), new LinkDto(0,
                 "test.originallink.com", "test_short_link",
                 0, "tag1 tag2", "summary 1", new Date()));
 
@@ -154,7 +154,7 @@ public class LinkServiceTest {
 
         assertThat(link.getUser().getUsername()).isEqualTo("test_user_1");
 
-        assertThat(linkServiceImpl.createLink(user.getUserId(), new LinkDto(1,
+        assertThat(customLinkService.createLink(user.getUserId(), new LinkDto(1,
                 "test.originallink.com", "test_short_link",
                 0, "tag1 tag2", "summary 1", null))).isNull();
 
@@ -169,7 +169,7 @@ public class LinkServiceTest {
         assertThat(user).isNotNull();
         assertThat(user.getUsername()).isEqualTo("test_user_1");
 
-        CreatedLinkResponseDto createdLinkResponseDto = linkServiceImpl.createLink(user.getUserId(), new LinkDto(0,
+        CreatedLinkResponseDto createdLinkResponseDto = customLinkService.createLink(user.getUserId(), new LinkDto(0,
                 "test.originallink.com", "test_short_link",
                 0, "tag1 tag2", "summary 1", new Date()));
 
@@ -183,7 +183,7 @@ public class LinkServiceTest {
         link.setTags("tag1 tag2 tag3");
         link.setSummary("summary2");
 
-        assertThat(linkServiceImpl.updateLink(user.getUserId(), new LinkEntityToDtoConverter().convert(link))).isTrue();
+        assertThat(customLinkService.updateLink(user.getUserId(), new LinkEntityToDtoConverter().convert(link))).isTrue();
 
         link = linkRepository.findOne(createdLinkResponseDto.getLinkId());
 
@@ -212,10 +212,10 @@ public class LinkServiceTest {
         linkRepository.save(new Link("test_original_link2",
                 "test_short_link2", 0, "tag2 tag3"
                 , "summary2", null, null));
-        Set<LinkDto> linkDtoSet = linkServiceImpl.getLinksByTag(new PageRequest(0, 2), "tag2");
+        Set<LinkDto> linkDtoSet = customLinkService.getLinksByTag(new PageRequest(0, 2), "tag2");
         assertThat(linkDtoSet).size().isEqualTo(2);
 
-        linkDtoSet = linkServiceImpl.getLinksByTag(new PageRequest(0, 2), "tag3");
+        linkDtoSet = customLinkService.getLinksByTag(new PageRequest(0, 2), "tag3");
         assertThat(linkDtoSet).size().isEqualTo(1);
 
     }
@@ -228,7 +228,7 @@ public class LinkServiceTest {
                 , "summary1", null, null));
         Link link = linkRepository.findByOriginalLink("test_original_link");
         assertThat(link).isNotNull();
-        assertThat(linkServiceImpl.removeLink(link.getLinkId())).isTrue();
+        assertThat(customLinkService.removeLink(link.getLinkId())).isTrue();
         assertThat(linkRepository.findOne(link.getLinkId())).isNull();
     }
 

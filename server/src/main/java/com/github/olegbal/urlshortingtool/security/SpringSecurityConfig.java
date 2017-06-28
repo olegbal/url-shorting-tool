@@ -1,9 +1,8 @@
 package com.github.olegbal.urlshortingtool.security;
 
 import com.github.olegbal.urlshortingtool.filters.StatelessAuthenticationFilter;
-import com.github.olegbal.urlshortingtool.services.impl.UserServiceImpl;
+import com.github.olegbal.urlshortingtool.services.impl.CustomUserService;
 import com.github.olegbal.urlshortingtool.services.security.TokenAuthenticationService;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -22,7 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserServiceImpl userService;
+    private final CustomUserService userService;
     private final TokenAuthenticationService tokenAuthenticationService;
 
 
@@ -30,7 +29,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     public SpringSecurityConfig() {
         super(true);
-        this.userService = new UserServiceImpl();
+        this.userService = new CustomUserService();
         tokenAuthenticationService = new TokenAuthenticationService(secret, userService);
     }
 
@@ -82,7 +81,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     @Override
-    public UserServiceImpl userDetailsService() {
+    public CustomUserService userDetailsService() {
         return userService;
     }
 

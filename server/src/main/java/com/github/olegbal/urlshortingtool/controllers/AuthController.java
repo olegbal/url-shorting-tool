@@ -1,9 +1,8 @@
 package com.github.olegbal.urlshortingtool.controllers;
 
-import com.github.olegbal.urlshortingtool.converters.entity.RoleEntityToDtoConverter;
 import com.github.olegbal.urlshortingtool.domain.dto.LoginDto;
 import com.github.olegbal.urlshortingtool.domain.dto.RegistrationDto;
-import com.github.olegbal.urlshortingtool.services.impl.UserServiceImpl;
+import com.github.olegbal.urlshortingtool.services.UserService;
 import com.github.olegbal.urlshortingtool.services.security.TokenAuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,11 +19,15 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/api/v1/")
 public class AuthController {
 
-    @Autowired
-    private UserServiceImpl userServiceImpl;
+    private final UserService userService;
+
+    private final TokenAuthenticationService tokenAuthenticationService;
 
     @Autowired
-    private TokenAuthenticationService tokenAuthenticationService;
+    public AuthController(@Qualifier("customUserService") UserService userService, TokenAuthenticationService tokenAuthenticationService) {
+        this.userService = userService;
+        this.tokenAuthenticationService = tokenAuthenticationService;
+    }
 
     @RequestMapping(path = "login", method = RequestMethod.POST)
     public ResponseEntity logIn(HttpServletResponse httpServletResponse, @RequestBody LoginDto loginAndPasswordDto) {
@@ -32,7 +35,7 @@ public class AuthController {
 
         if (tokenAuthenticationService.checkLogin(httpServletResponse, loginAndPasswordDto)) {
 
-            return new ResponseEntity(userServiceImpl.
+            return new ResponseEntity(userService.
                     getUserByLogin(loginAndPasswordDto.
                             getLogin()).getRoles(),
                     HttpStatus.ACCEPTED);
@@ -44,7 +47,7 @@ public class AuthController {
     @RequestMapping(path = "register", method = RequestMethod.POST)
     public ResponseEntity register(@RequestBody RegistrationDto registrationDto) {
 
-        if (userServiceImpl.createUser(registrationDto)) {
+        if (userService.createUser(registrationDto)) {
             return new ResponseEntity(HttpStatus.OK);
         }
         return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);

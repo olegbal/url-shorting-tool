@@ -4,7 +4,6 @@ import com.github.olegbal.urlshortingtool.domain.entity.Link;
 import com.github.olegbal.urlshortingtool.domain.entity.User;
 import com.github.olegbal.urlshortingtool.enums.RolesEnum;
 import com.github.olegbal.urlshortingtool.respositories.LinkRepository;
-import com.github.olegbal.urlshortingtool.respositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,12 +12,16 @@ import javax.servlet.http.HttpServletRequest;
 @Service("userPreAuthorizeService")
 public class UserPreAuthorizeService {
 
-    @Autowired
-    private TokenAuthenticationService tokenAuthenticationService;
+    private final TokenAuthenticationService tokenAuthenticationService;
 
 
+    private final LinkRepository linkService;
+
     @Autowired
-    private LinkRepository linkService;
+    public UserPreAuthorizeService(TokenAuthenticationService tokenAuthenticationService, LinkRepository linkService) {
+        this.tokenAuthenticationService = tokenAuthenticationService;
+        this.linkService = linkService;
+    }
 
 
     public boolean checkRightsToUrlById(HttpServletRequest request, long id) {

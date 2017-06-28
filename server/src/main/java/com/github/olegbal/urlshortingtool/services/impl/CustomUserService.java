@@ -19,13 +19,15 @@ import org.springframework.stereotype.Service;
 import java.util.Set;
 
 @Service
-public class UserServiceImpl implements UserService, UserDetailsService {
+public class CustomUserService implements UserService, UserDetailsService {
+
+//    TODO REMOVE FIElD AUTOWIRING!!!
 
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
-    private RoleServiceImpl roleService;
+    private CustomRoleService roleService;
 
     @Autowired
     private ConversionService conversionService;
