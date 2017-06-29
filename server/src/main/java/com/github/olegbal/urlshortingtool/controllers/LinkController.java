@@ -1,8 +1,7 @@
 package com.github.olegbal.urlshortingtool.controllers;
 
-import com.github.olegbal.urlshortingtool.domain.dto.LinkDto;
+import com.github.olegbal.urlshortingtool.dto.LinkDto;
 import com.github.olegbal.urlshortingtool.services.LinkService;
-import com.github.olegbal.urlshortingtool.services.impl.CustomLinkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;

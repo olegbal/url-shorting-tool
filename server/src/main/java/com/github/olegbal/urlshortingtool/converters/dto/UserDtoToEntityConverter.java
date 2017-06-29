@@ -1,19 +1,12 @@
 package com.github.olegbal.urlshortingtool.converters.dto;
 
-import com.github.olegbal.urlshortingtool.domain.dto.LinkDto;
-import com.github.olegbal.urlshortingtool.domain.dto.RoleDto;
-import com.github.olegbal.urlshortingtool.domain.dto.UserDto;
-import com.github.olegbal.urlshortingtool.domain.entity.Link;
-import com.github.olegbal.urlshortingtool.domain.entity.Role;
-import com.github.olegbal.urlshortingtool.domain.entity.User;
+import com.github.olegbal.urlshortingtool.dto.LinkDto;
+import com.github.olegbal.urlshortingtool.dto.RoleDto;
+import com.github.olegbal.urlshortingtool.dto.UserDto;
+import com.github.olegbal.urlshortingtool.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.ConversionService;
-import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Service;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @Service
 public class UserDtoToEntityConverter implements Converter<UserDto, User> {

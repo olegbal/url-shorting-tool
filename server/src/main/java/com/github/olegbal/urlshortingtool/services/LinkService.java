@@ -1,8 +1,8 @@
 package com.github.olegbal.urlshortingtool.services;
 
-import com.github.olegbal.urlshortingtool.domain.dto.CreatedLinkResponseDto;
-import com.github.olegbal.urlshortingtool.domain.dto.LinkDto;
-import com.github.olegbal.urlshortingtool.domain.entity.Link;
+import com.github.olegbal.urlshortingtool.dto.CreatedLinkResponseDto;
+import com.github.olegbal.urlshortingtool.dto.LinkDto;
+import com.github.olegbal.urlshortingtool.domain.Link;
 import org.springframework.data.domain.Pageable;
 
 import java.util.Set;

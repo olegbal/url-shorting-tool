@@ -1,12 +1,11 @@
-package com.github.olegbal.urlshortingtool.services.impl;
+package com.github.olegbal.urlshortingtool.services;
 
-import com.github.olegbal.urlshortingtool.domain.dto.CreatedLinkResponseDto;
-import com.github.olegbal.urlshortingtool.domain.dto.LinkDto;
-import com.github.olegbal.urlshortingtool.domain.entity.Link;
-import com.github.olegbal.urlshortingtool.domain.entity.User;
-import com.github.olegbal.urlshortingtool.respositories.LinkRepository;
-import com.github.olegbal.urlshortingtool.respositories.UserRepository;
-import com.github.olegbal.urlshortingtool.services.LinkService;
+import com.github.olegbal.urlshortingtool.dto.CreatedLinkResponseDto;
+import com.github.olegbal.urlshortingtool.dto.LinkDto;
+import com.github.olegbal.urlshortingtool.domain.Link;
+import com.github.olegbal.urlshortingtool.domain.User;
+import com.github.olegbal.urlshortingtool.repositories.LinkRepository;
+import com.github.olegbal.urlshortingtool.repositories.UserRepository;
 import com.github.olegbal.urlshortingtool.utils.UrlShortener;
 import com.github.olegbal.urlshortingtool.utils.validators.LinkValidator;
 import com.google.common.collect.Sets;
@@ -18,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -36,7 +36,11 @@ public class CustomLinkService implements LinkService {
 
 
     @Autowired
-    public CustomLinkService(LinkRepository linkRepository, UserRepository userRepository, UrlShortener urlShortener, LinkValidator linkValidator, ConversionService conversionService) {
+    public CustomLinkService(LinkRepository linkRepository,
+                             UserRepository userRepository,
+                             UrlShortener urlShortener,
+                             LinkValidator linkValidator,
+                             ConversionService conversionService) {
         this.linkRepository = linkRepository;
         this.userRepository = userRepository;
         this.urlShortener = urlShortener;
@@ -45,18 +49,17 @@ public class CustomLinkService implements LinkService {
     }
 
     @Override
-    public LinkDto getLinkById(long id) {
-        Link link = linkRepository.findOne(id);
+    public Optional<LinkDto> getLinkById(long id) {
+        Optional<Link> link = Optional.ofNullable(linkRepository.findOne(id));
 
-        if (link != null) {
+        return link.map(lnk -> {
             return conversionService.convert(link, LinkDto.class);
-        }
-        return null;
+        });
     }
 
     @Override
     public Link findByShortLink(String shortLink) {
-
+        //FIXME add finals
         Link link = linkRepository.findByShortLink(shortLink);
 
         if (link != null) {
@@ -88,7 +91,7 @@ public class CustomLinkService implements LinkService {
 
         Set<Link> links = new HashSet<>(linkRepository.findAll(pageable).getContent());
 
-        return (Set<LinkDto>) conversionService.convert(links, TypeDescriptor.collection(Set.class, TypeDescriptor.valueOf(Link.class)),
+        return (Set<LinkDto>)conversionService.convert(links, TypeDescriptor.collection(Set.class, TypeDescriptor.valueOf(Link.class)),
                 TypeDescriptor.collection(Set.class, TypeDescriptor.valueOf(LinkDto.class)));
     }
 

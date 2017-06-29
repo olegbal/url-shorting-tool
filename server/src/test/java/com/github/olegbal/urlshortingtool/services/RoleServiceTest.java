@@ -1,10 +1,9 @@
 package com.github.olegbal.urlshortingtool.services;
 
 import com.github.olegbal.urlshortingtool.Application;
-import com.github.olegbal.urlshortingtool.domain.entity.Role;
+import com.github.olegbal.urlshortingtool.domain.Role;
 import com.github.olegbal.urlshortingtool.enums.RolesEnum;
-import com.github.olegbal.urlshortingtool.respositories.RoleRepository;
-import com.github.olegbal.urlshortingtool.services.impl.CustomRoleService;
+import com.github.olegbal.urlshortingtool.repositories.RoleRepository;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;

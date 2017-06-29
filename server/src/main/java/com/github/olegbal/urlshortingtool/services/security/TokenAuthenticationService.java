@@ -1,18 +1,18 @@
 package com.github.olegbal.urlshortingtool.services.security;
 
-import com.github.olegbal.urlshortingtool.domain.dto.LoginDto;
-import com.github.olegbal.urlshortingtool.domain.entity.User;
+import com.github.olegbal.urlshortingtool.dto.LoginDto;
+import com.github.olegbal.urlshortingtool.domain.User;
 import com.github.olegbal.urlshortingtool.security.TokenHandler;
 import com.github.olegbal.urlshortingtool.security.UserAuthentication;
 import com.github.olegbal.urlshortingtool.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.Authentication;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+//FIXME kakogo huya eto ne service
 public class TokenAuthenticationService {
 
     @Qualifier("customUserService")

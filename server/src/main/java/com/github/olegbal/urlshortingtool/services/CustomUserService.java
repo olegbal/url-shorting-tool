@@ -1,13 +1,11 @@
-package com.github.olegbal.urlshortingtool.services.impl;
+package com.github.olegbal.urlshortingtool.services;
 
-import com.github.olegbal.urlshortingtool.domain.dto.RegistrationDto;
-import com.github.olegbal.urlshortingtool.domain.dto.UserDto;
-import com.github.olegbal.urlshortingtool.domain.entity.Role;
-import com.github.olegbal.urlshortingtool.domain.entity.User;
+import com.github.olegbal.urlshortingtool.dto.RegistrationDto;
+import com.github.olegbal.urlshortingtool.dto.UserDto;
+import com.github.olegbal.urlshortingtool.domain.Role;
+import com.github.olegbal.urlshortingtool.domain.User;
 import com.github.olegbal.urlshortingtool.enums.RolesEnum;
-import com.github.olegbal.urlshortingtool.respositories.UserRepository;
-import com.github.olegbal.urlshortingtool.services.RoleService;
-import com.github.olegbal.urlshortingtool.services.UserService;
+import com.github.olegbal.urlshortingtool.repositories.UserRepository;
 import org.hibernate.TransactionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,6 +14,7 @@ import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.util.Set;
 
 @Service
@@ -62,7 +61,14 @@ public class CustomUserService implements UserService {
     }
 
     @Override
-    public boolean createUser(RegistrationDto registrationDto) {
+
+    //FIXME use javax validation OR ->
+    public boolean createUser(@Valid RegistrationDto registrationDto) {
+//        Optional <RegistrationDto> dto = Optional.ofNullable(registrationDto)
+//                .map(dt -> {
+//                    validate(dt);
+//                    return dt
+//                }).
 
         if (registrationDto.getSerialNumber() != null
                 && registrationDto.getLogin() != null

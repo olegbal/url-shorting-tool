@@ -1,4 +1,4 @@
-package com.github.olegbal.urlshortingtool.domain.dto;
+package com.github.olegbal.urlshortingtool.dto;
 
 public class CreatedLinkResponseDto {
 

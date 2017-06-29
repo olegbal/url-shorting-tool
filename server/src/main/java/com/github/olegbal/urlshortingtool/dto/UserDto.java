@@ -1,4 +1,4 @@
-package com.github.olegbal.urlshortingtool.domain.dto;
+package com.github.olegbal.urlshortingtool.dto;
 
 import java.util.HashSet;
 import java.util.Set;

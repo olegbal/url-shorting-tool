@@ -1,6 +1,6 @@
 package com.github.olegbal.urlshortingtool.security;
 
-import com.github.olegbal.urlshortingtool.domain.entity.User;
+import com.github.olegbal.urlshortingtool.domain.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 

@@ -1,7 +1,7 @@
 package com.github.olegbal.urlshortingtool.converters.entity;
 
-import com.github.olegbal.urlshortingtool.domain.dto.LinkDto;
-import com.github.olegbal.urlshortingtool.domain.entity.Link;
+import com.github.olegbal.urlshortingtool.dto.LinkDto;
+import com.github.olegbal.urlshortingtool.domain.Link;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Service;
 

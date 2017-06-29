@@ -2,15 +2,13 @@ package com.github.olegbal.urlshortingtool.services;
 
 
 import com.github.olegbal.urlshortingtool.Application;
-import com.github.olegbal.urlshortingtool.domain.dto.RegistrationDto;
-import com.github.olegbal.urlshortingtool.domain.dto.UserDto;
-import com.github.olegbal.urlshortingtool.domain.entity.Role;
-import com.github.olegbal.urlshortingtool.domain.entity.User;
+import com.github.olegbal.urlshortingtool.dto.RegistrationDto;
+import com.github.olegbal.urlshortingtool.dto.UserDto;
+import com.github.olegbal.urlshortingtool.domain.Role;
+import com.github.olegbal.urlshortingtool.domain.User;
 import com.github.olegbal.urlshortingtool.enums.RolesEnum;
-import com.github.olegbal.urlshortingtool.respositories.RoleRepository;
-import com.github.olegbal.urlshortingtool.respositories.UserRepository;
-import com.github.olegbal.urlshortingtool.services.impl.CustomRoleService;
-import com.github.olegbal.urlshortingtool.services.impl.CustomUserService;
+import com.github.olegbal.urlshortingtool.repositories.RoleRepository;
+import com.github.olegbal.urlshortingtool.repositories.UserRepository;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;

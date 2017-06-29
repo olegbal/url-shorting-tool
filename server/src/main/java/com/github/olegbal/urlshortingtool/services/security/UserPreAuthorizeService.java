@@ -1,9 +1,9 @@
 package com.github.olegbal.urlshortingtool.services.security;
 
-import com.github.olegbal.urlshortingtool.domain.entity.Link;
-import com.github.olegbal.urlshortingtool.domain.entity.User;
+import com.github.olegbal.urlshortingtool.domain.Link;
+import com.github.olegbal.urlshortingtool.domain.User;
 import com.github.olegbal.urlshortingtool.enums.RolesEnum;
-import com.github.olegbal.urlshortingtool.respositories.LinkRepository;
+import com.github.olegbal.urlshortingtool.repositories.LinkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

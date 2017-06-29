@@ -1,8 +1,8 @@
 package com.github.olegbal.urlshortingtool.repository;
 
 import com.github.olegbal.urlshortingtool.Application;
-import com.github.olegbal.urlshortingtool.domain.entity.User;
-import com.github.olegbal.urlshortingtool.respositories.UserRepository;
+import com.github.olegbal.urlshortingtool.domain.User;
+import com.github.olegbal.urlshortingtool.repositories.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

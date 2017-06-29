@@ -19,6 +19,9 @@
         <version>1.5.3.RELEASE</version>
         <relativePath/>
     </parent>
+
+    //add dependency management section
+    //add plugin management section
     <build>
         <plugins>
             <plugin>

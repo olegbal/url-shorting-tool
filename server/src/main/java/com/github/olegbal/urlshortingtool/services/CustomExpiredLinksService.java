@@ -1,7 +1,6 @@
-package com.github.olegbal.urlshortingtool.services.impl;
+package com.github.olegbal.urlshortingtool.services;
 
-import com.github.olegbal.urlshortingtool.respositories.LinkRepository;
-import com.github.olegbal.urlshortingtool.services.ExpiredLinksService;
+import com.github.olegbal.urlshortingtool.repositories.LinkRepository;
 import org.hibernate.TransactionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -26,14 +25,14 @@ public class CustomExpiredLinksService implements ExpiredLinksService {
     @Transactional
     @Scheduled(fixedRate = repeatInMills, initialDelay = repeatInMills)
     public void removeExpiredLinks() {
-
-
         Date expirationDate = new Date(System.currentTimeMillis() - repeatInMills);
 
         try {
             linkRepository.removeLinksByCreationDateBefore(expirationDate);
 
         } catch (TransactionException ex) {
+            //FIXME rethrow exception with custom, do not lose exception context! (pass ex as parameter)
+            ex.printStackTrace();
 
         }
     }

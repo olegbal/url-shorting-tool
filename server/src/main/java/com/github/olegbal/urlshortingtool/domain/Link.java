@@ -1,7 +1,8 @@
-package com.github.olegbal.urlshortingtool.domain.entity;
+package com.github.olegbal.urlshortingtool.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.github.olegbal.urlshortingtool.dto.LinkDto;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -50,6 +51,11 @@ public class Link {
         this.creationDate = creationDate;
         this.user = user;
     }
+
+    //FIXME static method factory pattern, investigate that
+//    public static Link fromDTO(LinkDto) {
+//
+//    }
 
     public long getLinkId() {
         return linkId;

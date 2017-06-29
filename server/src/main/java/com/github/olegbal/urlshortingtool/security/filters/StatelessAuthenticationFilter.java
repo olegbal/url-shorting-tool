@@ -1,8 +1,7 @@
-package com.github.olegbal.urlshortingtool.filters;
+package com.github.olegbal.urlshortingtool.security.filters;
 
 import com.github.olegbal.urlshortingtool.services.security.TokenAuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;

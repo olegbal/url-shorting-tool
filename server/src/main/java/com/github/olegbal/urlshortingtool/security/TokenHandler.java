@@ -1,8 +1,7 @@
 package com.github.olegbal.urlshortingtool.security;
 
-import com.github.olegbal.urlshortingtool.domain.entity.User;
+import com.github.olegbal.urlshortingtool.domain.User;
 import com.github.olegbal.urlshortingtool.services.UserService;
-import com.github.olegbal.urlshortingtool.services.impl.CustomUserService;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

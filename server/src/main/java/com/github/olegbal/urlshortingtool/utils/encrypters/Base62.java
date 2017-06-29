@@ -10,7 +10,6 @@ public class Base62 {
     private static final int FAST_SIZE = 'z';
     private static final int[] digitsIndex = new int[FAST_SIZE + 1];
 
-
     static {
         for (int i = 0; i < FAST_SIZE; i++) {
             digitsIndex[i] = -1;
@@ -18,6 +17,10 @@ public class Base62 {
         for (int i = 0; i < BASE; i++) {
             digitsIndex[digitsChar[i]] = i;
         }
+    }
+
+    private Base62() {
+
     }
 
     public static long decode(String s) {

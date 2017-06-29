@@ -21,9 +21,7 @@ public class CustomLinkValidator implements LinkValidator {
     private static final String IRI
             = "[" + GOOD_IRI_CHAR + "]([" + GOOD_IRI_CHAR + "\\-]{0,61}[" + GOOD_IRI_CHAR + "]){0,1}";
 
-
     private static final String HOST_NAME = "(" + IRI + "\\.)+" + GTLD;
-
 
     private static final Pattern IP_ADDRESS
             = Pattern.compile(
@@ -32,15 +30,11 @@ public class CustomLinkValidator implements LinkValidator {
                     + "[0-9]{2}|[1-9][0-9]|[1-9]|0)\\.(25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}"
                     + "|[1-9][0-9]|[0-9]))");
 
-
     private static final Pattern DOMAIN_NAME
             = Pattern.compile("(" + HOST_NAME + "|" + IP_ADDRESS + ")");
 
-
     @Override
     public boolean validate(String url) {
-
-
         Pattern pattern = Pattern.compile("((?:(http|https|Http|Https|rtsp|Rtsp):\\/\\/(?:(?:[a-zA-Z0-9\\$\\-\\_\\.\\+\\!\\*\\'\\(\\)"
                 + "\\,\\;\\?\\&\\=]|(?:\\%[a-fA-F0-9]{2})){1,64}(?:\\:(?:[a-zA-Z0-9\\$\\-\\_"
                 + "\\.\\+\\!\\*\\'\\(\\)\\,\\;\\?\\&\\=]|(?:\\%[a-fA-F0-9]{2})){1,25})?\\@)?)?"

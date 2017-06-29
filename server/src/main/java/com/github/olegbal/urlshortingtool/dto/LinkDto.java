@@ -1,6 +1,4 @@
-package com.github.olegbal.urlshortingtool.domain.dto;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
+package com.github.olegbal.urlshortingtool.dto;
 
 import java.util.Date;
 

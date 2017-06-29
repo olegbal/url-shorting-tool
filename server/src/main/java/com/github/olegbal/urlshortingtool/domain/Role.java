@@ -1,4 +1,4 @@
-package com.github.olegbal.urlshortingtool.domain.entity;
+package com.github.olegbal.urlshortingtool.domain;
 
 import org.springframework.security.core.GrantedAuthority;
 
