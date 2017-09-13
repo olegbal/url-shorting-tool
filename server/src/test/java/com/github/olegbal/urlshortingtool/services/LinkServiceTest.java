@@ -55,7 +55,7 @@ public class LinkServiceTest {
                 , "summary1", null, null));
         Link link = linkRepository.findByShortLink("test_short_link");
         assertThat(link).isNotNull();
-        LinkDto link1 = customLinkService.getLinkById(link.getLinkId());
+        LinkDto link1 = customLinkService.getLinkById(link.getLinkId()).get();
         assertThat(link1).isNotNull();
         assertThat(link1.getLinkId() == link.getLinkId());
     }

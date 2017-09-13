@@ -15,8 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 
-//FIXMe remove dat \n->
-@RestController("authController")
+@RestController
 @RequestMapping("/api/v1/")
 public class AuthController {
 
@@ -25,7 +24,8 @@ public class AuthController {
     private final TokenAuthenticationService tokenAuthenticationService;
 
     @Autowired
-    public AuthController(@Qualifier("customUserService") UserService userService, TokenAuthenticationService tokenAuthenticationService) {
+    public AuthController(@Qualifier("customUserService") UserService userService,
+                          TokenAuthenticationService tokenAuthenticationService) {
         this.userService = userService;
         this.tokenAuthenticationService = tokenAuthenticationService;
     }
