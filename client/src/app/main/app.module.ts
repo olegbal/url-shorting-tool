@@ -58,7 +58,7 @@ import {SearchPipe} from "app/pipes/search-pipe";
     HttpModule,
     AppRoutingModule,
     InfiniteScrollModule,
-    MaterialModule.forRoot(),
+    MaterialModule,
     BrowserAnimationsModule,
 
   ],
