@@ -18,7 +18,7 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long userId;
 
-    @Column(name = "login")
+    @Column(name = "login",columnDefinition = "VARCHAR(255) CHARACTER SET binary")
     private String login;
 
     @Column(name = "password")

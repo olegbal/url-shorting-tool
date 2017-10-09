@@ -16,10 +16,10 @@ public class Link {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long linkId;
 
-    @Column(name = "original_link")
+    @Column(name = "original_link",columnDefinition = "VARCHAR(255) CHARACTER SET binary")
     private String originalLink;
 
-    @Column(name = "short_link")
+    @Column(name = "short_link",columnDefinition = "VARCHAR(255) CHARACTER SET binary")
     private String shortLink;
 
     @Column(name = "clicks_count")

@@ -53,7 +53,7 @@ public class CustomLinkService implements LinkService {
         Optional<Link> link = Optional.ofNullable(linkRepository.findOne(id));
 
         return link.map(lnk -> {
-            return conversionService.convert(link, LinkDto.class);
+            return conversionService.convert(lnk, LinkDto.class);
         });
     }
 
