@@ -24,7 +24,7 @@ public interface LinkService {
 
     Set<LinkDto> getLinksByTag(Pageable pageable, String tag);
 
-    Optional<LinkDto> getLinkById(long id);
+    LinkDto getLinkById(long id);
 
     boolean updateLink(long userId, LinkDto linkDto);
 

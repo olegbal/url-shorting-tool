@@ -49,12 +49,8 @@ public class CustomLinkService implements LinkService {
     }
 
     @Override
-    public Optional<LinkDto> getLinkById(long id) {
-        Optional<Link> link = Optional.ofNullable(linkRepository.findOne(id));
-
-        return link.map(lnk -> {
-            return conversionService.convert(lnk, LinkDto.class);
-        });
+    public LinkDto getLinkById(long id) {
+            return conversionService.convert(linkRepository.findOne(id),LinkDto.class);
     }
 
     @Override
