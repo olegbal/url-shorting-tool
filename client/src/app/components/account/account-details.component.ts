@@ -6,7 +6,6 @@ import {Role} from "../../models/role";
 import {LinkService} from "../../services/links/link.service";
 import {Router} from "@angular/router";
 import {AuthService} from "../../services/auth/auth.service";
-import {ToasterService} from "../../services/ui/ToasterService";
 
 @Component({
   selector: 'account-details',
@@ -19,8 +18,7 @@ export class AccountDetailsComponent implements OnInit {
   constructor(private accountDetailsService: AccountDetailsService,
               private linkService: LinkService,
               private router: Router,
-              private authService: AuthService,
-              private toasterService: ToasterService) {
+              private authService: AuthService) {
   }
 
   user: User = new User(0, "", "", new Array<Role>(), new Array<Link>());
@@ -50,7 +48,6 @@ export class AccountDetailsComponent implements OnInit {
           this.router.navigate(['/login']);
         }
         else if (err.status < 200 || err.status > 299) {
-          this.toasterService.showToaster("Failed to get account data");
           console.log("Failed to get account data", err);
           this.spinnerOn = false;
         }
@@ -72,7 +69,6 @@ export class AccountDetailsComponent implements OnInit {
           this.user.links = this.user.links.filter(x => x.linkId != Number.parseInt(id));
 
           console.log("successfully deleted");
-          this.toasterService.showToaster("Deleted");
         }
       },
       (err) => {
@@ -82,7 +78,6 @@ export class AccountDetailsComponent implements OnInit {
           this.router.navigate(['/login']);
         }
         else if (err.status < 200 || err.status > 299) {
-          this.toasterService.showToaster("Failed to get account data");
           console.log("Failed to delete link", err);
           this.spinnerOn = false;
         }
@@ -97,7 +92,6 @@ export class AccountDetailsComponent implements OnInit {
     this.linkService.updateLink(id, link).subscribe((res) => {
         if (res.status == 200) {
           console.log("link successfully updated");
-          this.toasterService.showToaster("Updated");
         }
       },
       (err) => {
@@ -107,7 +101,6 @@ export class AccountDetailsComponent implements OnInit {
           this.router.navigate(['/login']);
         }
         else if (err.status < 200 || err.status > 299) {
-          this.toasterService.showToaster("Failed to get account data");
           console.log("Failed to update link", err);
           this.spinnerOn = false;
         }
@@ -127,7 +120,6 @@ export class AccountDetailsComponent implements OnInit {
           this.linkService.createLink(id, link).subscribe((res) => {
               if (res.status == 200) {
                 console.log("link successfully created");
-                this.toasterService.showToaster("Created");
                 link.linkId = res.json().linkId;
                 link.shortLink = res.json().shortedLink;
                 this.user.links.push(link);
@@ -144,7 +136,6 @@ export class AccountDetailsComponent implements OnInit {
               else if (error.status < 200 || error.status > 299) {
 
                 this.flushAddingLink();
-                this.toasterService.showToaster("Cannot create link");
                 console.log("Cannot create link", error);
 
               }
@@ -170,7 +161,6 @@ export class AccountDetailsComponent implements OnInit {
         }
         else if (error.status < 200 || error.status > 299) {
           this.flushAddingLink();
-          this.toasterService.showToaster("Cannot create link");
           console.log("Cannot create link", error);
         }
 

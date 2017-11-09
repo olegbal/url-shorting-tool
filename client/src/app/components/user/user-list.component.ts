@@ -2,7 +2,6 @@ import {Component, OnInit} from "@angular/core";
 import {Location} from "@angular/common";
 import {User} from "../../models/user";
 import {UserService} from "../../services/user/user.service";
-import {ToasterService} from "app/services/ui/ToasterService";
 import {Router} from "@angular/router";
 import {AuthService} from "../../services/auth/auth.service";
 
@@ -17,7 +16,6 @@ import {AuthService} from "../../services/auth/auth.service";
 export class UserListComponent implements OnInit {
 
   constructor(private userService: UserService,
-              private toasterServer: ToasterService,
               private router: Router,
               private authService: AuthService) {
   }
@@ -55,7 +53,6 @@ export class UserListComponent implements OnInit {
   removeUser(id: string) {
     this.userService.removeUserById(id).subscribe((res) => {
         if (res.status == 200) {
-          this.toasterServer.showToaster("User deleted!");
           this.users = this.users.filter(x => x.userId != Number.parseInt(id));
         }
       },
@@ -66,7 +63,6 @@ export class UserListComponent implements OnInit {
           this.authService.logout();
           this.router.navigate(['/login']);
         } else if (err.status < 200 || err.status > 299) {
-          this.toasterServer.showToaster("Failed to delete user!");
         }
       });
   }

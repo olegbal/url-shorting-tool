@@ -5,7 +5,6 @@ import {HttpModule} from "@angular/http";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {InfiniteScrollModule} from "ngx-infinite-scroll";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {MaterialModule} from "@angular/material";
 import {SpinnerModule} from "angular2-spinner/dist";
 import "hammerjs";
 
@@ -25,7 +24,6 @@ import {SameTagLinksComponent} from "../components/links/same-tag-links.componen
 import {RedirectorComponent} from "../components/links/redirector.component";
 import {LoginGuard} from "app/guards/login.guard";
 import {AuthService} from "app/services/auth/auth.service";
-import {ToasterService} from "../services/ui/ToasterService";
 import {DialogComponent} from "app/components/modals/dialog.component";
 import {UserService} from "../services/user/user.service";
 import {UserListComponent} from "../components/user/user-list.component";
@@ -58,7 +56,6 @@ import {SearchPipe} from "app/pipes/search-pipe";
     HttpModule,
     AppRoutingModule,
     InfiniteScrollModule,
-    MaterialModule,
     BrowserAnimationsModule,
 
   ],
@@ -70,7 +67,6 @@ import {SearchPipe} from "app/pipes/search-pipe";
     LinkService,
     LoginGuard,
     AuthService,
-    ToasterService,
     UserService,
     AdminCabinetGuard,
   ],

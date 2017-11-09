@@ -6,7 +6,6 @@ import {Role} from "../../models/role";
 import {LinkService} from "../../services/links/link.service";
 import {Router} from "@angular/router";
 import {AuthService} from "../../services/auth/auth.service";
-import {ToasterService} from "../../services/ui/ToasterService";
 import {Location} from "@angular/common";
 import {ActivatedRoute} from "@angular/router";
 
@@ -23,7 +22,6 @@ export class UserInfoComponent implements OnInit {
               private linkService: LinkService,
               private router: Router,
               private authService: AuthService,
-              private toasterService: ToasterService,
               private location: Location,
               private activatedRoute: ActivatedRoute) {
   }
@@ -48,7 +46,6 @@ export class UserInfoComponent implements OnInit {
             if (err.status == 403) {
               this.router.navigate(['/login']);
             } else if (err.status < 200 || err.status > 299) {
-              this.toasterService.showToaster("Unable to param userLogin info");
               console.log("Unable to get  user info", err);
               this.spinnerOn = false;
               this.router.navigate(['/admin/users'])
@@ -63,7 +60,6 @@ export class UserInfoComponent implements OnInit {
           this.authService.logout();
           this.router.navigate(['/login']);
         } else if (err.status < 200 || err.status > 299) {
-          this.toasterService.showToaster("Unable to param  info");
           console.log("Unable to param  info", err);
           this.spinnerOn = false;
           this.router.navigate(['/admin/users'])

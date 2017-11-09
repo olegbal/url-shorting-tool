@@ -5,7 +5,6 @@ import {Router} from "@angular/router";
 import {LoginService} from "../../services/auth/login.service";
 import {LoginAndPassword} from "../../models/loginAndPassword";
 import {AuthService} from "../../services/auth/auth.service";
-import {ToasterService} from "../../services/ui/ToasterService";
 import {Role} from "../../models/role";
 
 @Component({
@@ -19,8 +18,7 @@ export class LoginComponent {
 
   constructor(private loginService: LoginService,
               private router: Router,
-              private authService: AuthService,
-              private toasterService: ToasterService) {
+              private authService: AuthService) {
   }
 
   loginAndPassword: LoginAndPassword = new LoginAndPassword("", "");
@@ -36,7 +34,6 @@ export class LoginComponent {
             this.authService.asAdmin = true;
           }
           this.authService.logIn(res.headers.get("Auth"), this.loginAndPassword.login);
-          this.toasterService.showToaster("Successfully logged in");
           this.spinnerOn = false;
           this.router.navigate(['/']);
         }
@@ -45,7 +42,6 @@ export class LoginComponent {
         if (err.status < 200 || err.status > 299) {
           this.loginAndPassword.login = "";
           this.loginAndPassword.password = "";
-          this.toasterService.showToaster("Failed to log in");
           console.log("Failed to log in", err);
           this.spinnerOn = false;
         }
