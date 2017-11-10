@@ -113,3 +113,5 @@ INSERT IGNORE INTO `user_links` (`link_id`, `clicks_count`, `creation_date`, `or
 VALUES ('20', 0, date(now()),
         'http://jasonwatmore.com/post/2016/09/29/angular-2-user-registration-and-login-example-tutorial'
   , 'ABCDEf', 'SUMMARY NUMBER 20', 'tag2 dsft ds ag54 tag10', 1);
+
+INSERT IGNORE INTO `statistics` (`statistic_id`, `deleted_links_count`) VALUES (1, 0);
