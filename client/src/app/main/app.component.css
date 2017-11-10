@@ -3,10 +3,14 @@ nav {
 }
 
 div.dropdownButton {
-  right:50px;
+  position: relative;
 }
 
 div.dropdown-menu {
-  left: 82%;
-  top: 45px;
+  max-width: 200px;
+  position: absolute;
+  left: auto;
+  right: 30px;
 }
+
+
