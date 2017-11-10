@@ -5,3 +5,8 @@ nav {
 div.dropdownButton {
   right:50px;
 }
+
+div.dropdown-menu {
+  left: 82%;
+  top: 45px;
+}
