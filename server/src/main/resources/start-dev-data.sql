@@ -114,4 +114,5 @@ VALUES ('20', 0, date(now()),
         'http://jasonwatmore.com/post/2016/09/29/angular-2-user-registration-and-login-example-tutorial'
   , 'ABCDEf', 'SUMMARY NUMBER 20', 'tag2 dsft ds ag54 tag10', 1);
 
-INSERT IGNORE INTO `statistics` (`statistic_id`, `deleted_links_count`) VALUES (1, 0);
+INSERT IGNORE INTO `statistics` (`statistic_id`, `deleted_links_count`, `created_links_count`, `administrator_accounts_amount`, `user_accounts_amount`, `registered_users_count`, `total_clicks_count`, `top_user_id`)
+VALUES (1, 0, 20, 1, 3, 4, 0, 2);
