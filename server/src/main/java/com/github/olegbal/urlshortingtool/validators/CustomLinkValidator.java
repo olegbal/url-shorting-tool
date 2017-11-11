@@ -1,4 +1,4 @@
-package com.github.olegbal.urlshortingtool.utils.validators;
+package com.github.olegbal.urlshortingtool.validators;
 
 import org.springframework.stereotype.Service;
 

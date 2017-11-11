@@ -1,12 +1,12 @@
 package com.github.olegbal.urlshortingtool.utils.encrypters;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.zip.CRC32;
 import java.util.zip.Checksum;
 
-@Service
-public class Crc32CheckSum implements IChecksum {
+@Component
+public class Crc32CheckSum implements ChecksumCalculator {
 
     public Long calculate(String text) {
         Checksum checksum = new CRC32();

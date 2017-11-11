@@ -1,13 +1,12 @@
 package com.github.olegbal.urlshortingtool.services;
 
-import com.github.olegbal.urlshortingtool.dto.CreatedLinkResponseDto;
-import com.github.olegbal.urlshortingtool.dto.LinkDto;
 import com.github.olegbal.urlshortingtool.domain.Link;
 import com.github.olegbal.urlshortingtool.domain.User;
+import com.github.olegbal.urlshortingtool.dto.CreatedLinkResponseDto;
+import com.github.olegbal.urlshortingtool.dto.LinkDto;
 import com.github.olegbal.urlshortingtool.repositories.LinkRepository;
 import com.github.olegbal.urlshortingtool.repositories.UserRepository;
-import com.github.olegbal.urlshortingtool.utils.UrlShortener;
-import com.github.olegbal.urlshortingtool.utils.validators.LinkValidator;
+import com.github.olegbal.urlshortingtool.validators.LinkValidator;
 import com.google.common.collect.Sets;
 import org.hibernate.TransactionException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 

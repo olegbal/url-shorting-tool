@@ -1,7 +1,7 @@
-package com.github.olegbal.urlshortingtool.utils;
+package com.github.olegbal.urlshortingtool.services;
 
 import com.github.olegbal.urlshortingtool.utils.encrypters.Base62;
-import com.github.olegbal.urlshortingtool.utils.encrypters.IChecksum;
+import com.github.olegbal.urlshortingtool.utils.encrypters.ChecksumCalculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,16 +9,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class UrlShortener {
 
-    private final IChecksum<Long> iChecksum;
+    private final ChecksumCalculator<Long> checksumCalculator;
 
     //FIXME finals in method's signatures
     @Autowired
-    public UrlShortener(final IChecksum<Long> iChecksum) {
-        this.iChecksum = iChecksum;
+    public UrlShortener(final ChecksumCalculator<Long> checksumCalculator) {
+        this.checksumCalculator = checksumCalculator;
     }
 
     public String shortUrl(String text) {
-        long csumm = iChecksum.calculate(text);
+        long csumm = checksumCalculator.calculate(text);
 
         return Base62.encode(csumm);
     }

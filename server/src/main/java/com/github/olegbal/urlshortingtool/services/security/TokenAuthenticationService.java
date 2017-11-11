@@ -15,14 +15,16 @@ import javax.servlet.http.HttpServletResponse;
 //FIXME kakogo huya eto ne service
 public class TokenAuthenticationService {
 
-    @Qualifier("customUserService")
+
     private final UserService userService;
 
     private static final String AUTH_HEADER_NAME = "Auth";
 
     final TokenHandler tokenHandler;
 
-    public TokenAuthenticationService(String secret, @Autowired UserService userService) {
+    @Autowired
+    public TokenAuthenticationService(String secret,
+                                      @Qualifier("customUserService")UserService userService) {
         this.userService = userService;
         tokenHandler = new TokenHandler(secret, this.userService);
     }
