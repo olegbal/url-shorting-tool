@@ -131,4 +131,15 @@ public class CustomUserService implements UserService {
             return false;
         }
     }
+
+    @Override
+    public UserDto getUserById(Long id) {
+
+        User user=userRepository.findOne(id);
+        if(user!=null){
+            return conversionService.convert(user,UserDto.class);
+        }
+
+        return null;
+    }
 }

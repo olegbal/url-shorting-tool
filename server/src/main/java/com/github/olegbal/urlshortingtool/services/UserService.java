@@ -11,6 +11,8 @@ public interface UserService extends UserDetailsService {
     //FIXME return domain model instead of DTO
     UserDto getUserByLogin(String login);
 
+    UserDto getUserById(Long id);
+
     boolean createUser(RegistrationDto registrationDto);
 
     Set<UserDto> getRegisteredUsers();
