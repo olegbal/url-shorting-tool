@@ -72,7 +72,7 @@ public class UserPreAuthorizeService {
     public boolean hasAdminRole(HttpServletRequest request) {
         User requestingUser = tokenAuthenticationService.tokenHandler.parseUserFromToken(request.getHeader("Auth"));
 
-        if (requestingUser.getRoles().stream().anyMatch(x -> x.getRoleName().equals(RolesEnum.ADMIN.toString()))) {
+        if (requestingUser != null && requestingUser.getRoles().stream().anyMatch(x -> x.getRoleName().equals(RolesEnum.ADMIN.role_name))) {
             return true;
         }
         return false;

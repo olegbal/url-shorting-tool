@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
+@RequestMapping("api/v1")
 public class StatisticController {
 
     private final StatisticService statisticService;
@@ -20,9 +23,10 @@ public class StatisticController {
     public StatisticController(StatisticService statisticService) {
         this.statisticService = statisticService;
     }
+
     @PreAuthorize("@userPreAuthorizeService.hasAdminRole(#request)")
     @RequestMapping(path = "/statistic",method = RequestMethod.GET)
-    public ResponseEntity getStatistic(){
+    public ResponseEntity getStatistic(HttpServletRequest request){
         return new ResponseEntity(statisticService.getStatistic(), HttpStatus.OK);
     }
 }
