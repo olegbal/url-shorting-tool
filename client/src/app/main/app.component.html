@@ -19,6 +19,12 @@
          routerLinkActive="active">
         Sign up </a>
     </div>
+    <div *ngIf="authService.asAdmin" class="nav-item">
+      <a class="nav-link text-muted">
+        <!--routerLink="/statistic"-->
+        <!--routerLinkActive="active">-->
+        Statistic </a>
+    </div>
 
 
     <div *ngIf="authService.isLoggedIn" ngbDropdown class="d-inline-block dropdownButton">
@@ -32,7 +38,8 @@
           </a>
         </div>
         <div class="dropdown-item">
-          <a class="nav-link text-muted" *ngIf="authService.asAdmin" routerLink="/admin/users" routerLinkActive="active">Admin
+          <a class="nav-link text-muted" *ngIf="authService.asAdmin" routerLink="/admin/users"
+             routerLinkActive="active">Admin
             cabinet
           </a>
         </div>

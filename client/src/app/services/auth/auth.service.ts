@@ -10,7 +10,7 @@ export class AuthService {
   isLoggedIn: boolean = false;
   token: string = "";
   login: string = "";
-  asAdmin = false;
+  asAdmin:boolean  = false;
 
   constructor(private router: Router) {
     this.token = localStorage.getItem("Token") || "";

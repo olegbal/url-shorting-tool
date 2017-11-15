@@ -24,7 +24,8 @@ const routes: Routes = [
   {path: 'links/tag/:tagName', component: SameTagLinksComponent},
   {path: 'admin/users', component: UserListComponent,canActivate:[AdminCabinetGuard]},
   {path: 'admin/users/:userName',component: UserInfoComponent,canActivate:[AdminCabinetGuard]},
-  {path: '**', component: RedirectorComponent},
+  //add statistics routing. TODO Add statistics component
+  {path: '**', component: RedirectorComponent}, //must be at the end of routes list.
 
 ];
 
