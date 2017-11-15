@@ -31,6 +31,8 @@ import {UserInfoComponent} from "../components/user/user-details.component";
 import {AdminCabinetGuard} from "../guards/admin-cabinet.guard";
 import {OrderByDatePipe} from "../pipes/date-order-pipe";
 import {SearchPipe} from "app/pipes/search-pipe";
+import {StatisticComponent} from "../components/statistic/statistic.component";
+import {StatisticService} from "../services/statistic/statistic.service";
 
 @NgModule({
   declarations: [
@@ -47,6 +49,7 @@ import {SearchPipe} from "app/pipes/search-pipe";
     UserInfoComponent,
     OrderByDatePipe,
     SearchPipe,
+    StatisticComponent,
   ],
   imports: [
     SpinnerModule,
@@ -69,6 +72,7 @@ import {SearchPipe} from "app/pipes/search-pipe";
     AuthService,
     UserService,
     AdminCabinetGuard,
+    StatisticService,
   ],
   bootstrap: [AppComponent]
 })

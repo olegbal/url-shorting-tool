@@ -12,6 +12,7 @@ import {LoginGuard} from "../../guards/login.guard";
 import {UserListComponent} from "../../components/user/user-list.component";
 import {UserInfoComponent} from "../../components/user/user-details.component";
 import {AdminCabinetGuard} from "../../guards/admin-cabinet.guard";
+import {StatisticComponent} from "../../components/statistic/statistic.component";
 
 const routes: Routes = [
 
@@ -24,7 +25,7 @@ const routes: Routes = [
   {path: 'links/tag/:tagName', component: SameTagLinksComponent},
   {path: 'admin/users', component: UserListComponent,canActivate:[AdminCabinetGuard]},
   {path: 'admin/users/:userName',component: UserInfoComponent,canActivate:[AdminCabinetGuard]},
-  //add statistics routing. TODO Add statistics component
+  {path: 'statistic', component: StatisticComponent },
   {path: '**', component: RedirectorComponent}, //must be at the end of routes list.
 
 ];
