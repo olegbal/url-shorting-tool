@@ -42,4 +42,10 @@ public class UserController {
         }
         return new ResponseEntity(HttpStatus.NOT_MODIFIED);
     }
+
+    @PreAuthorize("@userPreAuthorizeService.hasAdminRole(#request)")
+    @RequestMapping(path = "/api/v1/user/{id}", method = RequestMethod.GET)
+    public ResponseEntity getUserById(HttpServletRequest request,@PathVariable long id) {
+            return new ResponseEntity(userService.getUserById(id),HttpStatus.OK);
+    }
 }

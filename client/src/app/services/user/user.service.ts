@@ -28,7 +28,12 @@ export class UserService {
 
     this.headers = new Headers({'Auth': this.authService.token});
     return this.http.delete(this.urlString + '/' + id,{headers:this.headers});
+  }
 
+  getUserById(id: string){
+
+    this.headers = new Headers({'Auth': this.authService.token});
+    return this.http.get(this.urlString + '/' + id,{headers:this.headers});
   }
 
 }
