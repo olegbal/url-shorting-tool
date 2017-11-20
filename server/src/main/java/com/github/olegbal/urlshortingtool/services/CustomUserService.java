@@ -135,9 +135,9 @@ public class CustomUserService implements UserService {
     @Override
     public UserDto getUserById(Long id) {
 
-        User user=userRepository.findOne(id);
-        if(user!=null){
-            return conversionService.convert(user,UserDto.class);
+        User user = userRepository.findOne(id);
+        if (user != null) {
+            return conversionService.convert(user, UserDto.class);
         }
 
         return null;

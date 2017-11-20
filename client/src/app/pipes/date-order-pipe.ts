@@ -6,7 +6,7 @@ import {Injectable, Pipe, PipeTransform} from '@angular/core';
 
 export class OrderByDatePipe implements PipeTransform {
 
-  transform(value: any, args?: any): any {
+  transform(value: any, changed: any): any {
     let newVal = value.sort((a: any, b: any) => {
       let date1 = new Date(a.creationDate);
       let date2 = new Date(b.creationDate);
@@ -19,7 +19,6 @@ export class OrderByDatePipe implements PipeTransform {
         return 0;
       }
     });
-
     return newVal;
   }
 

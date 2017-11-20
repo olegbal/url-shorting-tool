@@ -55,7 +55,7 @@
         </button>
       </td>
     </tr>
-    <tr *ngFor="let link of user.links | orderByDatePipe | searchPipe:search.value ">
+    <tr *ngFor="let link of user.links | orderByDatePipe:changed | searchPipe:search.value ">
       <td>
         <a class="text-primary"
            (click)="redirectToUrl(link.shortLink)">{{link.shortLink}}

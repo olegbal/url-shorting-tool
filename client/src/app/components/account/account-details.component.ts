@@ -28,17 +28,15 @@ export class AccountDetailsComponent implements OnInit {
   showDialog = false;
   spinnerOn = false;
   existingLinkFullAddres: String;
+  changed = false;
 
   ngOnInit() {
     this.spinnerOn = true;
     this.accountDetailsService.getUserInfo(this.authService.login).subscribe((res) => {
-
         if (res.status == 200) {
-
           this.user = res.json();
           this.spinnerOn = false;
         }
-
       },
       (err) => {
 
@@ -69,6 +67,7 @@ export class AccountDetailsComponent implements OnInit {
           this.user.links = this.user.links.filter(x => x.linkId != Number.parseInt(id));
 
           console.log("successfully deleted");
+          this.changed=!this.changed;
         }
       },
       (err) => {
@@ -123,6 +122,7 @@ export class AccountDetailsComponent implements OnInit {
                 link.linkId = res.json().linkId;
                 link.shortLink = res.json().shortedLink;
                 this.user.links.push(link);
+                this.changed=!this.changed;
                 this.addingLink = new Link(0, "", "", 0, "", "", null);
               }
             },
