@@ -29,33 +29,7 @@
       <th width="6%">
       </th>
     </tr>
-    <tr class="fixed-bottom bg-primary" *ngIf="isAdding">
-      <td>
-      </td>
-      <td>
-        <label>Link</label>
-        <input [(ngModel)]="addingLink.originalLink" name="originalLinkCreator">
-      </td>
-      <td>
-
-      </td>
-      <td>
-        <label>Summary</label>
-        <input [(ngModel)]="addingLink.summary" name="summaryCreator">
-      </td>
-
-      <td>
-      </td>
-      <td>
-        <label class="">Tags(use space as delimeter)</label>
-        <input [(ngModel)]="addingLink.tags" name="tagsCreator">
-        <button class="btn btn-danger" *ngIf="isAdding" (click)="cancelAdding()">Cancel</button>
-        <button class="btn btn-success" *ngIf="isAdding"
-                (click)="addLink(user.userId,addingLink);isAdding=false">Submit
-        </button>
-      </td>
-    </tr>
-    <tr *ngFor="let link of user.links | orderByDatePipe:changed | searchPipe:search.value ">
+    <tr *ngFor="let link of user.links | orderByDatePipe: changed | searchPipe:search.value ">
       <td>
         <a class="text-primary"
            (click)="redirectToUrl(link.shortLink)">{{link.shortLink}}
@@ -76,7 +50,7 @@
       </td>
       <td>
         <div *ngIf="!link.isEditing">
-          <div *ngFor="let tag of link.tags.split(' ')">
+          <div class="tag_text_block" *ngFor="let tag of link.tags.split(' ')">
             <a class="text-primary" (click)="showLinksWithSameTag(tag)">{{tag}}</a>
           </div>
         </div>
@@ -113,3 +87,19 @@
 </app-dialog>
 <button class="btn btn-primary btn-lg fixed-bottom" *ngIf="!isAdding" (click)="this.isAdding = true;">Add new link
 </button>
+
+
+<div class="fixed-bottom bg-primary add_new_link_block" *ngIf="isAdding">
+  <label>Link</label>
+  <input [(ngModel)]="addingLink.originalLink" name="originalLinkCreator">
+
+  <label>Summary</label>
+  <input [(ngModel)]="addingLink.summary" name="summaryCreator">
+
+  <label class="">Tags(use space as delimeter)</label>
+  <input [(ngModel)]="addingLink.tags" name="tagsCreator">
+  <button class="btn btn-danger" *ngIf="isAdding" (click)="cancelAdding()">Cancel</button>
+  <button class="btn btn-success" *ngIf="isAdding"
+          (click)="addLink(user.userId,addingLink);isAdding=false">Submit
+  </button>
+</div>

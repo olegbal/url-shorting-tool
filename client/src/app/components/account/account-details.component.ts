@@ -10,7 +10,7 @@ import {AuthService} from "../../services/auth/auth.service";
 @Component({
   selector: 'account-details',
   templateUrl: '../../templates/account-details.component.html',
-  styleUrls: ['../../styles/account-details.component.css', '../../styles/spinner.css']
+  styleUrls: ['../../styles/account-details.component.css', '../../styles/spinner.css','../../styles/link-info.component.css']
 })
 
 export class AccountDetailsComponent implements OnInit {

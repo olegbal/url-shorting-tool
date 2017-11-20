@@ -1,9 +1,9 @@
-input.editing_input{
-  width:150px;
+input.editing_input {
+  width: 150px;
 }
 
-table{
-  margin-top:3%;
+table {
+  margin-top: 3%;
 }
 
 .modal {
@@ -46,6 +46,10 @@ table{
   background: rgba(0, 0, 0, 0.6);
 }
 
-div.search_div{
-  padding-top:5%;
+div.search_div {
+  padding-top: 5%;
+}
+
+.add_new_link_block {
+  height: 50px;
 }

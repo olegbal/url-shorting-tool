@@ -30,7 +30,7 @@
       {{currentLink.creationDate | date:'medium'}}
     </td>
     <td>
-      <div *ngFor="let tag of currentLink.tags.split(' ')">
+      <div class="tag_text_block" *ngFor="let tag of currentLink.tags.split(' ')">
         <a class="text-primary" (click)="showLinksWithSameTag(tag)">{{tag}}</a>
       </div>
     </td>
