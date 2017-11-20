@@ -51,5 +51,19 @@ div.search_div {
 }
 
 .add_new_link_block {
-  height: 50px;
+  height: 80px;
+}
+
+.add_new_link_label_input_block {
+  display: inline-block;
+  margin: 10px;
+}
+
+.add_new_link_label_input_block input,
+.add_new_link_label_input_block label {
+  display: block;
+}
+
+.create_cancel_buttons_block {
+  display: inline-block;
 }

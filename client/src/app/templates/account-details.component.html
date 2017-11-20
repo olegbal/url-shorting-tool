@@ -88,18 +88,30 @@
 <button class="btn btn-primary btn-lg fixed-bottom" *ngIf="!isAdding" (click)="this.isAdding = true;">Add new link
 </button>
 
+<div class="modal-overlay" *ngIf="showDialog">
+
+</div>
+
 
 <div class="fixed-bottom bg-primary add_new_link_block" *ngIf="isAdding">
-  <label>Link</label>
-  <input [(ngModel)]="addingLink.originalLink" name="originalLinkCreator">
-
-  <label>Summary</label>
-  <input [(ngModel)]="addingLink.summary" name="summaryCreator">
-
-  <label class="">Tags(use space as delimeter)</label>
-  <input [(ngModel)]="addingLink.tags" name="tagsCreator">
-  <button class="btn btn-danger" *ngIf="isAdding" (click)="cancelAdding()">Cancel</button>
-  <button class="btn btn-success" *ngIf="isAdding"
-          (click)="addLink(user.userId,addingLink);isAdding=false">Submit
-  </button>
+  <div class="add_new_link_label_input_block">
+    <label>Link</label>
+    <input [(ngModel)]="addingLink.originalLink" name="originalLinkCreator">
+  </div>
+  <div class="add_new_link_label_input_block">
+    <label>Summary</label>
+    <input [(ngModel)]="addingLink.summary" name="summaryCreator">
+  </div>
+  <div class="add_new_link_label_input_block">
+    <label class="">Tags(use space as delimeter)</label>
+    <input [(ngModel)]="addingLink.tags" name="tagsCreator">
+  </div>
+  <div class="create_cancel_buttons_block">
+    <button class="btn btn-danger" *ngIf="isAdding" (click)="cancelAdding()">Cancel</button>
+    <button class="btn btn-success" *ngIf="isAdding"
+            (click)="addLink(user.userId,addingLink);isAdding=false">Submit
+    </button>
+  </div>
 </div>
+
+<toaster-container></toaster-container>

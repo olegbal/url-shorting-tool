@@ -33,6 +33,8 @@ import {OrderByDatePipe} from "../pipes/date-order-pipe";
 import {SearchPipe} from "app/pipes/search-pipe";
 import {StatisticComponent} from "../components/statistic/statistic.component";
 import {StatisticService} from "../services/statistic/statistic.service";
+import {ToasterModule, ToasterService} from "angular2-toaster";
+import {CustomToasterService} from "app/services/toaster/custom-toaster.service";
 
 @NgModule({
   declarations: [
@@ -59,6 +61,7 @@ import {StatisticService} from "../services/statistic/statistic.service";
     HttpModule,
     AppRoutingModule,
     InfiniteScrollModule,
+    ToasterModule,
     BrowserAnimationsModule,
 
   ],
@@ -73,6 +76,8 @@ import {StatisticService} from "../services/statistic/statistic.service";
     UserService,
     AdminCabinetGuard,
     StatisticService,
+    ToasterService,
+    CustomToasterService,
   ],
   bootstrap: [AppComponent]
 })
