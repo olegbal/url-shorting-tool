@@ -13,8 +13,7 @@ body {
 
 .container {
   padding: 25px;
-
-  position: fixed;
+  margin: 0 auto;
 }
 
 .form-login {
@@ -44,4 +43,8 @@ h4 {
 
 .wrapper {
   text-align: center;
+}
+
+.spinnerContainer {
+
 }
