@@ -1,3 +1,71 @@
 .statistic-header {
-  padding: 50px 0px 0px 5px;
+  padding: 50px 0 0 5px;
+  text-align: center;
+}
+
+.statistic-content {
+  margin: 30px 5px 10px 5px;
+}
+
+.statistic_common {
+  text-align: center;
+}
+
+.statistic_common_item_container {
+  display: inline-block;
+  margin-bottom: 5px;
+  background-color: #78dc8f;
+  -webkit-border-radius: 5%;
+  -moz-border-radius: 5%;
+  border-radius: 5%;
+  width: 200px;
+  height: 200px;
+  border: 1px solid black;
+  text-align: center;
+  color: white;
+
+}
+
+.statistic_common_item_header {
+  border-radius: inherit;
+  background-color: #0275d8;
+  border-bottom: 1px solid black;
+  margin: 0;
+  min-height: 70px;
+  max-height: 100px;
+}
+
+.statistic_common_item_content {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  font-size: 3em;
+}
+
+.statistic_top_user_info {
+  text-align: center;
+  color: white;
+  background-color: #78dc8f;
+  width: 500px;
+  height: 200px;
+  border: 1px solid black;
+  margin: 0 auto;
+  -webkit-border-radius: 3%;
+  -moz-border-radius: 3%;
+  border-radius: 3%;
+}
+
+.statistic_top_user_info_header {
+  background-color: #0275d8;
+  font-size: 40px;
+  border-radius: inherit;
+  border-bottom: 1px solid black;
+}
+
+.statistic_top_user_info_section {
+  font-size: 30px;
+}
+
+.statistic_top_user_info_content {
+
 }

@@ -30,6 +30,11 @@ export class StatisticComponent implements OnInit {
     this.statisticService.getStatistic().subscribe((res) => {
       if (res.status == 200) {
         this.statistic = res.json();
+        this.userService.getUserById(this.statistic.topUserId.toString()).subscribe((res)=>{
+          if(res.status==200){
+            this.user=res.json();
+          }
+        })
       }
     });
   }

@@ -1,20 +1,71 @@
-<div class="statistic-header">
+<div class="statistic-header h1">
   Global statistic
 </div>
 <div class="statistic-content">
-  Deleted links count : {{statistic.deletedLinksCount}}
-  <br/>
-  Created links count : {{statistic.createdLinksCount}}
-  <br/>
-  Created accounts : {{statistic.registeredUsersCount}}
-  <br/>
-  Registered users : {{statistic.registeredUsersCount}}
-  <br/>
-  Administrators: {{statistic.administratorAccountsAmount}}
-  <br/>
-  Total Clicks : {{statistic.totalClicksCount}}
-  <br/>
-  <!--public topUserId: number){-->
+  <div class="statistic_common">
+    <div class="statistic_common_item_container ">
+      <div class="statistic_common_item_header h3 ">
+        Deleted links count
+      </div>
+      <div class="statistic_common_item_content">
+        {{statistic.deletedLinksCount}}
+      </div>
+    </div>
+    <div class="statistic_common_item_container ">
+      <div class="statistic_common_item_header h3">
+        Created links count
+      </div>
+      <div class="statistic_common_item_content">
+        {{statistic.createdLinksCount}}
+      </div>
+    </div>
+    <div class="statistic_common_item_container ">
+      <div class="statistic_common_item_header h3">
+        Created accounts
+      </div>
+      <div class="statistic_common_item_content">
+        {{statistic.registeredUsersCount}}
+      </div>
+    </div>
+    <div class="statistic_common_item_container ">
+      <div class="statistic_common_item_header h3">
+        Registered users
+      </div>
+      <div class="statistic_common_item_content">
+        {{statistic.userAccountsAmount}}
+      </div>
+    </div>
+    <div class="statistic_common_item_container ">
+      <div class="statistic_common_item_header h3">
+        Administrators
+      </div>
+      <div class="statistic_common_item_content">
+        {{statistic.administratorAccountsAmount}}
+      </div>
+    </div>
+    <div class="statistic_common_item_container ">
+      <div class="statistic_common_item_header h3">
+        Total Clicks
+      </div>
+      <div class="statistic_common_item_content">
+        {{statistic.totalClicksCount}}
+      </div>
+    </div>
+
+  </div>
+  <div class="statistic_top_user_info">
+    <div class="statistic_top_user_info_header">
+      Top user
+    </div>
+    <div class="statistic_top_user_info_content">
+      <div class="statistic_top_user_info_section">
+        Login: {{user.login}}
+      </div>
+      <div class="statistic_top_user_info_section">
+        Links: {{user.links.length}}
+      </div>
+    </div>
+  </div>
 
 </div>
 
