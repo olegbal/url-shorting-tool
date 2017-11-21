@@ -4,6 +4,7 @@ import {Response} from "@angular/http";
 import {RegistrationService} from "../../services/registration/registration.service";
 import {Router} from "@angular/router";
 import {LoginAndPassword} from "../../models/loginAndPassword";
+import {CustomToasterService} from "../../services/toaster/custom-toaster.service";
 
 @Component({
 
@@ -16,7 +17,8 @@ import {LoginAndPassword} from "../../models/loginAndPassword";
 export class RegistrationComponent {
 
   constructor(private registrationService: RegistrationService,
-              private router: Router) {
+              private router: Router,
+              private toasterService: CustomToasterService) {
   }
 
   loginAndPassword: LoginAndPassword = new LoginAndPassword("", "", "");
@@ -29,6 +31,7 @@ export class RegistrationComponent {
       (res: Response) => {
         if (res.status == 200) {
           console.log("User registered");
+          this.toasterService.popToast("info","Account created","Now you can log in");
           this.spinnerOn=false;
           this.router.navigate(['/']);
         }
@@ -39,6 +42,7 @@ export class RegistrationComponent {
           this.loginAndPassword.password = "";
           this.loginAndPassword.serialNumber = "";
           console.log("Registration failed");
+          this.toasterService.popToast("error","Error","Failed to create new accounts");
           this.spinnerOn=false;
         }
       }));

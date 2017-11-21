@@ -2,22 +2,17 @@ import {Injectable, OnInit} from "@angular/core";
 import {Toast, ToasterConfig, ToasterService} from "angular2-toaster";
 
 @Injectable()
-export class CustomToasterService implements OnInit {
+export class CustomToasterService {
 
   constructor(private toasterService: ToasterService) {
   }
 
-  public defaultToasterConfigCenter;
-  public defaultToasterConfigBotCenter;
-
-  ngOnInit() {
-    this.defaultToasterConfigCenter = new ToasterConfig({
-      positionClass: 'toast-center'
-    });
-    this.defaultToasterConfigBotCenter = new ToasterConfig({
-      positionClass: 'toast-bottom-center'
-    });
-  }
+  defaultToasterConfig = new ToasterConfig({
+    positionClass: 'toast-top-left',
+    limit: 5,
+    showCloseButton:true,
+    timeout: 3000
+  });
 
   popToast(type:string,title: string, body: string) {
     var toast: Toast = {

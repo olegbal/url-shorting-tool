@@ -2,6 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {LinkService} from "../../services/links/link.service";
 import {Link} from "app/models/link";
 import {ActivatedRoute, Router} from "@angular/router";
+import {CustomToasterService} from "../../services/toaster/custom-toaster.service";
 
 @Component({
   selector: 'link-info-component',
@@ -15,7 +16,8 @@ export class LinkInfoComponent implements OnInit {
 
   constructor(private linkService: LinkService,
               private router: Router,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private toasterService: CustomToasterService) {
 
   }
 
@@ -35,6 +37,7 @@ export class LinkInfoComponent implements OnInit {
         (err) => {
           if (err.status < 200 || err.status > 299) {
             console.log("Unable to get link info", err);
+            this.toasterService.popToast("error","Error","Unable to get link info");
             this.spinnerOn = false;
             this.router.navigate(['/'])
           }

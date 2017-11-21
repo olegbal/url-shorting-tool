@@ -4,6 +4,7 @@ import "rxjs/add/operator/do";
 import "rxjs/add/operator/delay";
 import {Router} from "@angular/router";
 import {User} from "../../models/user";
+import {CustomToasterService} from "../toaster/custom-toaster.service";
 
 @Injectable()
 export class AuthService {
@@ -12,7 +13,8 @@ export class AuthService {
   login: string = "";
   asAdmin:boolean  = false;
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+              private toasterService: CustomToasterService) {
     this.token = localStorage.getItem("Token") || "";
     this.login = localStorage.getItem("Login") || "";
     let temp = localStorage.getItem("asAdmin") || "false";
@@ -37,6 +39,7 @@ export class AuthService {
 
   logout() {
     this.isLoggedIn = false;
+    this.toasterService.popToast("info", "Logged out", "See you, "+this.login);
     this.token = "";
     this.login = "";
     this.asAdmin = false;

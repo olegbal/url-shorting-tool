@@ -2,6 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {LinkService} from "../../services/links/link.service";
 import {Link} from "app/models/link";
 import {Router} from "@angular/router";
+import {CustomToasterService} from "../../services/toaster/custom-toaster.service";
 
 @Component({
   selector: 'link-list-component',
@@ -13,7 +14,8 @@ import {Router} from "@angular/router";
 export class LinkListComponent implements OnInit {
 
   constructor(private linkService: LinkService,
-              private router: Router) {
+              private router: Router,
+              private toasterService: CustomToasterService) {
   }
 
   links: Link[] = new Array<Link>();
@@ -60,7 +62,8 @@ export class LinkListComponent implements OnInit {
         (err) => {
           if (err.status < 200 || err.status > 299) {
             this.spinnerOn=false;
-            console.log("Cannot get links", err)
+            console.log("Cannot get links", err);
+            this.toasterService.popToast("error","Error","Cannot get links");
           }
         });
     }

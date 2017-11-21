@@ -4,6 +4,7 @@ import {User} from "../../models/user";
 import {UserService} from "../../services/user/user.service";
 import {Router} from "@angular/router";
 import {AuthService} from "../../services/auth/auth.service";
+import {CustomToasterService} from "../../services/toaster/custom-toaster.service";
 
 @Component({
 
@@ -17,7 +18,8 @@ export class UserListComponent implements OnInit {
 
   constructor(private userService: UserService,
               private router: Router,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private toasterService: CustomToasterService) {
   }
 
   users: User[] = new Array<User>();
@@ -41,6 +43,7 @@ export class UserListComponent implements OnInit {
           this.router.navigate(['/login']);
         } else if (err.status < 200 || err.status > 299) {
           console.log("Failed to get users", err);
+          this.toasterService.popToast("error", "Error", "Failed to get users!");
           this.spinnerOn = false;
         }
       });
@@ -63,6 +66,8 @@ export class UserListComponent implements OnInit {
           this.authService.logout();
           this.router.navigate(['/login']);
         } else if (err.status < 200 || err.status > 299) {
+          console.log("Error occured while deleting user");
+          this.toasterService.popToast("error", "Error", "Cannot remove user!");
         }
       });
   }

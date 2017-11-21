@@ -1,6 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {AuthService} from "../services/auth/auth.service";
 import {Router} from "@angular/router";
+import {CustomToasterService} from "../services/toaster/custom-toaster.service";
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,8 @@ export class AppComponent implements OnInit {
 
   private pageSize = "10";
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService,
+              private toasterService: CustomToasterService) {
   }
 
   ngOnInit() {

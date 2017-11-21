@@ -8,6 +8,7 @@ import {Router} from "@angular/router";
 import {AuthService} from "../../services/auth/auth.service";
 import {Location} from "@angular/common";
 import {ActivatedRoute} from "@angular/router";
+import {CustomToasterService} from "../../services/toaster/custom-toaster.service";
 
 
 @Component({
@@ -23,7 +24,8 @@ export class UserInfoComponent implements OnInit {
               private router: Router,
               private authService: AuthService,
               private location: Location,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private toasterService: CustomToasterService) {
   }
 
   user: User = new User(0, "", "", new Array<Role>(), new Array<Link>());
@@ -47,6 +49,7 @@ export class UserInfoComponent implements OnInit {
               this.router.navigate(['/login']);
             } else if (err.status < 200 || err.status > 299) {
               console.log("Unable to get  user info", err);
+              this.toasterService.popToast("error", "Error", "Unable to get user info");
               this.spinnerOn = false;
               this.router.navigate(['/admin/users'])
             }
@@ -61,6 +64,7 @@ export class UserInfoComponent implements OnInit {
           this.router.navigate(['/login']);
         } else if (err.status < 200 || err.status > 299) {
           console.log("Unable to param  info", err);
+          this.toasterService.popToast("error", "Error", "Unable to get param info");
           this.spinnerOn = false;
           this.router.navigate(['/admin/users'])
         }

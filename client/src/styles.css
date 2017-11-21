@@ -24,9 +24,29 @@ tr {
 
 table {
   position: inherit;
-  margin-top:7%;
+  margin-top: 7%;
   table-layout: fixed;
-  word-wrap:break-word;
+  word-wrap: break-word;
 }
 
 
+/*customizations for angular2-toaster lib*/
+.toast-success {
+  background-color: #5cb85c!important;
+}
+
+.toast-error {
+  background-color: #d9534f!important;
+}
+
+.toast-info {
+  background-color: #0275d8!important;
+}
+
+.toast-wait {
+  background-color: #5bc0de!important;
+}
+
+.toast-warning {
+  background-color: #f0ad4e!important;
+}

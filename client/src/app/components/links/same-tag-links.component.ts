@@ -3,6 +3,7 @@ import {Link} from "../../models/link";
 import {LinkService} from "../../services/links/link.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Location} from "@angular/common";
+import {CustomToasterService} from "../../services/toaster/custom-toaster.service";
 
 
 @Component({
@@ -17,7 +18,8 @@ export class SameTagLinksComponent implements OnInit {
   constructor(private linkService: LinkService,
               private router: Router,
               private location: Location,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private toasterService: CustomToasterService) {
   }
 
   links: Link[] = new Array<Link>();
@@ -61,7 +63,8 @@ export class SameTagLinksComponent implements OnInit {
           },
           (err) => {
             if (err.status < 200 || err.status > 299) {
-              console.log("Cannot get Link by tag " + param, err);
+              console.log("Cannot get Links by tag " + param, err);
+              this.toasterService.popToast("error","Error","Cannot get links by tag");
               this.spinnerOn=false;
               this.router.navigate(['/links']);
             }
