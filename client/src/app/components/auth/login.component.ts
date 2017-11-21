@@ -6,6 +6,7 @@ import {LoginService} from "../../services/auth/login.service";
 import {LoginAndPassword} from "../../models/loginAndPassword";
 import {AuthService} from "../../services/auth/auth.service";
 import {Role} from "../../models/role";
+import {CustomToasterService} from "../../services/toaster/custom-toaster.service";
 
 @Component({
   selector: 'login-component',
@@ -18,7 +19,8 @@ export class LoginComponent {
 
   constructor(private loginService: LoginService,
               private router: Router,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private toasterService: CustomToasterService) {
   }
 
   loginAndPassword: LoginAndPassword = new LoginAndPassword("", "");
@@ -35,6 +37,7 @@ export class LoginComponent {
           }
           this.authService.logIn(res.headers.get("Auth"), this.loginAndPassword.login);
           this.spinnerOn = false;
+          this.toasterService.popToast("info","Logged in","Welcome, "+this.loginAndPassword.login);
           this.router.navigate(['/']);
         }
       },
@@ -43,6 +46,7 @@ export class LoginComponent {
           this.loginAndPassword.login = "";
           this.loginAndPassword.password = "";
           console.log("Failed to log in", err);
+          this.toasterService.popToast("error","Error","Failed to log in");
           this.spinnerOn = false;
         }
       }
