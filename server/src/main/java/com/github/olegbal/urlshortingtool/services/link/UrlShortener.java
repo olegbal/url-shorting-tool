@@ -1,17 +1,15 @@
-package com.github.olegbal.urlshortingtool.services;
+package com.github.olegbal.urlshortingtool.services.link;
 
-import com.github.olegbal.urlshortingtool.utils.encrypters.Base62;
-import com.github.olegbal.urlshortingtool.utils.encrypters.ChecksumCalculator;
+import com.github.olegbal.urlshortingtool.encrypters.Base62;
+import com.github.olegbal.urlshortingtool.encrypters.ChecksumCalculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-//FIXME find right place for dat
 @Service
 public class UrlShortener {
 
     private final ChecksumCalculator<Long> checksumCalculator;
 
-    //FIXME finals in method's signatures
     @Autowired
     public UrlShortener(final ChecksumCalculator<Long> checksumCalculator) {
         this.checksumCalculator = checksumCalculator;

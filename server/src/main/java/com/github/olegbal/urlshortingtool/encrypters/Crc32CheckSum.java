@@ -1,4 +1,4 @@
-package com.github.olegbal.urlshortingtool.utils.encrypters;
+package com.github.olegbal.urlshortingtool.encrypters;
 
 import org.springframework.stereotype.Component;
 

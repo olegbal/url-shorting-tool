@@ -52,11 +52,6 @@ public class Link {
         this.user = user;
     }
 
-    //FIXME static method factory pattern, investigate that
-//    public static Link fromDTO(LinkDto) {
-//
-//    }
-
     public long getLinkId() {
         return linkId;
     }

@@ -1,4 +1,4 @@
-package com.github.olegbal.urlshortingtool.services;
+package com.github.olegbal.urlshortingtool.services.role;
 
 import com.github.olegbal.urlshortingtool.domain.Role;
 

@@ -1,4 +1,4 @@
-package com.github.olegbal.urlshortingtool.services;
+package com.github.olegbal.urlshortingtool.services.link;
 
 import com.github.olegbal.urlshortingtool.domain.Link;
 import com.github.olegbal.urlshortingtool.dto.CreatedLinkResponseDto;

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class LinkDtoToEntityConverter implements Converter<LinkDto, Link> {
 
-
     @Override
     public Link convert(LinkDto linkDto) {
         Link link = new Link();

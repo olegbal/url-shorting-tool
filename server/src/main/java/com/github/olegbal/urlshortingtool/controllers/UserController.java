@@ -1,6 +1,6 @@
 package com.github.olegbal.urlshortingtool.controllers;
 
-import com.github.olegbal.urlshortingtool.services.UserService;
+import com.github.olegbal.urlshortingtool.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;

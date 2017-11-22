@@ -9,7 +9,6 @@ import java.util.Date;
 
 public interface LinkRepository extends JpaRepository<Link, Long> {
 
-
     Link findByShortLink(String shortLink);
 
     Page<Link> findByUserUserId(Pageable pageable, long userId);

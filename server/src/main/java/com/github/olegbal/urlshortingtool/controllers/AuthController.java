@@ -2,7 +2,7 @@ package com.github.olegbal.urlshortingtool.controllers;
 
 import com.github.olegbal.urlshortingtool.dto.LoginDto;
 import com.github.olegbal.urlshortingtool.dto.RegistrationDto;
-import com.github.olegbal.urlshortingtool.services.UserService;
+import com.github.olegbal.urlshortingtool.services.user.UserService;
 import com.github.olegbal.urlshortingtool.services.security.TokenAuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

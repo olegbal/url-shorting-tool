@@ -1,4 +1,4 @@
-package com.github.olegbal.urlshortingtool.security.filters;
+package com.github.olegbal.urlshortingtool.filters;
 
 import com.github.olegbal.urlshortingtool.services.security.TokenAuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;

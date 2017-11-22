@@ -1,4 +1,4 @@
-package com.github.olegbal.urlshortingtool.services;
+package com.github.olegbal.urlshortingtool.services.user;
 
 import com.github.olegbal.urlshortingtool.dto.RegistrationDto;
 import com.github.olegbal.urlshortingtool.dto.UserDto;

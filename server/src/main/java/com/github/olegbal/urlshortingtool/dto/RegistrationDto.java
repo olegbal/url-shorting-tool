@@ -3,7 +3,7 @@ package com.github.olegbal.urlshortingtool.dto;
 import javax.validation.constraints.NotNull;
 
 public class RegistrationDto {
-    @NotNull
+
     private String login;
 
     private String password;

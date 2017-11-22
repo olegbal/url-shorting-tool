@@ -1,12 +1,7 @@
 package com.github.olegbal.urlshortingtool.security;
 
-import com.github.olegbal.urlshortingtool.security.filters.StatelessAuthenticationFilter;
-import com.github.olegbal.urlshortingtool.services.UserService;
-import com.github.olegbal.urlshortingtool.services.security.TokenAuthenticationService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import com.github.olegbal.urlshortingtool.filters.StatelessAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -21,19 +16,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserService userService;
-    private final TokenAuthenticationService tokenAuthenticationService;
+    private final StatelessAuthenticationFilter statelessAuthenticationFilter;
 
-    //TODO Get it from properties
-    private final String secret = "MY_SECRET_TSSS";
-
-    //FIXME make it better
-    public SpringSecurityConfig(@Qualifier("customUserService") @Autowired UserService userService) {
+    public SpringSecurityConfig(StatelessAuthenticationFilter statelessAuthenticationFilter) {
         super(true);
-        this.userService = userService;
-
-        //FIXME
-        tokenAuthenticationService = new TokenAuthenticationService(secret, this.userService);
+        this.statelessAuthenticationFilter = statelessAuthenticationFilter;
     }
 
     @Override
@@ -58,7 +45,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/v1/users").hasRole("ADMIN")
                 .antMatchers("/api/v1/user/{\\d+}").hasRole("ADMIN")
                 .anyRequest().authenticated().and()
-                .addFilterBefore(new StatelessAuthenticationFilter(tokenAuthenticationService),
+                .addFilterBefore(statelessAuthenticationFilter,
                         UsernamePasswordAuthenticationFilter.class);
     }
 
@@ -71,10 +58,5 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
-    }
-
-    @Bean
-    public TokenAuthenticationService tokenAuthenticationService() {
-        return tokenAuthenticationService;
     }
 }

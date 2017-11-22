@@ -4,15 +4,15 @@ import com.github.olegbal.urlshortingtool.dto.LoginDto;
 import com.github.olegbal.urlshortingtool.domain.User;
 import com.github.olegbal.urlshortingtool.security.TokenHandler;
 import com.github.olegbal.urlshortingtool.security.UserAuthentication;
-import com.github.olegbal.urlshortingtool.services.UserService;
+import com.github.olegbal.urlshortingtool.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-//FIXME kakogo huya eto ne service
+@Service
 public class TokenAuthenticationService {
 
 
@@ -20,13 +20,15 @@ public class TokenAuthenticationService {
 
     private static final String AUTH_HEADER_NAME = "Auth";
 
+    //TODO Get it from properties
+    private final String TOKEN_SECRET = "MY_SECRET_TSSS";
+
     final TokenHandler tokenHandler;
 
     @Autowired
-    public TokenAuthenticationService(String secret,
-                                      @Qualifier("customUserService")UserService userService) {
+    public TokenAuthenticationService(UserService userService) {
         this.userService = userService;
-        tokenHandler = new TokenHandler(secret, this.userService);
+        tokenHandler = new TokenHandler(TOKEN_SECRET, this.userService);
     }
 
     public boolean checkLogin(HttpServletResponse response, LoginDto authCheckDto) {

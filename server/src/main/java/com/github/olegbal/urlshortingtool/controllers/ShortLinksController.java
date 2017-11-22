@@ -1,6 +1,6 @@
 package com.github.olegbal.urlshortingtool.controllers;
 
-import com.github.olegbal.urlshortingtool.services.LinkService;
+import com.github.olegbal.urlshortingtool.services.link.LinkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

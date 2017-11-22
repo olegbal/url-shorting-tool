@@ -1,4 +1,4 @@
-package com.github.olegbal.urlshortingtool.services;
+package com.github.olegbal.urlshortingtool.services.link;
 
 import com.github.olegbal.urlshortingtool.domain.Link;
 import com.github.olegbal.urlshortingtool.domain.User;
@@ -32,7 +32,6 @@ public class CustomLinkService implements LinkService {
 
     private final ConversionService conversionService;
 
-
     @Autowired
     public CustomLinkService(LinkRepository linkRepository,
                              UserRepository userRepository,
@@ -48,7 +47,7 @@ public class CustomLinkService implements LinkService {
 
     @Override
     public LinkDto getLinkById(long id) {
-            return conversionService.convert(linkRepository.findOne(id),LinkDto.class);
+        return conversionService.convert(linkRepository.findOne(id), LinkDto.class);
     }
 
     @Override
@@ -85,7 +84,7 @@ public class CustomLinkService implements LinkService {
 
         Set<Link> links = new HashSet<>(linkRepository.findAll(pageable).getContent());
 
-        return (Set<LinkDto>)conversionService.convert(links, TypeDescriptor.collection(Set.class, TypeDescriptor.valueOf(Link.class)),
+        return (Set<LinkDto>) conversionService.convert(links, TypeDescriptor.collection(Set.class, TypeDescriptor.valueOf(Link.class)),
                 TypeDescriptor.collection(Set.class, TypeDescriptor.valueOf(LinkDto.class)));
     }
 

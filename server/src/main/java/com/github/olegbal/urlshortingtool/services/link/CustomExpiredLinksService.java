@@ -1,4 +1,4 @@
-package com.github.olegbal.urlshortingtool.services;
+package com.github.olegbal.urlshortingtool.services.link;
 
 import com.github.olegbal.urlshortingtool.repositories.LinkRepository;
 import org.hibernate.TransactionException;
@@ -22,8 +22,10 @@ public class CustomExpiredLinksService implements ExpiredLinksService {
         this.linkRepository = linkRepository;
     }
 
+
     @Transactional
     @Scheduled(fixedRate = repeatInMills, initialDelay = repeatInMills)
+    @Override
     public void removeExpiredLinks() {
         Date expirationDate = new Date(System.currentTimeMillis() - repeatInMills);
 

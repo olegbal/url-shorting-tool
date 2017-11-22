@@ -1,4 +1,4 @@
-package com.github.olegbal.urlshortingtool.services;
+package com.github.olegbal.urlshortingtool.services.db;
 
 import com.github.olegbal.urlshortingtool.enums.DbTableNames;
 import org.springframework.jdbc.core.JdbcTemplate;

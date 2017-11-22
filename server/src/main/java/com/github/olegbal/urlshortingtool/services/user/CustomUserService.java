@@ -1,4 +1,4 @@
-package com.github.olegbal.urlshortingtool.services;
+package com.github.olegbal.urlshortingtool.services.user;
 
 import com.github.olegbal.urlshortingtool.dto.RegistrationDto;
 import com.github.olegbal.urlshortingtool.dto.UserDto;
@@ -6,6 +6,7 @@ import com.github.olegbal.urlshortingtool.domain.Role;
 import com.github.olegbal.urlshortingtool.domain.User;
 import com.github.olegbal.urlshortingtool.enums.RolesEnum;
 import com.github.olegbal.urlshortingtool.repositories.UserRepository;
+import com.github.olegbal.urlshortingtool.services.role.RoleService;
 import org.hibernate.TransactionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,9 +1,8 @@
-package com.github.olegbal.urlshortingtool.services;
+package com.github.olegbal.urlshortingtool.services.statistic;
 
 import com.github.olegbal.urlshortingtool.domain.Statistic;
 import com.github.olegbal.urlshortingtool.repositories.StatisticRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
