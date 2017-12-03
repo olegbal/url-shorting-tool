@@ -32,7 +32,7 @@ public class Link {
     private String summary;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm")
-    @Column(name = "creation_date")
+    @Column(name = "creation_date",columnDefinition = "DATETIME")
     private Date creationDate;
 
     @ManyToOne(fetch = FetchType.EAGER)
